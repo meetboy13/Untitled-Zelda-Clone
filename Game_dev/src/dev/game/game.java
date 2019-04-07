@@ -1,5 +1,6 @@
 package dev.game;
 import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -15,10 +16,10 @@ public class game implements Runnable{
 	private BufferStrategy bs;
 	private Graphics g;
 	private boolean running;
-	/*
+	
 	private BufferedImage testImage;
 	private SpriteSheet sheet;
-	*/
+	
 	public game(String title, int width, int height) {
 		this.width = width;
 		this.height=height;
@@ -28,8 +29,8 @@ public class game implements Runnable{
 	}
 	private void init() {
 		Display = new display(title,width,height);
-		//testImage = loader.loadImage("/Textures/background.jpg");
-		//sheet=new SpriteSheet(testImage);
+		testImage = loader.loadImage("/Textures/K13.png");
+		sheet=new SpriteSheet(testImage);
 	}
 	
 	public synchronized void start() {
@@ -71,14 +72,17 @@ public class game implements Runnable{
 		
 		g.clearRect(0, 0, width, height);
 		
+		g.setColor(Color.BLACK);
+		g.fillRect(0,0,width,height);
+		
 		//g.drawImage(testImage,0,0,null);
-		/*
-		int x=0,y=0;
-		int width=300;
-		int height=300;
-		g.drawImage(sheet.crop(x, y, width, height), 0, 0, null);
-		*/
-		g.drawImage(Assets.sprite1,0,0,null);
+		
+		//int x=0,y=0;
+		//int width=1024;
+		//int height=768;
+		//g.drawImage(sheet.crop(x, y, width, height), 0, 0, null);
+		
+		//g.drawImage(Assets.sprite1,0,0,null);
 		
 		bs.show();
 		g.dispose();
