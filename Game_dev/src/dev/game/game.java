@@ -1,6 +1,10 @@
 package dev.game;
 import java.awt.Graphics;
+<<<<<<< HEAD
 
+=======
+import java.awt.Color;
+>>>>>>> cd80cc29b12b4fa45fa2f53d405b05d9d16dc508
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -21,13 +25,17 @@ public class game implements Runnable{
 	private BufferStrategy bs;
 	private Graphics g;
 	private boolean running;
+<<<<<<< HEAD
 	private State gameState;
 	private State menuState;
 	private Keymanager KeyManager;
 	/*
+=======
+	
+>>>>>>> cd80cc29b12b4fa45fa2f53d405b05d9d16dc508
 	private BufferedImage testImage;
 	private SpriteSheet sheet;
-	*/
+	
 	public game(String title, int width, int height) {
 		this.width = width;
 		this.height=height;
@@ -38,6 +46,7 @@ public class game implements Runnable{
 	}
 	private void init() {
 		Display = new display(title,width,height);
+<<<<<<< HEAD
 		Display.getFrame().addKeyListener(KeyManager);
 		Assets.init();
 		//testImage = loader.loadImage("/Textures/background.jpg");
@@ -45,6 +54,10 @@ public class game implements Runnable{
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
 		State.setState(gameState);
+=======
+		testImage = loader.loadImage("/Textures/K13.png");
+		sheet=new SpriteSheet(testImage);
+>>>>>>> cd80cc29b12b4fa45fa2f53d405b05d9d16dc508
 	}
 	
 	public synchronized void start() {
@@ -118,13 +131,25 @@ public class game implements Runnable{
 			State.getState().render(g);
 		}
 		
+		g.setColor(Color.BLACK);
+		g.fillRect(0,0,width,height);
+		
 		//g.drawImage(testImage,0,0,null);
+<<<<<<< HEAD
 		/*
 		int x=0,y=0;
 		int width=300;
 		int height=300;
 		g.drawImage(sheet.crop(x, y, width, height), 0, 0, null);
 		*/
+=======
+		
+		//int x=0,y=0;
+		//int width=1024;
+		//int height=768;
+		//g.drawImage(sheet.crop(x, y, width, height), 0, 0, null);
+		
+>>>>>>> cd80cc29b12b4fa45fa2f53d405b05d9d16dc508
 		//g.drawImage(Assets.sprite1,0,0,null);
 		
 		bs.show();
