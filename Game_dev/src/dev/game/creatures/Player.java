@@ -7,8 +7,8 @@ import dev.launcher.Assets;
 
 public class Player extends Creature{
 	private game Game;
-	public Player(game Game,float x, float y) {
-		super(x, y);
+	public Player(game Game,float x, float y,int width, int height) {
+		super(x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
 		this.Game = Game;
 	}
@@ -16,24 +16,31 @@ public class Player extends Creature{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		if(Game.getKeyManager().up) {
-			y-=3;
-		}
-		if(Game.getKeyManager().down) {
-			y+=3;
-		}
-		if(Game.getKeyManager().left) {
-			x-=3;
-		}
-		if(Game.getKeyManager().right) {
-			x+=3;
-		}
+		getInput();
+		move();
 	}
 
+	private void getInput() {
+		xMove=0;
+		yMove=0;
+		if(Game.getKeyManager().up) {
+			yMove= -speed;
+		}
+		if(Game.getKeyManager().down) {
+			yMove= speed;
+		}
+		if(Game.getKeyManager().left) {
+			xMove= -speed;
+		}
+		if(Game.getKeyManager().right) {
+			xMove= speed;
+		}
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(Assets.player,(int)x,(int)y,null);
+		g.drawImage(Assets.player,(int)x,(int)y,width,height,null);
 	}
 	
 }

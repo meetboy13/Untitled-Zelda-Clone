@@ -6,7 +6,7 @@ public class launcher {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		game Game= new game("Untitled Zelda clone",1024,768);
+		game Game= new game("Test",500,500);
 		Game.start();
 	}
 
