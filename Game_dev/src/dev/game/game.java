@@ -30,31 +30,39 @@ public class game implements Runnable{
 	
 	private GameCamera gameCamera;
 	
+	//Game constructor
 	public game(String title, int width, int height) {
 		this.width = width;
 		this.height=height;
 		this.title=title;
 		KeyManager = new Keymanager();
-		
-		
 	}
+	
+	//initialisation function
 	private void init() {
 		Display = new display(title,width,height);
 		Display.getFrame().addKeyListener(KeyManager);
+		
+		//call the asset initialisation function
 		Assets.init();
+		
 		gameCamera=new GameCamera(this,0,0);
+		
+		//need one for each state
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
+		
+		//set initial gamestate
 		State.setState(gameState);
 	}
 	
+	//Thread start and stop functions
 	public synchronized void start() {
 		if (running) {return;}
 		running=true;
 		thread = new Thread(this) ;
 		thread.start();
-		}
-	
+	}
 	public synchronized void stop() {
 		if(!running) {return;}
 		running=false;
@@ -65,7 +73,7 @@ public class game implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	
+	//getter functions
 	public Keymanager getKeyManager() {
 		return KeyManager;
 	}
@@ -79,8 +87,10 @@ public class game implements Runnable{
 		return height;
 	}
 	
+	
+	//main run function
 	public void run() {
-
+		//game init
 		init();
 		
 		int fps =60;
@@ -92,6 +102,7 @@ public class game implements Runnable{
 		int tick =0;
 		
 		while (running) {
+			//calculates the fps and outputs to terminal
 			now = System.nanoTime();
 			delta += (now-lastTime)/timePerTick;
 			timer += now-lastTime;
@@ -109,12 +120,17 @@ public class game implements Runnable{
 			}
 		}
 	}
+	
+	//tick for game which calls the state tick 
+	//as long as we are in a state
 	private void tick() {
 		KeyManager.tick();
 		if(State.getState() != null) {
 			State.getState().tick();
 		}
 	}
+	
+	//render method, handles all graphics side stuff
 	private void render(){
 		bs = Display.getCanvas().getBufferStrategy();
 		if(bs == null) {
