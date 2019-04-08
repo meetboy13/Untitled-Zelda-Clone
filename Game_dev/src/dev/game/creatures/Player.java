@@ -6,11 +6,10 @@ import dev.game.game;
 import dev.launcher.Assets;
 
 public class Player extends Creature{
-	private game Game;
+	
 	public Player(game Game,float x, float y,int width, int height) {
-		super(x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
+		super(Game, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
-		this.Game = Game;
 	}
 
 	@Override
@@ -18,6 +17,7 @@ public class Player extends Creature{
 		// TODO Auto-generated method stub
 		getInput();
 		move();
+		Game.getGameCamera().centeronEntity(this);
 	}
 
 	private void getInput() {
@@ -40,7 +40,7 @@ public class Player extends Creature{
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(Assets.player,(int)x,(int)y,width,height,null);
+		g.drawImage(Assets.player,(int)(x-Game.getGameCamera().getxOffset()),(int)(y-Game.getGameCamera().getyOffset()),width,height,null);
 	}
 	
 }

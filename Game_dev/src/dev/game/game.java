@@ -11,13 +11,14 @@ import dev.game.states.GameState;
 import dev.game.states.MenuState;
 import dev.game.states.State;
 import dev.launcher.Assets;
+import dev.launcher.GameCamera;
 import dev.launcher.SpriteSheet;
 
 public class game implements Runnable{
 	private display Display;
 	private Thread thread;
 	public String title;
-	public int width, height;
+	private int width, height;
 	private BufferStrategy bs;
 	private Graphics g;
 	private boolean running;
@@ -26,6 +27,8 @@ public class game implements Runnable{
 	private Keymanager KeyManager;
 	private BufferedImage testImage;
 	private SpriteSheet sheet;
+	
+	private GameCamera gameCamera;
 	
 	public game(String title, int width, int height) {
 		this.width = width;
@@ -39,8 +42,7 @@ public class game implements Runnable{
 		Display = new display(title,width,height);
 		Display.getFrame().addKeyListener(KeyManager);
 		Assets.init();
-		//testImage = loader.loadImage("/Textures/background.jpg");
-		//sheet=new SpriteSheet(testImage);
+		gameCamera=new GameCamera(this,0,0);
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
 		State.setState(gameState);
@@ -66,6 +68,15 @@ public class game implements Runnable{
 	
 	public Keymanager getKeyManager() {
 		return KeyManager;
+	}
+	public GameCamera getGameCamera() {
+		return gameCamera;
+	}
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
 	}
 	
 	public void run() {
@@ -116,15 +127,6 @@ public class game implements Runnable{
 		if (State.getState() != null) {
 			State.getState().render(g);
 		}
-		
-		//g.drawImage(testImage,0,0,null);
-		/*
-		int x=0,y=0;
-		int width=300;
-		int height=300;
-		g.drawImage(sheet.crop(x, y, width, height), 0, 0, null);
-		*/
-		//g.drawImage(Assets.sprite1,0,0,null);
 		
 		bs.show();
 		g.dispose();
