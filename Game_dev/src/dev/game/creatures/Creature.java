@@ -2,6 +2,8 @@ package dev.game.creatures;
 
 import dev.game.game;
 import dev.game.entity.Entity;
+import dev.game.tile.Tile;
+import dev.game.Handler;
 
 public abstract class Creature extends Entity {
 	public static final int DEFAULT_HEALTH=10;
@@ -13,20 +15,50 @@ public abstract class Creature extends Entity {
 	protected float speed;
 	protected float xMove,yMove;
 	
-	public Creature(game Game, float x, float y,int width, int height) {
-		super(Game, x, y, width, height);
+	public Creature(Handler handler, float x, float y,int width, int height) {
+		super( handler, x, y, width, height);
 		health=DEFAULT_HEALTH;
 		speed=DEFAULT_SPEED;
 		xMove =0;
 		yMove = 0;
 	}
 
-	public void move() {
-		x+=xMove;
-		y+=yMove;
+	public void moveX() {
+		if(xMove>0) {//right
+			int tx= ((int)(x+xMove+bounds.x + bounds.width)/Tile.TILEWIDTH);
+			if(!collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT) && !collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
+				x+=xMove;
+			}
+		}else if (xMove<0) {//left
+			int tx= ((int)(x+xMove+bounds.x)/Tile.TILEWIDTH);
+			if(!collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT) && !collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
+				x+=xMove;
+			}
+		}
+	}
+	public void moveY() {
+		if(yMove<0) {//up
+			int ty= ((int)(y+yMove+bounds.y)/Tile.TILEHEIGHT);
+			if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty)) {
+				y+=yMove;
+			}
+		}else if (yMove>0) {//down
+			int ty= ((int)(y+yMove+bounds.y+bounds.height)/Tile.TILEHEIGHT);
+			if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty)) {
+				y+=yMove;
+			}
+		}
 	}
 	
-	//getters and settes
+	public void move() {
+		moveX();
+		moveY();
+	}
+	protected boolean collisionWithTile(int x, int y) {
+		return handler.getWorld().getTile(x, y).isSolid();
+	}
+	
+	//getters and setters
 	public float getxMove() {
 		return xMove;
 	}

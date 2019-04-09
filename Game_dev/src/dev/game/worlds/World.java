@@ -2,18 +2,32 @@ package dev.game.worlds;
 
 import java.awt.Graphics;
 
+import dev.game.Handler;
 import dev.game.game;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
 
 public class World {
-	private game Game;
+	private Handler handler;
 	private int width, height;
 	private int spawnX,spawnY;
+	public int getSpawnX() {
+		return spawnX;
+	}
+	public void setSpawnX(int spawnX) {
+		this.spawnX = spawnX;
+	}
+	public int getSpawnY() {
+		return spawnY;
+	}
+	public void setSpawnY(int spawnY) {
+		this.spawnY = spawnY;
+	}
+
 	private int[][] tiles;
 	
-	public World(game Game, String path) {
-		this.Game=Game;
+	public World(Handler handler, String path) {
+		this.handler = handler;
 		loadWorld(path);
 	}
 	public void tick() {
@@ -22,18 +36,21 @@ public class World {
 	}
 	
 	public void render (Graphics g) {
-		int xStart=(int)Math.max(0, Game.getGameCamera().getxOffset()/Tile.TILEWIDTH);
-		int xEnd=(int)Math.min(width, (Game.getGameCamera().getxOffset()+Game.getWidth())/Tile.TILEWIDTH + 1);
-		int yStart=(int)Math.max(0, Game.getGameCamera().getyOffset()/Tile.TILEHEIGHT);
-		int yEnd=(int)Math.min(height, (Game.getGameCamera().getyOffset()+Game.getHeight())/Tile.TILEHEIGHT+1);
+		int xStart=(int)Math.max(0, handler.getGameCamera().getxOffset()/Tile.TILEWIDTH);
+		int xEnd=(int)Math.min(width, (handler.getGameCamera().getxOffset()+handler.getWidth())/Tile.TILEWIDTH + 1);
+		int yStart=(int)Math.max(0, handler.getGameCamera().getyOffset()/Tile.TILEHEIGHT);
+		int yEnd=(int)Math.min(height, (handler.getGameCamera().getyOffset()+handler.getHeight())/Tile.TILEHEIGHT + 1);
 		for (int y=yStart;y<yEnd;y++) {
 			for (int x=xStart;x<xEnd;x++) {
-				getTile(x,y).render(g, (int)(x * Tile.TILEWIDTH-Game.getGameCamera().getxOffset()),(int)( y*Tile.TILEHEIGHT-Game.getGameCamera().getyOffset()));
+				getTile(x,y).render(g, (int)(x * Tile.TILEWIDTH-handler.getGameCamera().getxOffset()),(int)( y*Tile.TILEHEIGHT-handler.getGameCamera().getyOffset()));
 			}
 		}
 	}
 	
 	public Tile getTile(int x, int y) {
+		if(x < 0 || y < 0 || x >= width || y >= height) {
+			return Tile.grassTile;
+		}
 		Tile t = Tile.tiles[tiles[x][y]];
 		
 		//should return an error tile later

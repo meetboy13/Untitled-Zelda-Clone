@@ -1,8 +1,10 @@
 package dev.game.entity;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import dev.game.game;
+import dev.game.Handler;
 
 public abstract class Entity {
 	//entity coordinates
@@ -10,8 +12,9 @@ public abstract class Entity {
 	
 	//entities width and height
 	protected int width,height;
+	protected Rectangle bounds;
 	
-	protected game Game;
+	protected Handler handler;
 	//getters and setters for all variables
 	public float getX() {
 		return x;
@@ -38,12 +41,13 @@ public abstract class Entity {
 		this.height = height;
 	}
 	
-	public Entity(game Game,  float x, float y, int width, int height) {
+	public Entity(Handler handler,  float x, float y, int width, int height) {
 		this.x=x;
 		this.y=y;
 		this.width=width;
 		this.height=height;
-		this.Game=Game;
+		this.handler = handler;
+		bounds = new Rectangle(0,0,width,height);
 	}
 	public abstract void tick();
 	public abstract void render(Graphics g);

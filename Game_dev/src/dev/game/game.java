@@ -30,6 +30,8 @@ public class game implements Runnable{
 	
 	private GameCamera gameCamera;
 	
+	private Handler handler;
+	
 	//Game constructor
 	public game(String title, int width, int height) {
 		this.width = width;
@@ -47,10 +49,10 @@ public class game implements Runnable{
 		Assets.init();
 		
 		gameCamera=new GameCamera(this,0,0);
-		
+		handler = new Handler(this);
 		//need one for each state
-		gameState = new GameState(this);
-		menuState = new MenuState(this);
+		gameState = new GameState(handler);
+		menuState = new MenuState(handler);
 		
 		//set initial gamestate
 		State.setState(gameState);
@@ -140,6 +142,8 @@ public class game implements Runnable{
 		g = bs.getDrawGraphics();
 		
 		g.clearRect(0, 0, width, height);
+		g.setColor(Color.BLACK);
+		g.fillRect(-1000, -1000, width+1000, height+1000);
 		if (State.getState() != null) {
 			State.getState().render(g);
 		}
