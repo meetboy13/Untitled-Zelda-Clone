@@ -48,8 +48,9 @@ public class game implements Runnable{
 		//call the asset initialisation function
 		Assets.init();
 		
-		gameCamera=new GameCamera(this,0,0);
 		handler = new Handler(this);
+		gameCamera=new GameCamera(handler,0,0);
+		
 		//need one for each state
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
@@ -142,8 +143,6 @@ public class game implements Runnable{
 		g = bs.getDrawGraphics();
 		
 		g.clearRect(0, 0, width, height);
-		g.setColor(Color.BLACK);
-		g.fillRect(-1000, -1000, width+1000, height+1000);
 		if (State.getState() != null) {
 			State.getState().render(g);
 		}
