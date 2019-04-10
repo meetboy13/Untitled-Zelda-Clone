@@ -4,6 +4,9 @@ import java.awt.Graphics;
 
 import dev.game.Handler;
 import dev.game.game;
+import dev.game.creatures.Player;
+import dev.game.entity.EntityManager;
+import dev.game.entity.statics.tree;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
 
@@ -11,6 +14,8 @@ public class World {
 	private Handler handler;
 	private int width, height;
 	private int spawnX,spawnY;
+	private EntityManager entityManager;
+	
 	public int getSpawnX() {
 		return spawnX;
 	}
@@ -28,10 +33,15 @@ public class World {
 	
 	public World(Handler handler, String path) {
 		this.handler = handler;
+		entityManager=new EntityManager(handler,new Player(handler,1000,2000, 0, 0));
+		entityManager.addEntity(new tree(handler,100,250));
 		loadWorld(path);
+		
+		entityManager.getPlayer().setX(spawnX*Tile.TILEWIDTH);
+		entityManager.getPlayer().setY(spawnY*Tile.TILEHEIGHT);
 	}
 	public void tick() {
-		
+		entityManager.tick();
 		
 	}
 	
@@ -45,6 +55,7 @@ public class World {
 				getTile(x,y).render(g, (int)(x * Tile.TILEWIDTH-handler.getGameCamera().getxOffset()),(int)( y*Tile.TILEHEIGHT-handler.getGameCamera().getyOffset()));
 			}
 		}
+		entityManager.render(g);
 	}
 	
 	public Tile getTile(int x, int y) {
