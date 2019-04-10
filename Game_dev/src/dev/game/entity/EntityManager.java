@@ -10,7 +10,7 @@ public class EntityManager {
 	private Handler handler;
 	private Player player;
 	private ArrayList<Entity> entities;
-	
+	//constructor
 	public EntityManager(Handler handler, Player player) {
 		this.handler =handler;
 		this.player = player;
@@ -34,7 +34,7 @@ public class EntityManager {
 	}
 	
 	
-	
+	//getters and setters
 	public Handler getHandler() {
 		return handler;
 	}

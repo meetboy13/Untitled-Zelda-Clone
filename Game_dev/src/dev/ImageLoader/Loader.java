@@ -5,11 +5,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class loader {
+public class Loader {
 	
 	public static BufferedImage loadImage(String path) {
 		try {
-			return ImageIO.read(loader.class.getResource(path));
+			return ImageIO.read(Loader.class.getResource(path));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

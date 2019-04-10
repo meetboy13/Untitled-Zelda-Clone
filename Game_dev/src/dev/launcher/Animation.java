@@ -7,7 +7,7 @@ public class Animation {
 	private BufferedImage[] frames;
 	long lastTime;
 	long timer;
-	
+	//constructor
 	public Animation(int speed, BufferedImage[] frames) {
 		this.speed=speed;
 		this.frames=frames;
@@ -15,7 +15,7 @@ public class Animation {
 		timer=0;
 		lastTime=System.currentTimeMillis();
 	}
-	
+	//tick through animation cycle
 	public void tick() {
 		timer+=System.currentTimeMillis() - lastTime;
 		lastTime = System.currentTimeMillis();
@@ -27,7 +27,7 @@ public class Animation {
 			}
 		}
 	}
-	
+	//getter
 	public BufferedImage getCurrentFrame() {
 		return frames[index];
 	}

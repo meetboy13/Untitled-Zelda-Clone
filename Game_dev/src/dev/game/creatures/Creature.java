@@ -1,6 +1,5 @@
 package dev.game.creatures;
 
-import dev.game.game;
 import dev.game.entity.Entity;
 import dev.game.tile.Tile;
 import dev.game.Handler;
@@ -15,6 +14,7 @@ public abstract class Creature extends Entity {
 	protected float speed;
 	protected float xMove,yMove;
 	
+	//constructor
 	public Creature(Handler handler, float x, float y,int width, int height) {
 		super( handler, x, y, width, height);
 		health=DEFAULT_HEALTH;
@@ -23,6 +23,7 @@ public abstract class Creature extends Entity {
 		yMove = 0;
 	}
 
+	//check for collisions, if none then move
 	public void moveX() {
 		if(xMove>0) {//right
 			int tx= ((int)(x+xMove+bounds.x + bounds.width)/Tile.TILEWIDTH);
@@ -58,10 +59,13 @@ public abstract class Creature extends Entity {
 		}
 	}
 	
+	//just calls the movement methods
 	public void move() {
 		moveX();
 		moveY();
 	}
+	
+	//just checks if tile at coords is solid or not
 	protected boolean collisionWithTile(int x, int y) {
 		return handler.getWorld().getTile(x, y).isSolid();
 	}

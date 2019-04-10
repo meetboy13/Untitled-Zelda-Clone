@@ -2,35 +2,35 @@ package dev.game;
 
 
 
-import dev.game.input.Keymanager;
+import dev.game.input.KeyManager;
 import dev.game.worlds.World;
 import dev.launcher.GameCamera;
 
 public class Handler {
-	private game Game;
+	private Game game;
 	private World world;
-	
-	public Handler (game Game) {
-		this.Game=Game;
-		
+	//constructor
+	public Handler (Game Game) {
+		this.game=Game;
 	}
+	//setters and getters
 	public int getWidth() {
-		return Game.getWidth();
+		return game.getWidth();
 	}
 	public int getHeight() {
-		return Game.getHeight();
+		return game.getHeight();
 	}
 	public GameCamera getGameCamera() {
-		return Game.getGameCamera();
+		return game.getGameCamera();
 	}
-	public Keymanager getKeyManager() {
-		return Game.getKeyManager();
+	public KeyManager getKeyManager() {
+		return game.getKeyManager();
 	}
-	public game getGame() {
-		return Game;
+	public Game getGame() {
+		return game;
 	}
-	public void setGame(game game) {
-		Game = game;
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	public World getWorld() {
 		return world;

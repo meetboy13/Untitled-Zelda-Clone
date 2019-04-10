@@ -3,11 +3,11 @@ package dev.game.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Keymanager implements KeyListener{
+public class KeyManager implements KeyListener{
 	private boolean[] keys;
 	public boolean up,down,left,right;
 	
-	public Keymanager() {
+	public KeyManager() {
 		keys = new boolean[256];
 	}
 	public void tick() {

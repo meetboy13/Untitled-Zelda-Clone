@@ -2,25 +2,25 @@ package dev.launcher;
 
 import java.awt.image.BufferedImage;
 
-import dev.ImageLoader.loader;
+import dev.ImageLoader.Loader;
 
 public class Assets {
 	public static BufferedImage sprite1,sprite2,sprite3,sprite4,player,rock,grass;
 	public static BufferedImage[] player_down,player_left,player_right,player_up;
-	private static final int width=100,height=100;
+	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
-		SpriteSheet sheet1= new SpriteSheet(loader.loadImage("/Textures/K13.png"));
-		SpriteSheet sheet2= new SpriteSheet(loader.loadImage("/Textures/Player_standing_front.png"));
-		SpriteSheet sheet3= new SpriteSheet(loader.loadImage("/Textures/rock.png"));
-		SpriteSheet sheet4= new SpriteSheet(loader.loadImage("/Textures/grass.jpeg"));
-		SpriteSheet sheet5= new SpriteSheet(loader.loadImage("/Textures/Player_walking_back_1.png"));
-		SpriteSheet sheet6= new SpriteSheet(loader.loadImage("/Textures/Player_walking_back_2.png"));
-		SpriteSheet sheet7= new SpriteSheet(loader.loadImage("/Textures/Player_walking_front_1.png"));
-		SpriteSheet sheet8= new SpriteSheet(loader.loadImage("/Textures/Player_walking_front_2.png"));
-		SpriteSheet sheet9= new SpriteSheet(loader.loadImage("/Textures/Player_walking_right_1.png"));
-		SpriteSheet sheet10= new SpriteSheet(loader.loadImage("/Textures/Player_walking_right_2.png"));
-		SpriteSheet sheet11= new SpriteSheet(loader.loadImage("/Textures/Player_walking_left_1.png"));
-		SpriteSheet sheet12= new SpriteSheet(loader.loadImage("/Textures/Player_walking_left_2.png"));
+		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));
+		SpriteSheet sheet2= new SpriteSheet(Loader.loadImage("/Textures/Player_standing_front.png"));
+		SpriteSheet sheet3= new SpriteSheet(Loader.loadImage("/Textures/rock.png"));
+		SpriteSheet sheet4= new SpriteSheet(Loader.loadImage("/Textures/grass.jpeg"));
+		SpriteSheet sheet5= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_back_1.png"));
+		SpriteSheet sheet6= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_back_2.png"));
+		SpriteSheet sheet7= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_front_1.png"));
+		SpriteSheet sheet8= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_front_2.png"));
+		SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_right_1.png"));
+		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_right_2.png"));
+		SpriteSheet sheet11= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_left_1.png"));
+		SpriteSheet sheet12= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_left_2.png"));
 		player_down = new BufferedImage[2];
 		player_up = new BufferedImage[2];
 		player_right = new BufferedImage[2];

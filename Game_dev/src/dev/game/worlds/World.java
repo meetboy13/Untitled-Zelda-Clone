@@ -3,10 +3,9 @@ package dev.game.worlds;
 import java.awt.Graphics;
 
 import dev.game.Handler;
-import dev.game.game;
 import dev.game.creatures.Player;
 import dev.game.entity.EntityManager;
-import dev.game.entity.statics.tree;
+import dev.game.entity.statics.Tree;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
 
@@ -15,50 +14,40 @@ public class World {
 	private int width, height;
 	private int spawnX,spawnY;
 	private EntityManager entityManager;
-	
-	public int getSpawnX() {
-		return spawnX;
-	}
-	public void setSpawnX(int spawnX) {
-		this.spawnX = spawnX;
-	}
-	public int getSpawnY() {
-		return spawnY;
-	}
-	public void setSpawnY(int spawnY) {
-		this.spawnY = spawnY;
-	}
 
 	private int[][] tiles;
-	
+	//constructor
 	public World(Handler handler, String path) {
 		this.handler = handler;
-		entityManager=new EntityManager(handler,new Player(handler,1000,2000, 0, 0));
-		entityManager.addEntity(new tree(handler,100,250));
-		loadWorld(path);
+		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));
+		entityManager.addEntity(new Tree(handler,100,250));
 		
+		loadWorld(path);
+		//set player to the spawn point
 		entityManager.getPlayer().setX(spawnX*Tile.TILEWIDTH);
 		entityManager.getPlayer().setY(spawnY*Tile.TILEHEIGHT);
 	}
+
 	public void tick() {
 		entityManager.tick();
-		
 	}
 	
 	public void render (Graphics g) {
+		//only render what is currently shown on screen
 		int xStart=(int)Math.max(0, handler.getGameCamera().getxOffset()/Tile.TILEWIDTH);
 		int xEnd=(int)Math.min(width, (handler.getGameCamera().getxOffset()+handler.getWidth())/Tile.TILEWIDTH + 1);
 		int yStart=(int)Math.max(0, handler.getGameCamera().getyOffset()/Tile.TILEHEIGHT);
 		int yEnd=(int)Math.min(height, (handler.getGameCamera().getyOffset()+handler.getHeight())/Tile.TILEHEIGHT + 1);
 		for (int y=yStart;y<yEnd;y++) {
 			for (int x=xStart;x<xEnd;x++) {
-				getTile(x,y).render(g, (int)(x * Tile.TILEWIDTH-handler.getGameCamera().getxOffset()),(int)( y*Tile.TILEHEIGHT-handler.getGameCamera().getyOffset()));
+				getTile(x,y).render(g, (int)(x*Tile.TILEWIDTH-handler.getGameCamera().getxOffset()),(int)(y*Tile.TILEHEIGHT-handler.getGameCamera().getyOffset()));
 			}
 		}
 		entityManager.render(g);
 	}
 	
 	public Tile getTile(int x, int y) {
+		//check if coords is out of bounds
 		if(x < 0 || y < 0 || x >= width || y >= height) {
 			return Tile.grassTile;
 		}
@@ -86,10 +75,23 @@ public class World {
 			}
 		}
 	}
+	//getters and setters
 	public int getWidth() {
 		return width;
 	}
 	public int getHeight() {
 		return height;
+	}
+	public int getSpawnX() {
+		return spawnX;
+	}
+	public void setSpawnX(int spawnX) {
+		this.spawnX = spawnX;
+	}
+	public int getSpawnY() {
+		return spawnY;
+	}
+	public void setSpawnY(int spawnY) {
+		this.spawnY = spawnY;
 	}
 }

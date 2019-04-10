@@ -1,13 +1,13 @@
 package dev.launcher;
 
-import dev.game.game;
+import dev.game.Game;
 
-public class launcher {
+public class Launcher {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		game Game= new game("Test",500,500);
-		Game.start();
+		Game game= new Game("Window name",500,500);
+		game.start();
 	}
 
 }

@@ -6,8 +6,8 @@ import dev.game.Handler;
 import dev.game.tile.Tile;
 import dev.launcher.Assets;
 
-public class tree extends StaticEntity{
-	public tree(Handler handler,float x, float y) {
+public class Tree extends StaticEntity{
+	public Tree(Handler handler,float x, float y) {
 	super(handler,x,y,Tile.TILEWIDTH/2,Tile.TILEHEIGHT);
 	}
 	@Override
