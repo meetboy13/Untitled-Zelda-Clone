@@ -5,8 +5,9 @@ import java.awt.image.BufferedImage;
 import dev.ImageLoader.Loader;
 
 public class Assets {
-	public static BufferedImage sprite1,sprite2,sprite3,sprite4,player,rock,grass;
+	public static BufferedImage sprite1,sprite2,sprite3,sprite4,player,rock,grass,drop;
 	public static BufferedImage[] player_down,player_left,player_right,player_up;
+	public static BufferedImage[] btn_start;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));
@@ -21,6 +22,10 @@ public class Assets {
 		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_right_2.png"));
 		SpriteSheet sheet11= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_left_1.png"));
 		SpriteSheet sheet12= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_left_2.png"));
+		drop=sheet1.crop(0,0,width,height);
+		btn_start = new BufferedImage[2];
+		btn_start[0]=sheet3.crop(0,0,width,height);
+		btn_start[1]=sheet4.crop(0,0,width,height);
 		player_down = new BufferedImage[2];
 		player_up = new BufferedImage[2];
 		player_right = new BufferedImage[2];

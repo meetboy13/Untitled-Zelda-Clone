@@ -5,6 +5,7 @@ package dev.game;
 import dev.game.input.KeyManager;
 import dev.game.worlds.World;
 import dev.launcher.GameCamera;
+import dev.game.input.MouseManager;
 
 public class Handler {
 	private Game game;
@@ -38,4 +39,8 @@ public class Handler {
 	public void setWorld(World world) {
 		this.world = world;
 	}
+	public MouseManager getMouseManager() {
+		return game.getMouseManager();
+	}
+	
 }
