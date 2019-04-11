@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import dev.game.Handler;
 import dev.game.entity.Entity;
 import dev.game.inventory.Inventory;
+import dev.game.states.State;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 public class Player extends Creature{
@@ -132,6 +133,7 @@ public class Player extends Creature{
 	public void die() {
 		// TODO Auto-generated method stub
 		System.out.println("You died");
+		State.setState(handler.getGame().gameOverState);
 	}
 
 	public Inventory getInventory() {

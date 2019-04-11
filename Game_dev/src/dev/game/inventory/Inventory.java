@@ -20,6 +20,7 @@ public class Inventory {
 			active=!active;
 		}
 		if(!active) {return;}
+		
 		for(Item i: inventoryItems) {
 			System.out.println(i.getName()+"      "+i.getCount());
 		}

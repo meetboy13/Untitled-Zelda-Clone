@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import dev.display.*;
 import dev.game.input.KeyManager;
 import dev.game.input.MouseManager;
+import dev.game.states.GameOverState;
 import dev.game.states.GameState;
 import dev.game.states.MenuState;
 import dev.game.states.State;
@@ -23,6 +24,7 @@ public class Game implements Runnable{
 	private boolean running;
 	public State gameState;
 	public State menuState;
+	public State gameOverState;
 	private KeyManager KeyManager;
 	private BufferedImage testImage;
 	private SpriteSheet sheet;
@@ -62,6 +64,7 @@ public class Game implements Runnable{
 		//need one for each state
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
+		gameOverState = new GameOverState(handler);
 		
 		//set initial gamestate
 		State.setState(menuState);
