@@ -14,10 +14,12 @@ public class GameState extends State{
 	//constructor
 	public GameState(Handler handler) {
 		super(handler);
+		stateName="GameState";
 		world = new World(handler , "Resources/worlds/world1.txt");
 		handler.setWorld(world);
 		
 	}
+	
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub

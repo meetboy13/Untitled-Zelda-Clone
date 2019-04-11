@@ -10,12 +10,14 @@ public class UIImageButton extends UIObject{
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 		this.images = images;
-		this.clicker=clicker;
+		this.clicker = clicker;
 	}
 
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
+
+		System.out.println(bounds.x+"        "+bounds.y+"        "+bounds.height+"        "+bounds.width);
 		
 	}
 

@@ -15,10 +15,10 @@ public class MenuState  extends State{
 	
 	public MenuState(Handler handler) {
 		super(handler);
+		stateName="MenuState";
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUiManager(uiManager);
 		uiManager.addObject(new UIImageButton(200,200,128,64,Assets.btn_start,new ClickListener() {
-		
 			@Override
 			public void onClick() {
 				// TODO Auto-generated method stub
@@ -26,7 +26,6 @@ public class MenuState  extends State{
 				State.setState(handler.getGame().gameState);
 			}
 		}));
-		
 	}
 	
 	@Override

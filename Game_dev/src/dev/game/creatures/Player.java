@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import dev.game.Handler;
 import dev.game.entity.Entity;
 import dev.game.inventory.Inventory;
+import dev.game.states.GameOverState;
+import dev.game.states.GameState;
 import dev.game.states.State;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -17,7 +19,8 @@ public class Player extends Creature{
 	
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	
-
+	private enum Facing {UP,DOWN,LEFT,RIGHT;}
+	private Facing lastDirection=Facing.DOWN;
 	private Inventory inventory;
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
@@ -28,10 +31,10 @@ public class Player extends Creature{
 		bounds.height=32;
 		speed=Creature.DEFAULT_SPEED;
 		//animations
-		animDown = new Animation(200,Assets.player_down);
-		animLeft = new Animation(200,Assets.player_left);
-		animUp = new Animation(200,Assets.player_up);
-		animRight = new Animation(200,Assets.player_right);
+		animDown = new Animation(150,Assets.player_down);
+		animLeft = new Animation(150,Assets.player_left);
+		animUp = new Animation(150,Assets.player_up);
+		animRight = new Animation(150,Assets.player_right);
 		inventory = new Inventory(handler);
 	}
 
@@ -60,29 +63,31 @@ public class Player extends Creature{
 		int arSize=20;
 		ar.width=arSize;
 		ar.height=arSize;
-		if(handler.getKeyManager().aUp) {
-			ar.x=cb.x+cb.width/2-arSize/2;
-			ar.y=cb.y-arSize;
-		}
-		else if(handler.getKeyManager().aDown) {
-			ar.x=cb.x+cb.width/2-arSize/2;
-			ar.y=cb.y+cb.height;
-		}
-		else if(handler.getKeyManager().aLeft) {
-			ar.x=cb.x-arSize;
-			ar.y=cb.y+cb.height/2-arSize/2;
-		}
-		else if(handler.getKeyManager().aRight) {
-			ar.x=cb.x+cb.width;
-			ar.y=cb.y+cb.height/2-arSize/2;
-		}else {
-			return;
-		}
-		attackTimer=0;
-		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
-			if(e.equals(this)) {continue;}
-			if(e.getCollisionBounds(0, 0).intersects(ar)) {
-				e.hurt(1);
+		if(handler.getKeyManager().attack){
+			if(lastDirection==Facing.UP) {
+				ar.x=cb.x+cb.width/2-arSize/2;
+				ar.y=cb.y-arSize;
+			}
+			else if(lastDirection==Facing.DOWN) {
+				ar.x=cb.x+cb.width/2-arSize/2;
+				ar.y=cb.y+cb.height;
+			}
+			else if(lastDirection==Facing.LEFT) {
+				ar.x=cb.x-arSize;
+				ar.y=cb.y+cb.height/2-arSize/2;
+			}
+			else if(lastDirection==Facing.RIGHT) {
+				ar.x=cb.x+cb.width;
+				ar.y=cb.y+cb.height/2-arSize/2;
+			}else {
+				return;
+			}
+			attackTimer=0;
+			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+				if(e.equals(this)) {continue;}
+				if(e.getCollisionBounds(0, 0).intersects(ar)) {
+					e.hurt(1);
+				}
 			}
 		}
 	}
@@ -117,13 +122,28 @@ public class Player extends Creature{
 	
 	private BufferedImage getCurrentAnimationFrame() {
 		if(xMove<0) {
+			lastDirection=Facing.LEFT;
 			return animLeft.getCurrentFrame();
 		}else if(xMove>0) {
+			lastDirection=Facing.RIGHT;
 			return animRight.getCurrentFrame();
 		}else if (yMove<0) {
+			lastDirection=Facing.UP;
 			return animUp.getCurrentFrame();
 		}else if (yMove>0) {
+			lastDirection=Facing.DOWN;
 			return animDown.getCurrentFrame();
+		}else if (lastDirection==Facing.LEFT) {;
+			return Assets.player_left[1];
+		}
+		else if (lastDirection==Facing.RIGHT) {
+			return Assets.player_right[1];
+		}
+		else if (lastDirection==Facing.UP) {
+			return Assets.player_up[1];
+		}
+		else if (lastDirection==Facing.DOWN) {
+			return Assets.player_down[1];
 		}
 		//default animation to display if not condition is met.
 		return Assets.player;
@@ -133,7 +153,9 @@ public class Player extends Creature{
 	public void die() {
 		// TODO Auto-generated method stub
 		System.out.println("You died");
-		State.setState(handler.getGame().gameOverState);
+		State gameOverState = new GameOverState(handler);
+		State.setState(gameOverState);
+		
 	}
 
 	public Inventory getInventory() {

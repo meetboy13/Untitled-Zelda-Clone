@@ -1,11 +1,13 @@
 package dev.game;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import dev.display.*;
 import dev.game.input.KeyManager;
 import dev.game.input.MouseManager;
+import dev.game.item.Item;
 import dev.game.states.GameOverState;
 import dev.game.states.GameState;
 import dev.game.states.MenuState;
@@ -28,6 +30,7 @@ public class Game implements Runnable{
 	private KeyManager KeyManager;
 	private BufferedImage testImage;
 	private SpriteSheet sheet;
+	private boolean paused=false;
 	
 	private MouseManager mouseManager;
 	
@@ -63,7 +66,6 @@ public class Game implements Runnable{
 		
 		//need one for each state
 		gameState = new GameState(handler);
-		gameOverState = new GameOverState(handler);
 		menuState = new MenuState(handler);
 		
 		//set initial gamestate
@@ -106,8 +108,17 @@ public class Game implements Runnable{
 		//as long as we are in a state
 	private void tick() {
 		KeyManager.tick();
-		if(State.getState() != null) {
-			State.getState().tick();
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
+			if(State.getState().getStateName()=="GameState") {
+				paused=!paused;
+			}
+		}
+		if(!paused) {
+			if(State.getState() != null) {
+				State.getState().tick();
+			}
+		}else if(paused) {
+			System.out.println("Game is paused");
 		}
 	}
 		

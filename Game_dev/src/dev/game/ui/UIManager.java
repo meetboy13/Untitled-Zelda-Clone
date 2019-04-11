@@ -3,8 +3,10 @@ package dev.game.ui;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import dev.game.Handler;
+import dev.game.entity.Entity;
 
 public class UIManager {
 	private Handler handler;
