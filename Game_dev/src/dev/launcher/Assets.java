@@ -22,7 +22,7 @@ public class Assets {
 		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_right_2.png"));
 		SpriteSheet sheet11= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_left_1.png"));
 		SpriteSheet sheet12= new SpriteSheet(Loader.loadImage("/Textures/Player_walking_left_2.png"));
-		drop=sheet1.crop(0,0,width,height);
+		drop=sheet1.crop(0,0,1048,768);
 		btn_start = new BufferedImage[2];
 		btn_start[0]=sheet3.crop(0,0,width,height);
 		btn_start[1]=sheet4.crop(0,0,width,height);

@@ -63,8 +63,8 @@ public class Game implements Runnable{
 		
 		//need one for each state
 		gameState = new GameState(handler);
-		menuState = new MenuState(handler);
 		gameOverState = new GameOverState(handler);
+		menuState = new MenuState(handler);
 		
 		//set initial gamestate
 		State.setState(menuState);
