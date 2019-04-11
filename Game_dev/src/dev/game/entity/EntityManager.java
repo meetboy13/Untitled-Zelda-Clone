@@ -68,4 +68,5 @@ public class EntityManager {
 	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
 	}
+	
 }

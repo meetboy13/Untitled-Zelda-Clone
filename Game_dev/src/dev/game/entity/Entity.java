@@ -14,6 +14,7 @@ public abstract class Entity {
 	protected Rectangle bounds;
 	protected boolean active=true;
 	protected int health;
+	protected boolean solid=true;
 	public static final int DEFAULT_HEALTH=3;
 	protected Handler handler;
 	//constructor
@@ -33,7 +34,7 @@ public abstract class Entity {
 	public boolean checkEntityCollisions(float xOffset,float yOffset) {
 		for(Entity e:handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) {continue;}
-			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset,yOffset))) {
+			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset,yOffset)) && e.isSolid()) {
 				return true;
 				
 			}
@@ -88,7 +89,16 @@ public abstract class Entity {
 		this.health = health;
 	}
 
+	public boolean isSolid() {
+		return solid;
+	}
+
+	public void setSolid(boolean solid) {
+		this.solid = solid;
+	}
+
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract void die();
+
 }

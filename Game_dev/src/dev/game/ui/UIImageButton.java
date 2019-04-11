@@ -16,9 +16,6 @@ public class UIImageButton extends UIObject{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-
-		System.out.println(bounds.x+"        "+bounds.y+"        "+bounds.height+"        "+bounds.width);
-		
 	}
 
 	@Override

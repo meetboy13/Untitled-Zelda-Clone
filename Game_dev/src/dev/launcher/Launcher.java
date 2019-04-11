@@ -3,10 +3,12 @@ package dev.launcher;
 import dev.game.Game;
 
 public class Launcher {
-
+	private static int width,height;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Game game= new Game("Window name",500,500);
+		width=500;
+		height=500;
+		Game game= new Game("Window name",width,height);
 		game.start();
 	}
 

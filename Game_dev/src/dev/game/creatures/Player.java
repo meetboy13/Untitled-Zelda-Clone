@@ -18,8 +18,6 @@ public class Player extends Creature{
 	private Animation animDown,animUp,animLeft,animRight;
 	
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
-	
-	private enum Facing {UP,DOWN,LEFT,RIGHT;}
 	private Facing lastDirection=Facing.DOWN;
 	private Inventory inventory;
 	public Player(Handler handler,float x, float y,int width, int height) {
@@ -155,7 +153,6 @@ public class Player extends Creature{
 		System.out.println("You died");
 		State gameOverState = new GameOverState(handler);
 		State.setState(gameOverState);
-		
 	}
 
 	public Inventory getInventory() {

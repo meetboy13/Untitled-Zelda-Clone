@@ -4,7 +4,10 @@ import java.awt.Graphics;
 
 import dev.game.Handler;
 import dev.game.creatures.Player;
+import dev.game.creatures.Sheep;
 import dev.game.entity.EntityManager;
+import dev.game.entity.projectile.Arrow;
+import dev.game.entity.projectile.Projectile;
 import dev.game.entity.statics.Tree;
 import dev.game.item.ItemManager;
 import dev.game.tile.Tile;
@@ -17,6 +20,7 @@ public class World {
 	private EntityManager entityManager;
 	private ItemManager itemManager;
 	private int[][] tiles;
+	public enum Direction{UP,DOWN,LEFT,RIGHT};
 	//constructor
 	public World(Handler handler, String path) {
 		this.handler = handler;
@@ -24,11 +28,20 @@ public class World {
 		entityManager.addEntity(new Tree(handler,100,250));
 		entityManager.addEntity(new Tree(handler,300,250));
 		entityManager.addEntity(new Tree(handler,500,250));
+		Sheep sheep= new Sheep(handler,0,0, 100, 100);
+		sheep.setX(3*Tile.TILEWIDTH);
+		sheep.setY(10*Tile.TILEHEIGHT);
+		entityManager.addEntity(sheep);
 		itemManager= new ItemManager(handler);
 		loadWorld(path);
 		//set player to the spawn point
 		entityManager.getPlayer().setX(spawnX*Tile.TILEWIDTH);
 		entityManager.getPlayer().setY(spawnY*Tile.TILEHEIGHT);
+		Arrow sheep1= new Arrow(handler,0,0,100,100);
+		sheep1.setDirection(Direction.DOWN);
+		sheep1.setX(3*Tile.TILEWIDTH);
+		sheep1.setY(5*Tile.TILEHEIGHT);
+		entityManager.addEntity(sheep1);
 	}
 
 	public void tick() {
