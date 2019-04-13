@@ -11,6 +11,7 @@ public class Tile {
 	public static Tile rockTile = new RockTile(1);
 	public static Tile dirtTile = new DirtTile(2);
 	public static Tile wall_left = new WallLeft(3);
+	public static Tile wall_right = new WallRightTile(4);
 	
 	//class
 	protected BufferedImage texture;

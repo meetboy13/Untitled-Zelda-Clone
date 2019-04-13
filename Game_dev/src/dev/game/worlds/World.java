@@ -16,32 +16,25 @@ import dev.game.utils.Utils;
 public class World {
 	private Handler handler;
 	private int width, height;
+	private int entityNum;
 	private int spawnX,spawnY;
 	private EntityManager entityManager;
 	private ItemManager itemManager;
 	private int[][] tiles;
+	private int[][] entities;
 	public enum Direction{UP,DOWN,LEFT,RIGHT};
 	//constructor
-	public World(Handler handler, String path) {
+	public World(Handler handler, String worldPath,String entityPath) {
 		this.handler = handler;
-		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));
-		entityManager.addEntity(new Tree(handler,100,250));
-		entityManager.addEntity(new Tree(handler,300,250));
-		entityManager.addEntity(new Tree(handler,500,250));
-		Sheep sheep= new Sheep(handler,0,0, 100, 100);
-		sheep.setX(3*Tile.TILEWIDTH);
-		sheep.setY(10*Tile.TILEHEIGHT);
-		entityManager.addEntity(sheep);
+		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));		
 		itemManager= new ItemManager(handler);
-		loadWorld(path);
+		loadWorld(worldPath);
+		loadEntities(entityPath);
+		
 		//set player to the spawn point
-		entityManager.getPlayer().setX(spawnX*Tile.TILEWIDTH);
-		entityManager.getPlayer().setY(spawnY*Tile.TILEHEIGHT);
-		Arrow sheep1= new Arrow(handler,0,0,100,100);
-		sheep1.setDirection(Direction.DOWN);
-		sheep1.setX(3*Tile.TILEWIDTH);
-		sheep1.setY(5*Tile.TILEHEIGHT);
-		entityManager.addEntity(sheep1);
+		entityManager.getPlayer().setX(spawnX);
+		entityManager.getPlayer().setY(spawnY);
+		
 	}
 
 	public void tick() {
@@ -90,6 +83,44 @@ public class World {
 		for (int y=0;y<height;y++) {
 			for (int x=0;x<width;x++) {
 				tiles[x][y] = Utils.parseInt(tokens[(x+y*width)+4]);
+			}
+		}
+	}
+
+	private void loadEntities(String path) {
+		String file = Utils.loadFileAsString(path);
+		String[] tokens = file.split("\\s+");
+		entityNum = Utils.parseInt(tokens[0]);
+
+		for (int y=0;y<entityNum;y++) {
+			int entityType=Utils.parseInt(tokens[(y*4)+1]);
+			int entitySpawnX=Utils.parseInt(tokens[(y*4)+2]);
+			int entitySpawnY=Utils.parseInt(tokens[(y*4)+3]);
+			int entitySpawnDirectionInt=Utils.parseInt(tokens[(y*4)+3]);
+			Direction entitySpawnDirection=Direction.DOWN;
+			
+			if (entitySpawnDirectionInt==0) {
+				entitySpawnDirection=Direction.UP;
+			}else if (entitySpawnDirectionInt==1) {
+				entitySpawnDirection=Direction.RIGHT;
+			}else if (entitySpawnDirectionInt==2) {
+				entitySpawnDirection=Direction.DOWN;
+			}else if (entitySpawnDirectionInt==3) {
+				entitySpawnDirection=Direction.LEFT;}
+			
+			if (entityType==0) {
+				entityManager.addEntity(new Tree(handler,entitySpawnX,entitySpawnY));
+			}else if(entityType==1) {
+				Sheep sheep= new Sheep(handler,0,0, 100, 100);
+				sheep.setX(entitySpawnX);
+				sheep.setY(entitySpawnY);
+				entityManager.addEntity(sheep);
+			}else if(entityType==2) {
+				Arrow arrow= new Arrow(handler,0,0,100,100);
+				arrow.setDirection(entitySpawnDirection);
+				arrow.setX(entitySpawnX);
+				arrow.setY(entitySpawnY);
+				entityManager.addEntity(arrow);
 			}
 		}
 	}
