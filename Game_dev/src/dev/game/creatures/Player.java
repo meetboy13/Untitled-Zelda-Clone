@@ -1,6 +1,5 @@
 package dev.game.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -9,7 +8,6 @@ import dev.game.Handler;
 import dev.game.entity.Entity;
 import dev.game.inventory.Inventory;
 import dev.game.states.GameOverState;
-import dev.game.states.GameState;
 import dev.game.states.State;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -23,11 +21,13 @@ public class Player extends Creature{
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
+		damage=2;
 		bounds.x=16;
 		bounds.y=32;
 		bounds.width=32;
 		bounds.height=32;
 		speed=Creature.DEFAULT_SPEED;
+		this.health=10;
 		//animations
 		animDown = new Animation(150,Assets.player_down);
 		animLeft = new Animation(150,Assets.player_left);
@@ -84,7 +84,7 @@ public class Player extends Creature{
 			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 				if(e.equals(this)) {continue;}
 				if(e.getCollisionBounds(0, 0).intersects(ar)) {
-					e.hurt(1);
+					e.hurt(damage);
 				}
 			}
 		}

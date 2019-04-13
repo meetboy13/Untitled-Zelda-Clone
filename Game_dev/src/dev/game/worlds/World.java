@@ -21,7 +21,6 @@ public class World {
 	private EntityManager entityManager;
 	private ItemManager itemManager;
 	private int[][] tiles;
-	private int[][] entities;
 	public enum Direction{UP,DOWN,LEFT,RIGHT};
 	//constructor
 	public World(Handler handler, String worldPath,String entityPath) {
@@ -53,18 +52,21 @@ public class World {
 				getTile(x,y).render(g, (int)(x*Tile.TILEWIDTH-handler.getGameCamera().getxOffset()),(int)(y*Tile.TILEHEIGHT-handler.getGameCamera().getyOffset()));
 			}
 		}
+		
 		itemManager.render(g);
 		entityManager.render(g);
 	}
 	
 	public Tile getTile(int x, int y) {
-		//check if coords is out of bounds
+		//check if coords is out of bounds to avoid throwing an error
 		if(x < 0 || y < 0 || x >= width || y >= height) {
+			//if out of bounds return a grass tile
 			return Tile.grassTile;
 		}
+		//get the specific tile from the tile array
 		Tile t = Tile.tiles[tiles[x][y]];
 		
-		//should return an error tile later
+		//returns a grass tile if no tile in the tiles array
 		if(t==null) {return Tile.grassTile;}
 		
 		
@@ -91,13 +93,16 @@ public class World {
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
 		entityNum = Utils.parseInt(tokens[0]);
-
+		int entityType;
+		int entitySpawnX;
+		int entitySpawnY;
+		int entitySpawnDirectionInt;
+		Direction entitySpawnDirection=Direction.DOWN;
 		for (int y=0;y<entityNum;y++) {
-			int entityType=Utils.parseInt(tokens[(y*4)+1]);
-			int entitySpawnX=Utils.parseInt(tokens[(y*4)+2]);
-			int entitySpawnY=Utils.parseInt(tokens[(y*4)+3]);
-			int entitySpawnDirectionInt=Utils.parseInt(tokens[(y*4)+3]);
-			Direction entitySpawnDirection=Direction.DOWN;
+			entityType=Utils.parseInt(tokens[(y*4)+1]);
+			entitySpawnX=Utils.parseInt(tokens[(y*4)+2]);
+			entitySpawnY=Utils.parseInt(tokens[(y*4)+3]);
+			entitySpawnDirectionInt=Utils.parseInt(tokens[(y*4)+3]);
 			
 			if (entitySpawnDirectionInt==0) {
 				entitySpawnDirection=Direction.UP;

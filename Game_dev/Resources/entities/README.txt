@@ -4,10 +4,10 @@
 //EntitySpawnY=entity y spawn location in pixels
 //EntitySpawnDirection=entity spawn direction 0=up,1=right,2=down,3=left,any other int=down.
 	1
-       4 2
+   4 2
 	3
-//note that if the entity direction is not used a placeholder such as 0 should be used.
-// all text inside a file will be read as int and so all text in a file shoudl be an int.
+//Note that if the entity direction is not used/needed a placeholder such as 0 should be used.
+//All text inside a file will be read as int and so all text in a file should be an int.
 //In addition do not attempt to load this file
 //Tile width and height is currently set to 64 pixels;
 //format layout is as follows
