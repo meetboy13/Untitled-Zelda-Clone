@@ -8,7 +8,7 @@ public class Tile {
 	//if need more tiles increase 256 to more than 256
 	public static Tile[] tiles = new Tile[256];
 	public static Tile grassTile = new GrassTile(0);
-	public static Tile rockTile = new RockTile(1);
+	public static Tile waterTile = new WaterTile(1);
 	public static Tile dirtTile = new DirtTile(2);
 	public static Tile wall_left = new WallLeft(3);
 	public static Tile wall_right = new WallRightTile(4);
@@ -16,6 +16,8 @@ public class Tile {
 	public static Tile wall_up = new WallUpTile(6);
 	public static Tile wall_right_down = new WallRightDownTile(7);
 	public static Tile wall_left_down = new WallLeftDownTile(8);
+	public static Tile wall_right_up = new WallRightUpTile(9);
+	public static Tile wall_left_up = new WallLeftUpTile(10);
 	
 	//class
 	protected BufferedImage texture;

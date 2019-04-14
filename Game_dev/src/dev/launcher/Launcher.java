@@ -7,7 +7,7 @@ public class Launcher {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		width=1024;
-		height=768;
+		height=600;
 		Game game= new Game("Window name",width,height);
 		game.start();
 	}

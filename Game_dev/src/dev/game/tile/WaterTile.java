@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 
 import dev.launcher.Assets;
 
-public class RockTile extends Tile{
+public class WaterTile extends Tile{
 
-	public RockTile(int id) {
-		super(Assets.rock, id);
+	public WaterTile(int id) {
+		super(Assets.water, id);
 		// TODO Auto-generated constructor stub
 	}
 	@Override

@@ -1,5 +1,6 @@
 package dev.game.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -13,11 +14,13 @@ import dev.launcher.Animation;
 import dev.launcher.Assets;
 public class Player extends Creature{
 	
-	private Animation animDown,animUp,animLeft,animRight;
+	private Animation animDown,animUp,animLeft,animRight,animDie;
 	
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Facing lastDirection=Facing.DOWN;
 	private Inventory inventory;
+	private boolean dead = false;
+	private int deathLoop=0;
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
@@ -33,6 +36,7 @@ public class Player extends Creature{
 		animLeft = new Animation(150,Assets.player_left);
 		animUp = new Animation(150,Assets.player_up);
 		animRight = new Animation(150,Assets.player_right);
+		animDie = new Animation(100,Assets.player_die);
 		inventory = new Inventory(handler);
 	}
 
@@ -43,12 +47,26 @@ public class Player extends Creature{
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
-		getInput();
-		move();
+		if (!dead) {
+			getInput();
+			move();
+		}
+		else {
+			animDie.tick();
+		}
 		handler.getGameCamera().centeronEntity(this);
 		checkAttacks();
 		inventory.tick();
 	}
+	
+	@Override
+	public void hurt(int damage) {
+		health-=damage;
+		if (health<=0) {
+			die();
+		}
+	}
+	
 	private void checkAttacks() {
 		attackTimer+=System.currentTimeMillis()-lastAttackTimer;
 		lastAttackTimer=System.currentTimeMillis();
@@ -110,16 +128,28 @@ public class Player extends Creature{
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+		if (dead){
+			if (deathLoop==60){
+				active=false;
+				State gameOverState = new GameOverState(handler);
+				State.setState(gameOverState);
+			}
+			deathLoop++;
+		}
+		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);inventory.render(g);
 		inventory.render(g);
-		/* bounding box code, commented out in case needed for debugging later
+		// bounding box code, commented out in case needed for debugging later
+		/*
 		g.setColor(Color.blue);
 		g.fillRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),(int)(y+bounds.y - handler.getGameCamera().getyOffset()),bounds.width,bounds.height);
 		*/
 	}
 	
 	private BufferedImage getCurrentAnimationFrame() {
-		if(xMove<0) {
+		if(dead) {
+			return animDie.getCurrentFrame();
+		}
+		else if(xMove<0) {
 			lastDirection=Facing.LEFT;
 			return animLeft.getCurrentFrame();
 		}else if(xMove>0) {
@@ -150,9 +180,7 @@ public class Player extends Creature{
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
-		System.out.println("You died");
-		State gameOverState = new GameOverState(handler);
-		State.setState(gameOverState);
+		dead=true;
 	}
 
 	public Inventory getInventory() {
