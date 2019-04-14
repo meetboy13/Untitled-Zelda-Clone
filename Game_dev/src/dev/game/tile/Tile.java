@@ -12,6 +12,10 @@ public class Tile {
 	public static Tile dirtTile = new DirtTile(2);
 	public static Tile wall_left = new WallLeft(3);
 	public static Tile wall_right = new WallRightTile(4);
+	public static Tile wall_down = new WallDown(5);
+	public static Tile wall_up = new WallUpTile(6);
+	public static Tile wall_right_down = new WallRightDownTile(7);
+	public static Tile wall_left_down = new WallLeftDownTile(8);
 	
 	//class
 	protected BufferedImage texture;

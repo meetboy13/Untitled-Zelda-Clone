@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import dev.ImageLoader.Loader;
 
 public class Assets {
-	public static BufferedImage sprite1,sprite2,sprite3,sprite4,player,rock,grass,drop,dirt,wall_left,wall_right;
+	public static BufferedImage sprite1,sprite2,sprite3,sprite4,player,rock,grass,drop,dirt,wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up;
 	public static BufferedImage[] player_down,player_left,player_right,player_up;
 	public static BufferedImage[] btn_start;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
@@ -28,6 +28,10 @@ public class Assets {
 		SpriteSheet sheet16= new SpriteSheet(Loader.loadImage("/Textures/Player_standing_left.png"));
 		SpriteSheet sheet17= new SpriteSheet(Loader.loadImage("/Textures/wall_left.png"));
 		SpriteSheet sheet18= new SpriteSheet(Loader.loadImage("/Textures/wall_right.png"));
+		SpriteSheet sheet19= new SpriteSheet(Loader.loadImage("/Textures/wall_down.png"));
+		SpriteSheet sheet20= new SpriteSheet(Loader.loadImage("/Textures/wall_up.png"));
+		SpriteSheet sheet21= new SpriteSheet(Loader.loadImage("/Textures/wall_left_down.png"));
+		SpriteSheet sheet22= new SpriteSheet(Loader.loadImage("/Textures/wall_right_down.png"));
 		drop=sheet1.crop(0,0,1048,768);
 		btn_start = new BufferedImage[2];
 		btn_start[0]=sheet3.crop(0,0,width,height);
@@ -62,5 +66,9 @@ public class Assets {
 		dirt = sheet13.crop(0, 0, 1000, 1000);
 		wall_left = sheet17.crop(0, 0, 1000, 1000);
 		wall_right = sheet18.crop(0, 0, 1000, 1000);
+		wall_down = sheet19.crop(0, 0, 1000, 1000);
+		wall_up = sheet20.crop(0, 0, 1000, 1000);
+		wall_left_down = sheet21.crop(0, 0, 1000, 1000);
+		wall_right_down = sheet22.crop(0, 0, 1000, 1000);
 	}
 }
