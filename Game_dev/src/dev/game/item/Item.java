@@ -10,10 +10,10 @@ import dev.launcher.Assets;
 public class Item {
 	
 	public static Item[] items = new Item[256];
-	public static Item drop = new Item(Assets.drop,"Drop",0);
+	public static Item drop = new Item(Assets.drop,"Gem",0);
 	
 	
-	public static final int ITEMWIDTH=32,ITEMHEIGHT=32;
+	public static final int ITEMWIDTH=20,ITEMHEIGHT=32;
 	protected Handler handler;
 	protected BufferedImage texture;
 	protected String name;
