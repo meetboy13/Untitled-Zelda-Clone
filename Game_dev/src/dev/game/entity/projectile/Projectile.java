@@ -1,6 +1,7 @@
 package dev.game.entity.projectile;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import dev.game.Handler;
 import dev.game.entity.Entity;
@@ -10,20 +11,16 @@ import dev.launcher.Assets;
 
 public abstract class Projectile extends Entity{
 	public static final float DEFAULT_PROJECTILE_SPEED=5.0f;
-	public static final int DEFAULT_PROJECTILE_WIDTH=30;
-	public static final int DEFAULT_PROJECTILE_HEIGHT=30;
+	public static final int DEFAULT_PROJECTILE_WIDTH=50;
+	public static final int DEFAULT_PROJECTILE_HEIGHT=50;
 	public static final int DEFAULT_PROJECTILE_DAMAGE=10;
 	protected int damage;
 	protected float xMove,yMove,speed;
+	protected BufferedImage texture;
 	public Projectile(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
 		speed=DEFAULT_PROJECTILE_SPEED;
 		damage=DEFAULT_PROJECTILE_DAMAGE;
-		//added to account for the slight delay of 3 ticks for showing to screen
-		bounds.x+=5;
-		bounds.y+=5;
-		bounds.height-=10;
-		bounds.width-=10;
 		this.solid=false;
 	}
 
@@ -102,7 +99,7 @@ public abstract class Projectile extends Entity{
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(Assets.drop,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),DEFAULT_PROJECTILE_WIDTH,DEFAULT_PROJECTILE_HEIGHT,null);
+		g.drawImage(texture,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),DEFAULT_PROJECTILE_WIDTH,DEFAULT_PROJECTILE_HEIGHT,null);
 	}
 
 	@Override

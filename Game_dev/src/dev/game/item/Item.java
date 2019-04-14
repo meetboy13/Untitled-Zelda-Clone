@@ -11,6 +11,7 @@ public class Item {
 	
 	public static Item[] items = new Item[256];
 	public static Item drop = new Item(Assets.drop,"Gem",0);
+	public static Item key = new Item(Assets.drop,"Key",1);
 	
 	
 	public static final int ITEMWIDTH=20,ITEMHEIGHT=32;

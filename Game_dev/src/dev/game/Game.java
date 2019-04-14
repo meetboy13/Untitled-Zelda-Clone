@@ -63,8 +63,6 @@ public class Game implements Runnable{
 		
 		handler = new Handler(this);
 		gameCamera=new GameCamera(handler,0,0);
-		
-		//need one for each state
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
 		

@@ -5,7 +5,10 @@ import java.awt.image.BufferedImage;
 import dev.ImageLoader.Loader;
 
 public class Assets {
-	public static BufferedImage sprite1,sprite2,sprite3,tree,player,water,grass,drop,dirt,wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up;
+	public static BufferedImage 
+	tree,player,water,grass,drop,dirt,
+	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
+	spear;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die;
 	public static BufferedImage[] btn_start;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
@@ -22,8 +25,9 @@ public class Assets {
 		SpriteSheet sheet22= new SpriteSheet(Loader.loadImage("/Textures/wall_right_down.png"));
 		SpriteSheet sheet23= new SpriteSheet(Loader.loadImage("/Textures/wall_left_up.png"));
 		SpriteSheet sheet24= new SpriteSheet(Loader.loadImage("/Textures/wall_right_up.png"));
-		SpriteSheet sheet25= new SpriteSheet(Loader.loadImage("/Textures/tree.png"));
+		SpriteSheet sheet25= new SpriteSheet(Loader.loadImage("/Sprite/tree.png"));
 		SpriteSheet sheet26= new SpriteSheet(Loader.loadImage("/Textures/PlayerSpriteSheet.png")); 
+		SpriteSheet sheet27= new SpriteSheet(Loader.loadImage("/Sprite/spear.png")); 
 		drop=sheet1.crop(0,0,100,100);
 		btn_start = new BufferedImage[2];
 		btn_start[0]=sheet3.crop(0,0,width,height);
@@ -53,12 +57,8 @@ public class Assets {
 		player_die[1] = sheet26.crop(width,4*height, width, height);
 		player_die[2] = sheet26.crop(width*3,0, width, height);
 		player_die[3] = sheet26.crop(width*2,4*height, width, height);
-		/*
-		sprite1 = sheet1.crop(0, 0, width, height);
-		sprite2 = sheet1.crop(width, 0, width, height);
-		sprite3 = sheet1.crop(width*2, 0, width, height);
-		*/
 		player = sheet26.crop(0, 0, width, height);
+		spear = sheet27.crop(width*3, 0, width, height);
 		water = sheet3.crop(0, 0, 1000, 1000);
 		grass = sheet4.crop(0, 0, 1000, 1000);
 		dirt = sheet13.crop(0, 0, 1000, 1000);
