@@ -53,27 +53,32 @@ public class Sheep extends Creature {
 		lastMoveTimer=System.currentTimeMillis();
 		if(moveTimer>=moveCooldown) {
 			moveTimer=0;
-			int temp=rand.nextInt(5);
-			if (temp==0) {
-				//down
+			switch (rand.nextInt(5)) {
+			//up
+			case 0:
 				xMove=0;
 				yMove=speed;
-			}else if (temp==1){
-				//up
+				break;
+			//down
+			case 1:
 				xMove=0;
 				yMove=-speed;
-			}else if (temp==2){
-				//left
+				break;
+			//left
+			case 2:
 				xMove=-speed;
 				yMove=0;
-			}else if (temp==4){
-				//left
-				xMove=0;
-				yMove=0;
-			}else {
-				//right
+				break;
+			//right
+			case 3:
 				xMove=speed;
 				yMove=0;
+				break;
+			//stop
+			case 4:
+				xMove=0;
+				yMove=0;
+				break;
 			}
 		}
 	}
