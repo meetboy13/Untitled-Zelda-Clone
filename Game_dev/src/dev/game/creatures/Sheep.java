@@ -2,7 +2,8 @@ package dev.game.creatures;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
+import java.util.Random;
+	
 import dev.game.Handler;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -12,6 +13,7 @@ public class Sheep extends Creature {
 	private Animation animDown,animUp,animLeft,animRight;
 	private Facing lastDirection=Facing.DOWN;
 	private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
+	private Random rand = new Random();
 	public Sheep(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
@@ -51,7 +53,7 @@ public class Sheep extends Creature {
 		lastMoveTimer=System.currentTimeMillis();
 		if(moveTimer>=moveCooldown) {
 			moveTimer=0;
-			if(xMove>0) {
+			/*if(xMove>0) {
 				xMove=0;
 				yMove=speed;
 			}else if (xMove<0){
@@ -65,6 +67,19 @@ public class Sheep extends Creature {
 				yMove=0;
 			}else {
 				xMove=speed;
+			}*/
+			if (rand.nextInt==0) {
+				xMove=0;
+				yMove=speed;
+			}else if (rand.nextInt==1){
+				xMove=0;
+				yMove=-speed;
+			}else if (rand.nextInt==2){
+				xMove=-speed;
+				yMove=0;
+			}else {
+				xMove=speed;
+				yMove=0;
 			}
 		}
 	}
