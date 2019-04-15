@@ -12,6 +12,7 @@ public class Item {
 	public static Item[] items = new Item[256];
 	public static Item drop = new Item(Assets.drop,"Gem",0);
 	public static Item key = new Item(Assets.drop,"Key",1);
+	public static TransitionItem world1_to_2= new TransitionItem("gate",3, "Resources/worlds/world1.txt","Resources/entities/world1.txt");
 	
 	
 	public static final int ITEMWIDTH=20,ITEMHEIGHT=32;
@@ -22,12 +23,15 @@ public class Item {
 	protected int x,y,count;
 	protected Rectangle bounds;
 	protected boolean pickedUp=false;
+	protected int width, height;
 	public Item(BufferedImage texture, String name, int id) {
 		this.texture=texture;
 		this.name=name;
 		this.id=id;
+		width=ITEMWIDTH;
+		height=ITEMHEIGHT;
 		count=1;
-		bounds=new Rectangle(x,y,ITEMWIDTH,ITEMHEIGHT);
+		bounds=new Rectangle(x,y,width,height);
 		items[id]=this;
 	}
 	public void  tick() {

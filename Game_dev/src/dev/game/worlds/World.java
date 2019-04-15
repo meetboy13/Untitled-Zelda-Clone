@@ -10,6 +10,7 @@ import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.Projectile;
 import dev.game.entity.statics.Tree;
 import dev.game.item.ItemManager;
+import dev.game.item.TransitionItem;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
 
@@ -27,13 +28,7 @@ public class World {
 		this.handler = handler;
 		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));		
 		itemManager= new ItemManager(handler);
-		loadWorld(worldPath);
-		loadEntities(entityPath);
-		
-		//set player to the spawn point
-		entityManager.getPlayer().setX(spawnX);
-		entityManager.getPlayer().setY(spawnY);
-		
+		loadNewWorld(worldPath,entityPath);
 	}
 
 	public void tick() {
@@ -72,7 +67,12 @@ public class World {
 		
 		return t;
 	}
-	
+	public void loadNewWorld(String pathWorld,String pathEntity) {
+		loadWorld(pathWorld);
+		loadEntities(pathEntity);
+		entityManager.getPlayer().setX(spawnX);
+		entityManager.getPlayer().setY(spawnY);
+	}
 	private void loadWorld(String path) {
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
