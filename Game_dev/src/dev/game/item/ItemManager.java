@@ -31,8 +31,18 @@ public class ItemManager {
 	public void addItem(Item i) {
 		i.setHandler(handler);
 		items.add(i);
-		
 	}
+	public void clear() {
+		int j=0;
+		for(int i=0;i<items.size()-j;i++) {
+			if(!(items.get(i).id==3)) {
+				items.get(i).remove();
+				i--;
+				j++;
+			}
+		}
+	}
+	
 	public Handler getHandler() {
 		return handler;
 	}

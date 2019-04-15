@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import dev.game.Handler;
 import dev.game.creatures.Player;
+import dev.game.creatures.Sheep;
 
 public class EntityManager {
 	private Handler handler;
@@ -27,6 +28,13 @@ public class EntityManager {
 		this.player = player;
 		entities=new ArrayList<Entity>();
 		addEntity(player);
+	}
+	public EntityManager(Handler handler, Sheep sheep) {
+		this.handler = handler;
+		entities=new ArrayList<Entity>();
+		sheep.setX(-1000);
+		sheep.setY(-1000);
+		addEntity(sheep);
 	}
 	public void tick() {
 		Iterator<Entity> it = entities.iterator();
@@ -67,6 +75,11 @@ public class EntityManager {
 	}
 	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
+	}
+	public void clear() {
+		ArrayList<Entity> temp =new ArrayList<Entity>();
+		temp.add(player);
+		setEntities(temp);
 	}
 	
 }

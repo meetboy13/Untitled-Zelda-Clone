@@ -12,8 +12,6 @@ public class Item {
 	public static Item[] items = new Item[256];
 	public static Item drop = new Item(Assets.drop,"Gem",0);
 	public static Item key = new Item(Assets.drop,"Key",1);
-	public static TransitionItem world1_to_2= new TransitionItem("gate",3, "Resources/worlds/world1.txt","Resources/entities/world1.txt");
-	
 	
 	public static final int ITEMWIDTH=20,ITEMHEIGHT=32;
 	protected Handler handler;
@@ -40,6 +38,7 @@ public class Item {
 			handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
 		}
 	}
+	
 	public void render(Graphics g) {
 		if (handler==null) {return;}
 		render(g,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()));
@@ -89,12 +88,14 @@ public class Item {
 	}
 	public void setX(int x) {
 		this.x = x;
+		bounds.x=x;
 	}
 	public int getY() {
 		return y;
 	}
 	public void setY(int y) {
 		this.y = y;
+		bounds.y=y;
 	}
 	public int getCount() {
 		return count;
@@ -104,6 +105,10 @@ public class Item {
 	}
 	public int getId() {
 		return id;
+	}
+	public void remove() {
+		// TODO Auto-generated method stub
+		pickedUp=true;
 	}
 	
 }

@@ -13,7 +13,7 @@ public abstract class Projectile extends Entity{
 	public static final float DEFAULT_PROJECTILE_SPEED=5.0f;
 	public static final int DEFAULT_PROJECTILE_WIDTH=50;
 	public static final int DEFAULT_PROJECTILE_HEIGHT=50;
-	public static final int DEFAULT_PROJECTILE_DAMAGE=10;
+	public static final int DEFAULT_PROJECTILE_DAMAGE=1;
 	protected int damage;
 	protected float xMove,yMove,speed;
 	protected BufferedImage texture;

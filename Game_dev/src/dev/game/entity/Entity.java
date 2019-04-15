@@ -17,6 +17,8 @@ public abstract class Entity {
 	protected boolean solid=true;
 	public static final int DEFAULT_HEALTH=3;
 	protected Handler handler;
+
+	public String name="Default";
 	//constructor
 	public Entity(Handler handler,  float x, float y, int width, int height) {
 		this.x=x;

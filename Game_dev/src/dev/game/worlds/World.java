@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import dev.game.Handler;
 import dev.game.creatures.Player;
 import dev.game.creatures.Sheep;
+import dev.game.creatures.Wizard;
 import dev.game.entity.EntityManager;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.Projectile;
@@ -19,21 +20,29 @@ public class World {
 	private int width, height;
 	private int entityNum;
 	private int spawnX,spawnY;
-	private EntityManager entityManager;
+	private EntityManager entityManager,projectileManager;
 	private ItemManager itemManager;
 	private int[][] tiles;
 	public enum Direction{UP,DOWN,LEFT,RIGHT};
+	private TransitionItem world1_to_2;
 	//constructor
 	public World(Handler handler, String worldPath,String entityPath) {
 		this.handler = handler;
+		projectileManager=new EntityManager(handler,new Sheep(handler,0,0,0,0));
 		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));		
 		itemManager= new ItemManager(handler);
 		loadNewWorld(worldPath,entityPath);
+		world1_to_2= new TransitionItem("gate",3,"Resources/worlds/world2.txt","Resources/entities/world2.txt");
+		world1_to_2.setX(64);
+		world1_to_2.setY(64);
+		itemManager.addItem(world1_to_2);
+		
 	}
 
 	public void tick() {
 		itemManager.tick();
 		entityManager.tick();
+		projectileManager.tick();
 	}
 	
 	public void render (Graphics g) {
@@ -47,9 +56,9 @@ public class World {
 				getTile(x,y).render(g, (int)(x*Tile.TILEWIDTH-handler.getGameCamera().getxOffset()),(int)(y*Tile.TILEHEIGHT-handler.getGameCamera().getyOffset()));
 			}
 		}
-		
 		itemManager.render(g);
 		entityManager.render(g);
+		projectileManager.render(g);
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -68,6 +77,7 @@ public class World {
 		return t;
 	}
 	public void loadNewWorld(String pathWorld,String pathEntity) {
+		
 		loadWorld(pathWorld);
 		loadEntities(pathEntity);
 		entityManager.getPlayer().setX(spawnX);
@@ -121,11 +131,16 @@ public class World {
 				sheep.setY(entitySpawnY);
 				entityManager.addEntity(sheep);
 			}else if(entityType==2) {
-				Arrow arrow= new Arrow(handler,0,0,100,100);
+				Arrow arrow= new Arrow(handler,0,0);
 				arrow.setDirection(entitySpawnDirection);
 				arrow.setX(entitySpawnX);
 				arrow.setY(entitySpawnY);
-				entityManager.addEntity(arrow);
+				projectileManager.addEntity(arrow);
+			}else if(entityType==3) {
+				Wizard wizard= new Wizard(handler,0,0,100,100,false);
+				wizard.setX(entitySpawnX);
+				wizard.setY(entitySpawnY);
+				entityManager.addEntity(wizard);
 			}
 		}
 	}
@@ -134,6 +149,14 @@ public class World {
 	public int getWidth() {
 		return width;
 	}
+	public EntityManager getProjectileManager() {
+		return projectileManager;
+	}
+
+	public void setProjectileManager(EntityManager projectileManager) {
+		this.projectileManager = projectileManager;
+	}
+
 	public Handler getHandler() {
 		return handler;
 	}
