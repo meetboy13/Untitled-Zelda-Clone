@@ -14,6 +14,7 @@ public abstract class Creature extends Entity {
 	protected float speed;
 	protected float xMove,yMove;
 	protected enum Facing {UP,DOWN,LEFT,RIGHT;}
+	protected boolean stunned = false;
 	//constructor
 	public Creature(Handler handler, float x, float y,int width, int height) {
 		super( handler, x, y, width, height);
@@ -86,6 +87,9 @@ public abstract class Creature extends Entity {
 	}
 	public void setyMove(float ymove) {
 		yMove = ymove;
+	}
+	public void setStun(boolean stunned){
+		this.stunned = stunned;
 	}
 	
 	
