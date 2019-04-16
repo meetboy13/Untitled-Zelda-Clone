@@ -10,6 +10,7 @@ import dev.game.creatures.Wizard;
 import dev.game.entity.EntityManager;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.Projectile;
+import dev.game.entity.statics.Rock;
 import dev.game.entity.statics.Tree;
 import dev.game.item.ItemManager;
 import dev.game.item.TransitionItem;
@@ -147,6 +148,9 @@ public class World {
 				frienemy.setX(entitySpawnX);
 				frienemy.setY(entitySpawnY);
 				entityManager.addEntity(frienemy);
+
+			}else if(entityType==5) {
+				entityManager.addEntity(new Rock(handler,entitySpawnX,entitySpawnY));
 			}
 		}
 	}

@@ -27,6 +27,8 @@ public class Tile {
 	public static Tile stone_wall_left_down = new StoneLeftDownTile(17);
 	public static Tile stone_wall_right_up = new StoneRightUpTile(18);
 	public static Tile stone_wall_left_up = new StoneLeftUpTile(19);
+	public static Tile bridge_left = new BridgeLeftTile(20);
+	public static Tile bridge_right = new BridgeRightTile(21);
 	
 	//class
 	protected BufferedImage texture;

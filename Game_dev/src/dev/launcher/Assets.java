@@ -6,7 +6,7 @@ import dev.ImageLoader.Loader;
 
 public class Assets {
 	public static BufferedImage 
-	tree,player,water,grass,drop,dirt,gameOver,
+	tree,player,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,stone_wall_left_down,stone_wall_left_up,stone_wall_right_up;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear;
@@ -19,7 +19,10 @@ public class Assets {
 		SpriteSheet sheet4= new SpriteSheet(Loader.loadImage("/Textures/grass.png"));
 		SpriteSheet sheet5= new SpriteSheet(Loader.loadImage("/Textures/PlayButton.png"));
 		SpriteSheet sheet6= new SpriteSheet(Loader.loadImage("/Textures/PlayButtonSelected.png"));
+		SpriteSheet sheet7= new SpriteSheet(Loader.loadImage("/Textures/rock.png"));
 		SpriteSheet sheet13= new SpriteSheet(Loader.loadImage("/Textures/dirt.png"));
+		SpriteSheet sheet14= new SpriteSheet(Loader.loadImage("/Textures/bridge_left.png"));
+		SpriteSheet sheet15= new SpriteSheet(Loader.loadImage("/Textures/bridge_right.png"));
 		SpriteSheet sheet17= new SpriteSheet(Loader.loadImage("/Textures/wall_left.png"));
 		SpriteSheet sheet18= new SpriteSheet(Loader.loadImage("/Textures/wall_right.png"));
 		SpriteSheet sheet19= new SpriteSheet(Loader.loadImage("/Textures/wall_down.png"));
@@ -42,6 +45,7 @@ public class Assets {
 		SpriteSheet sheet36= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_left_up.png"));  
 		drop=sheet1.crop(0,0,100,100);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
+		rock=sheet7.crop(0, 0, 100, 100);
 		btn_start = new BufferedImage[2];
 		btn_start[0]=sheet5.crop(0,0,550,70);
 		btn_start[1]=sheet6.crop(0,0,550,70);
@@ -79,6 +83,8 @@ public class Assets {
 		water = sheet3.crop(0, 0, 1000, 1000);
 		grass = sheet4.crop(0, 0, 1000, 1000);
 		dirt = sheet13.crop(0, 0, 1000, 1000);
+		bridge_left = sheet14.crop(0, 0, 100, 100);
+		bridge_right = sheet15.crop(0, 0, 100, 100);
 		wall_left = sheet17.crop(0, 0, 1000, 1000);
 		wall_right = sheet18.crop(0, 0, 1000, 1000);
 		wall_down = sheet19.crop(0, 0, 1000, 1000);

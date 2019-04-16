@@ -79,11 +79,16 @@ public abstract class Projectile extends Entity{
 	
 	
 	public void checkForCollisions() {
+		boolean damaged=false;
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) {continue;}
 			if(e.getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))&& e.isSolid()) {
 				e.hurt(damage);
+				damaged=true;
 			}
+		}
+		if (damaged) {
+			this.die();
 		}
 	}
 	public void move() {
