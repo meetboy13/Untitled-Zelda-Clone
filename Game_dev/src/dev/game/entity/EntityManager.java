@@ -76,9 +76,13 @@ public class EntityManager {
 	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
 	}
-	public void clear() {
-		ArrayList<Entity> temp =new ArrayList<Entity>();
+	public void clear1() {
+		ArrayList<Entity> temp=new ArrayList<Entity>();
 		temp.add(player);
+		setEntities(temp);
+	}
+	public void clear2() {
+		ArrayList<Entity> temp=new ArrayList<Entity>();
 		setEntities(temp);
 	}
 	

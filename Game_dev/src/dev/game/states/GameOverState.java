@@ -37,6 +37,7 @@ public class GameOverState extends State{
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
+		g.drawImage(Assets.gameOver, 0, 0, 1024, 768,null);
 		g.setColor(Color.RED);
 		g.fillRect(handler.getMouseManager().getMouseX()-4, handler.getMouseManager().getMouseY()-4, 8, 8);
 		uiManager.render(g);

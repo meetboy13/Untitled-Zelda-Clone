@@ -1,6 +1,7 @@
 package dev.game.entity.projectile;
 
 import dev.game.Handler;
+import dev.game.worlds.World.Direction;
 import dev.launcher.Assets;
 
 public class Arrow extends Projectile{
@@ -12,6 +13,25 @@ public class Arrow extends Projectile{
 		bounds.y+=5;
 		bounds.height-=10;
 		bounds.width-=23*2;
-		texture=Assets.spear;
+		texture=Assets.spear[0];
+	}
+	@Override
+	public void setDirection(Direction direction) {
+		if(direction==Direction.UP) {
+			yMove=-speed;
+			texture=Assets.spear[1];
+		}
+		else if(direction==Direction.DOWN) {
+			yMove=speed;
+			texture=Assets.spear[3];
+		}
+		else if(direction==Direction.LEFT) {
+			xMove=-speed;
+			texture=Assets.spear[2];
+		}
+		else if(direction==Direction.RIGHT) {
+			xMove=speed;
+			texture=Assets.spear[0];
+		}
 	}
 }

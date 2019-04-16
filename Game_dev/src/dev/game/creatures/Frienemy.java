@@ -15,13 +15,13 @@ public class Frienemy extends Creature {
 	//private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	//private Random rand = new Random();
 	public Frienemy(Handler handler, float x, float y, int width, int height) {
-		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
+		super(handler, x, y, (int)(Creature.DEFAULT_CREATURE_WIDTH*1.2),(int)(Creature.DEFAULT_CREATURE_HEIGHT*1.2));
 		// TODO Auto-generated constructor stub
 		bounds.x=16;
 		bounds.y=32;
-		bounds.width=32;
-		bounds.height=32;
-		speed=Creature.DEFAULT_SPEED/4;
+		bounds.width=36;
+		bounds.height=36;
+		speed=(float) (Creature.DEFAULT_SPEED*.8);
 		//animations
 		animDown = new Animation(200,Assets.player_down);
 		animLeft = new Animation(200,Assets.player_left);

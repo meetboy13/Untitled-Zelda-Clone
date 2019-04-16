@@ -18,6 +18,15 @@ public class Tile {
 	public static Tile wall_left_down = new WallLeftDownTile(8);
 	public static Tile wall_right_up = new WallRightUpTile(9);
 	public static Tile wall_left_up = new WallLeftUpTile(10);
+	public static Tile stone = new StoneTile(11);
+	public static Tile stone_wall_left = new StoneLeftTile(12);
+	public static Tile stone_wall_right = new StoneRightTile(13);
+	public static Tile stone_wall_down = new StoneDownTile(14);
+	public static Tile stone_wall_up = new StoneUpTile(15);
+	public static Tile stone_wall_right_down = new StoneRightDownTile(16);
+	public static Tile stone_wall_left_down = new StoneLeftDownTile(17);
+	public static Tile stone_wall_right_up = new StoneRightUpTile(18);
+	public static Tile stone_wall_left_up = new StoneLeftUpTile(19);
 	
 	//class
 	protected BufferedImage texture;

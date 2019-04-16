@@ -20,7 +20,8 @@ public class TransitionItem extends Item{
 	public void tick() {
 		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)) {
 			pickedUp=true;
-			handler.getWorld().getEntityManager().clear();
+			handler.getWorld().getEntityManager().clear1();
+			handler.getWorld().getProjectileManager().clear2();
 			handler.getWorld().getItemManager().clear();
 			handler.getWorld().loadNewWorld(pathWorld, pathEntity);
 		}

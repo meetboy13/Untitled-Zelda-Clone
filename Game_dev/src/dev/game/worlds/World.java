@@ -3,6 +3,7 @@ package dev.game.worlds;
 import java.awt.Graphics;
 
 import dev.game.Handler;
+import dev.game.creatures.Frienemy;
 import dev.game.creatures.Player;
 import dev.game.creatures.Sheep;
 import dev.game.creatures.Wizard;
@@ -141,6 +142,11 @@ public class World {
 				wizard.setX(entitySpawnX);
 				wizard.setY(entitySpawnY);
 				entityManager.addEntity(wizard);
+			}else if(entityType==4) {
+				Frienemy frienemy= new Frienemy(handler,0,0,100,100);
+				frienemy.setX(entitySpawnX);
+				frienemy.setY(entitySpawnY);
+				entityManager.addEntity(frienemy);
 			}
 		}
 	}

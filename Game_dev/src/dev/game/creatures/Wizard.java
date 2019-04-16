@@ -110,6 +110,7 @@ public class Wizard extends Creature {
 			setAggressive(true);
 		} else {
 			setAggressive(false);
+			face=true;
 		}
 	}
 	private void getInput() {
