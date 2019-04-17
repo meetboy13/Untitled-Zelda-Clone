@@ -6,7 +6,7 @@ import dev.ImageLoader.Loader;
 
 public class Assets {
 	public static BufferedImage 
-	tree,player,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,
+	tree,player,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,stone_wall_left_down,stone_wall_left_up,stone_wall_right_up;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear;
@@ -14,12 +14,15 @@ public class Assets {
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/gem.png"));
-		SpriteSheet sheet2 = new SpriteSheet(Loader.loadImage("/Textures/GameOver1.png")); 
+		SpriteSheet sheet2= new SpriteSheet(Loader.loadImage("/Textures/GameOver1.png")); 
 		SpriteSheet sheet3= new SpriteSheet(Loader.loadImage("/Textures/water.png"));
 		SpriteSheet sheet4= new SpriteSheet(Loader.loadImage("/Textures/grass.png"));
 		SpriteSheet sheet5= new SpriteSheet(Loader.loadImage("/Textures/PlayButton.png"));
 		SpriteSheet sheet6= new SpriteSheet(Loader.loadImage("/Textures/PlayButtonSelected.png"));
 		SpriteSheet sheet7= new SpriteSheet(Loader.loadImage("/Textures/rock.png"));
+		SpriteSheet sheet8= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));	
+		SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Sprite/Wizard beam1.png"));
+		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Sprite/Wizard beam2.png"));
 		SpriteSheet sheet13= new SpriteSheet(Loader.loadImage("/Textures/dirt.png"));
 		SpriteSheet sheet14= new SpriteSheet(Loader.loadImage("/Textures/bridge_left.png"));
 		SpriteSheet sheet15= new SpriteSheet(Loader.loadImage("/Textures/bridge_right.png"));
@@ -80,6 +83,7 @@ public class Assets {
 		spear[1] = sheet27.crop(width, 0, width, height);
 		spear[2] = sheet27.crop(width*2, 0, width, height);
 		spear[3] = sheet27.crop(width*3, 0, width, height);
+		magic = sheet10.crop(0,0,width,height);
 		water = sheet3.crop(0, 0, 1000, 1000);
 		grass = sheet4.crop(0, 0, 1000, 1000);
 		dirt = sheet13.crop(0, 0, 1000, 1000);

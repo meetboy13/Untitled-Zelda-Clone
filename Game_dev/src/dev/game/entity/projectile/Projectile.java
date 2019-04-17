@@ -7,7 +7,7 @@ import dev.game.Handler;
 import dev.game.entity.Entity;
 import dev.game.tile.Tile;
 import dev.game.worlds.World.Direction;
-import dev.launcher.Assets;
+//import dev.launcher.Assets;
 
 public abstract class Projectile extends Entity{
 	public static final float DEFAULT_PROJECTILE_SPEED=5.0f;
