@@ -39,6 +39,7 @@ public class Wizard extends Creature {
 		animLeft = new Animation(200,Assets.player_left);
 		animUp = new Animation(200,Assets.player_up);
 		animRight = new Animation(200,Assets.player_right);
+		this.solid=false;
 		
 	}
 

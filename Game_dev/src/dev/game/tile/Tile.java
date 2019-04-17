@@ -3,6 +3,8 @@ package dev.game.tile;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import dev.launcher.Assets;
+
 public class Tile {
 	
 	//if need more tiles increase 256 to more than 256
@@ -29,6 +31,11 @@ public class Tile {
 	public static Tile stone_wall_left_up = new StoneLeftUpTile(19);
 	public static Tile bridge_left = new BridgeLeftTile(20);
 	public static Tile bridge_right = new BridgeRightTile(21);
+	public static Tile stone_corner_left_up = new SolidTile(Assets.stone_wall_corner_left_up,22);
+	public static Tile stone_corner_right_up = new SolidTile(Assets.stone_wall_corner_right_up,23);
+	public static Tile stone_corner_left_down = new SolidTile(Assets.stone_wall_corner_left_down,24);
+	public static Tile stone_corner_right_down = new SolidTile(Assets.stone_wall_corner_right_down,25);
+	public static Tile stone_null = new SolidTile(Assets.stone_null,26);
 	
 	//class
 	protected BufferedImage texture;
