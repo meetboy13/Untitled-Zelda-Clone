@@ -12,7 +12,7 @@ public class Assets {
 	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null,
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear;
-	public static BufferedImage[] btn_start;
+	public static BufferedImage[] btn_start,wizard_beam;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/gem.png"));
@@ -22,6 +22,8 @@ public class Assets {
 		SpriteSheet sheet5= new SpriteSheet(Loader.loadImage("/Textures/PlayButton.png"));
 		SpriteSheet sheet6= new SpriteSheet(Loader.loadImage("/Textures/PlayButtonSelected.png"));
 		SpriteSheet sheet7= new SpriteSheet(Loader.loadImage("/Textures/rock.png"));
+		SpriteSheet sheet8= new SpriteSheet(Loader.loadImage("/Sprite/wizard_beam1.png")); 
+		SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Sprite/wizard_beam2.png")); 
 		SpriteSheet sheet13= new SpriteSheet(Loader.loadImage("/Textures/dirt.png"));
 		SpriteSheet sheet14= new SpriteSheet(Loader.loadImage("/Textures/bridge_left.png"));
 		SpriteSheet sheet15= new SpriteSheet(Loader.loadImage("/Textures/bridge_right.png"));
@@ -53,6 +55,9 @@ public class Assets {
 		drop=sheet1.crop(0,0,100,100);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
 		rock=sheet7.crop(0, 0, 100, 100);
+		wizard_beam=new BufferedImage[2];
+		wizard_beam[0]=sheet8.crop(0,0,100,100);
+		wizard_beam[1]=sheet9.crop(0,0,100,100);
 		btn_start = new BufferedImage[2];
 		btn_start[0]=sheet5.crop(0,0,550,70);
 		btn_start[1]=sheet6.crop(0,0,550,70);

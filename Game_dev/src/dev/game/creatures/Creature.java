@@ -15,6 +15,7 @@ public abstract class Creature extends Entity {
 	protected float xMove,yMove;
 	protected enum Facing {UP,DOWN,LEFT,RIGHT;}
 	protected boolean stunned = false;
+	protected int stunnedDuration=0;
 	//constructor
 	public Creature(Handler handler, float x, float y,int width, int height) {
 		super( handler, x, y, width, height);
@@ -59,7 +60,27 @@ public abstract class Creature extends Entity {
 				}
 		}
 	}
-	
+	@Override
+	public void hurt(int damage,int deltaX,int deltaY) {
+		health-=damage;
+		if (health<=0) {
+			die();
+		}
+		xMove=0;
+		yMove=0;
+		if (deltaX<0) {
+			xMove=(speed*4);
+		}else {
+			xMove=-(4*speed);
+		}
+		if(deltaY<0) {
+			yMove=(speed*4);
+		}else {
+			yMove=-(4*speed);
+		}
+		stunned=true;
+		stunnedDuration=3;
+	}
 	//just calls the movement methods
 	public void move() {
 		if(!checkEntityCollisions(xMove,0f)) {
@@ -69,7 +90,13 @@ public abstract class Creature extends Entity {
 		moveY();
 		}
 	}
-	
+	public void stunDecay() {
+		if (stunnedDuration>0) {
+			stunnedDuration--;
+		}else if(stunned) {
+			stunned=false;
+		}
+	}
 	//just checks if tile at coords is solid or not
 	protected boolean collisionWithTile(int x, int y) {
 		return handler.getWorld().getTile(x, y).isSolid();

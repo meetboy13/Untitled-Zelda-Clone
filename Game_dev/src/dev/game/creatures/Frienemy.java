@@ -37,7 +37,10 @@ public class Frienemy extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
-		getInput();
+		stunDecay();
+		if(!stunned) {
+			getInput();
+		}
 		move();
 		
 	}

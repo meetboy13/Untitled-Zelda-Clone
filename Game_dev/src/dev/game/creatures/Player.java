@@ -24,7 +24,7 @@ public class Player extends Creature{
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
-		damage=2;
+		damage=500;
 		bounds.x=16;
 		bounds.y=32;
 		bounds.width=32;
@@ -47,24 +47,18 @@ public class Player extends Creature{
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
+		stunDecay();
 		if (!dead) {
-			getInput();
-			move();
-		}
-		else {
+			if(!stunned) {///change later so the player can still pause
+				getInput();
+			}
+				move();
+		}else {
 			animDie.tick();
 		}
 		handler.getGameCamera().centeronEntity(this);
 		checkAttacks();
 		inventory.tick();
-	}
-	
-	@Override
-	public void hurt(int damage) {
-		health-=damage;
-		if (health<=0) {
-			die();
-		}
 	}
 	
 	private void checkAttacks() {
@@ -102,7 +96,9 @@ public class Player extends Creature{
 			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 				if(e.equals(this)) {continue;}
 				if(e.getCollisionBounds(0, 0).intersects(ar)) {
-					e.hurt(damage);
+					int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
+					int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
+					e.hurt(damage,deltaX,deltaY);
 				}
 			}
 		}

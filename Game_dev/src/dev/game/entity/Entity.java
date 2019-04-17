@@ -44,7 +44,7 @@ public abstract class Entity {
 		}
 		return false;
 	}
-	public void hurt(int damage) {
+	public void hurt(int damage, int deltaX, int deltaY) {
 		health-=damage;
 		if (health<=0) {
 			active=false;
