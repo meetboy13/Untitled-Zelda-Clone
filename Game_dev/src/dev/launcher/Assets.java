@@ -9,9 +9,10 @@ public class Assets {
 	tree,player,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
-	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null,
+	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp,
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up;
-	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear;
+	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
+	friend_right,friend_left,friend_down;
 	public static BufferedImage[] btn_start,wizard_beam;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
@@ -22,11 +23,10 @@ public class Assets {
 		SpriteSheet sheet5= new SpriteSheet(Loader.loadImage("/Textures/PlayButton.png"));
 		SpriteSheet sheet6= new SpriteSheet(Loader.loadImage("/Textures/PlayButtonSelected.png"));
 		SpriteSheet sheet7= new SpriteSheet(Loader.loadImage("/Textures/rock.png"));
-		//SpriteSheet sheet8= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));	
-		//SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Sprite/Wizard beam1.png"));
-		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));
 		SpriteSheet sheet8= new SpriteSheet(Loader.loadImage("/Sprite/wizard_beam1.png")); 
 		SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Sprite/wizard_beam2.png")); 
+		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));
+		SpriteSheet sheet11= new SpriteSheet(Loader.loadImage("/Sprite/FriendSpriteSheet.png"));
 		SpriteSheet sheet13= new SpriteSheet(Loader.loadImage("/Textures/dirt.png"));
 		SpriteSheet sheet14= new SpriteSheet(Loader.loadImage("/Textures/bridge_left.png"));
 		SpriteSheet sheet15= new SpriteSheet(Loader.loadImage("/Textures/bridge_right.png"));
@@ -56,6 +56,7 @@ public class Assets {
 		SpriteSheet sheet40= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_left_up.png"));   
 		SpriteSheet sheet41= new SpriteSheet(Loader.loadImage("/Textures/stone_null.png"));  
 		drop=sheet1.crop(0,0,100,100);
+		startUp = sheet10.crop(0, 0, 1024, 768);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
 		rock=sheet7.crop(0, 0, 100, 100);
 		wizard_beam=new BufferedImage[2];
@@ -90,6 +91,26 @@ public class Assets {
 		player_die[2] = sheet26.crop(width*3,0, width, height);
 		player_die[3] = sheet26.crop(width*2,4*height, width, height);
 		player = sheet26.crop(0, 0, width, height);
+		friend_down = new BufferedImage[4];
+		friend_up = new BufferedImage[4];
+		friend_left = new BufferedImage[4];
+		friend_right = new BufferedImage[4];
+		friend_down[0] = sheet11.crop(0, 0, 130, 130);
+		friend_down[1] = sheet11.crop(0, 130, 130, 130);
+		friend_down[2] = sheet11.crop(0, 0, 130, 130);
+		friend_down[3] = sheet11.crop(0, 260, 130, 130);
+		friend_up[0] = sheet11.crop(390, 0, 130, 130);
+		friend_up[1] = sheet11.crop(390, 130, 130, 130);
+		friend_up[2] = sheet11.crop(390, 0, 130, 130);
+		friend_up[3] = sheet11.crop(390, 260, 130, 130);
+		friend_left[0] = sheet11.crop(130, 0, 130, 130);
+		friend_left[1] = sheet11.crop(130, 130, 130, 130);
+		friend_left[2] = sheet11.crop(130, 0, 130, 130);
+		friend_left[3] = sheet11.crop(130, 260, 130, 130);
+		friend_right[0] = sheet11.crop(260, 0, 130, 130);
+		friend_right[1] = sheet11.crop(260, 130, 130, 130);
+		friend_right[2] = sheet11.crop(260, 0, 130, 130);
+		friend_right[3] = sheet11.crop(260, 260, 130, 130);
 		spear = new BufferedImage[4];
 		spear[0] = sheet27.crop(0, 0, width, height);
 		spear[1] = sheet27.crop(width, 0, width, height);

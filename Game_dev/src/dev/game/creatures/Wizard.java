@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import dev.game.Handler;
 import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
-//import dev.game.entity.projectile.Magic;
+import dev.game.entity.projectile.Magic;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.WizardBeam;
 import dev.game.worlds.World.Direction;
@@ -157,8 +157,8 @@ public class Wizard extends Creature {
 	public void aggression() {
 		//square detection
 		//if(((x-200) < handler.getWorld().getEntityManager().getPlayer().getX()) && (handler.getWorld().getEntityManager().getPlayer().getX() <(x+200))&&(((y-200) < handler.getWorld().getEntityManager().getPlayer().getY()) && (handler.getWorld().getEntityManager().getPlayer().getY() <(y+200)))) {
-		//circle detection of radius 300
-		if ((Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(300, 2)){
+		//circle detection of radius 400
+		if ((Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(400, 2)){
 			setAggressive(true);
 		} else {
 			setAggressive(false);

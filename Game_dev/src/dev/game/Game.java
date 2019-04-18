@@ -11,6 +11,7 @@ import dev.game.item.Item;
 import dev.game.states.GameOverState;
 import dev.game.states.GameState;
 import dev.game.states.MenuState;
+import dev.game.states.StartState;
 import dev.game.states.State;
 import dev.launcher.Assets;
 import dev.launcher.GameCamera;
@@ -27,6 +28,7 @@ public class Game implements Runnable{
 	public State gameState;
 	public State menuState;
 	public State gameOverState;
+	public State startState;
 	private KeyManager KeyManager;
 	private BufferedImage testImage;
 	private SpriteSheet sheet;
@@ -60,14 +62,15 @@ public class Game implements Runnable{
 		
 		//call the asset initialisation function
 		Assets.init();
-		
 		handler = new Handler(this);
-		gameCamera=new GameCamera(handler,0,0);
+		gameCamera = new GameCamera(handler,0,0);
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
+		startState = new StartState(handler);
 		
 		//set initial gamestate
 		State.setState(menuState);
+		//State.setState(startState);
 	}
 	//main run function
 	public void run() {
@@ -93,6 +96,12 @@ public class Game implements Runnable{
 				render();
 				delta--;
 				tick++;
+				try {
+					Thread.sleep(12);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 				if (timer >= 1000000000){
 				System.out.println("Ticks and Frames: " + tick);
