@@ -36,6 +36,12 @@ public class Tile {
 	public static Tile stone_corner_left_down = new SolidTile(Assets.stone_wall_corner_left_down,24);
 	public static Tile stone_corner_right_down = new SolidTile(Assets.stone_wall_corner_right_down,25);
 	public static Tile stone_null = new SolidTile(Assets.stone_null,26);
+	public static Tile carpet_left = new NonSolidTile(Assets.carpet_left,27);
+	public static Tile carpet_right = new NonSolidTile(Assets.carpet_right,28);
+	public static Tile carpet_right_down = new NonSolidTile(Assets.carpet_right_down,29);
+	public static Tile carpet_left_down = new NonSolidTile(Assets.carpet_left_down,30);
+	public static Tile carpet_right_up = new NonSolidTile(Assets.carpet_right_up,31);
+	public static Tile carpet_left_up = new NonSolidTile(Assets.carpet_left_up,32);
 	
 	//class
 	protected BufferedImage texture;

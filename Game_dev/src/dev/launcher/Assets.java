@@ -10,7 +10,8 @@ public class Assets {
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
 	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp,
-	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up;
+	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
+	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
 	friend_right,friend_left,friend_down;
 	public static BufferedImage[] btn_start,wizard_beam,healthSpriteSheet;
@@ -55,7 +56,13 @@ public class Assets {
 		SpriteSheet sheet39= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_right_up.png"));  
 		SpriteSheet sheet40= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_left_up.png"));   
 		SpriteSheet sheet41= new SpriteSheet(Loader.loadImage("/Textures/stone_null.png"));    
-		SpriteSheet sheet42= new SpriteSheet(Loader.loadImage("/Textures/healthSpritesheet.png"));  
+		SpriteSheet sheet42= new SpriteSheet(Loader.loadImage("/Textures/healthSpritesheet.png")); 
+		SpriteSheet sheet43= new SpriteSheet(Loader.loadImage("/Textures/carpet_left.png")); 
+		SpriteSheet sheet44= new SpriteSheet(Loader.loadImage("/Textures/carpet_right.png")); 
+		SpriteSheet sheet45= new SpriteSheet(Loader.loadImage("/Textures/carpet_right_down.png"));  
+		SpriteSheet sheet46= new SpriteSheet(Loader.loadImage("/Textures/carpet_left_down.png"));
+		SpriteSheet sheet47= new SpriteSheet(Loader.loadImage("/Textures/carpet_right_up.png"));  
+		SpriteSheet sheet48= new SpriteSheet(Loader.loadImage("/Textures/carpet_left_up.png"));   
 		drop=sheet1.crop(0,0,100,100);
 		startUp = sheet10.crop(0, 0, 1024, 768);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
@@ -152,5 +159,11 @@ public class Assets {
 		stone_wall_corner_right_up = sheet39.crop(0, 0, 100, 100);
 		stone_wall_corner_left_up = sheet40.crop(0, 0, 100, 100);
 		stone_null = sheet41.crop(0, 0, 100, 100);
+		carpet_left = sheet43.crop(0, 0, 100, 100);
+		carpet_right = sheet44.crop(0, 0, 100, 100);
+		carpet_right_down = sheet45.crop(0, 0, 100, 100);
+		carpet_left_down = sheet46.crop(0, 0, 1000, 1000);
+		carpet_right_up = sheet47.crop(0, 0, 100, 100);
+		carpet_left_up = sheet48.crop(0, 0, 1000, 1000);
 	}
 }
