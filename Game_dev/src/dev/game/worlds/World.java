@@ -3,6 +3,7 @@ package dev.game.worlds;
 import java.awt.Graphics;
 
 import dev.game.Handler;
+import dev.game.creatures.Bull;
 import dev.game.creatures.Frienemy;
 import dev.game.creatures.Player;
 import dev.game.creatures.Sheep;
@@ -162,6 +163,11 @@ public class World {
 
 			}else if(entityType==5) {
 				entityManager.addEntity(new Rock(handler,entitySpawnX,entitySpawnY));
+			}else if(entityType==6) {
+				Bull bull= new Bull(handler,0,0,100,100,false);
+				bull.setX(entitySpawnX);
+				bull.setY(entitySpawnY);
+				entityManager.addEntity(bull);
 			}
 			
 			else if(entityType==92) {

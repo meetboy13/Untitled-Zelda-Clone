@@ -40,7 +40,7 @@ public class Assets {
 		SpriteSheet sheet23= new SpriteSheet(Loader.loadImage("/Textures/wall_left_up.png"));
 		SpriteSheet sheet24= new SpriteSheet(Loader.loadImage("/Textures/wall_right_up.png"));
 		SpriteSheet sheet25= new SpriteSheet(Loader.loadImage("/Sprite/tree.png"));
-		SpriteSheet sheet26= new SpriteSheet(Loader.loadImage("/Textures/PlayerSpriteSheet.png")); 
+		SpriteSheet sheet26= new SpriteSheet(Loader.loadImage("/Sprite/PlayerSpriteSheet.png")); 
 		SpriteSheet sheet27= new SpriteSheet(Loader.loadImage("/Sprite/spear.png")); 
 		SpriteSheet sheet28= new SpriteSheet(Loader.loadImage("/Textures/stone.png")); 
 		SpriteSheet sheet29= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_left.png")); 
@@ -61,7 +61,7 @@ public class Assets {
 		SpriteSheet sheet44= new SpriteSheet(Loader.loadImage("/Textures/carpet_right.png")); 
 		SpriteSheet sheet45= new SpriteSheet(Loader.loadImage("/Textures/carpet_right_down.png"));  
 		SpriteSheet sheet46= new SpriteSheet(Loader.loadImage("/Textures/carpet_left_down.png"));
-		SpriteSheet sheet47= new SpriteSheet(Loader.loadImage("/Textures/carpet_right_up.png"));  
+		SpriteSheet sheet47= new SpriteSheet(Loader.loadImage("/Textures/carpet_right_top.png"));  
 		SpriteSheet sheet48= new SpriteSheet(Loader.loadImage("/Textures/carpet_left_up.png"));   
 		drop=sheet1.crop(0,0,100,100);
 		startUp = sheet10.crop(0, 0, 1024, 768);
@@ -162,8 +162,8 @@ public class Assets {
 		carpet_left = sheet43.crop(0, 0, 100, 100);
 		carpet_right = sheet44.crop(0, 0, 100, 100);
 		carpet_right_down = sheet45.crop(0, 0, 100, 100);
-		carpet_left_down = sheet46.crop(0, 0, 1000, 1000);
+		carpet_left_down = sheet46.crop(0, 0, 100, 100);
 		carpet_right_up = sheet47.crop(0, 0, 100, 100);
-		carpet_left_up = sheet48.crop(0, 0, 1000, 1000);
+		carpet_left_up = sheet48.crop(0, 0, 100, 100);
 	}
 }
