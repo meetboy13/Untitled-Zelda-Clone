@@ -25,7 +25,7 @@ public class WizardBeam extends Projectile{
 		beam= new Animation(rate+20, Assets.wizard_beam);
 	}
 
-	@Override
+	/*@Override
 	public void setDirection(Direction direction) {
 		if(direction==Direction.UP) {
 			yMove=-speed;
@@ -39,7 +39,7 @@ public class WizardBeam extends Projectile{
 		else if(direction==Direction.RIGHT) {
 			xMove=speed;
 		}
-	}
+	}*/
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
@@ -52,5 +52,11 @@ public class WizardBeam extends Projectile{
 		// TODO Auto-generated method stub
 		g.drawImage(beam.getCurrentFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),DEFAULT_PROJECTILE_WIDTH,DEFAULT_PROJECTILE_HEIGHT,null);
 	}
-
+	public void setXSpeed(float xRatio) {
+		xMove = xRatio*speed;
+	}
+	
+	public void setYSpeed(float yRatio) {
+		yMove = yRatio*speed;
+	}
 }

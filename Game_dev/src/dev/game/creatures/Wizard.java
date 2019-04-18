@@ -85,26 +85,26 @@ public class Wizard extends Creature {
 		float yRatio = Math.abs(yDelta)/(Math.abs(xDelta)+Math.abs(yDelta));
 
 		//Magic attack=new Magic(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Magic.DEFAULT_PROJECTILE_HEIGHT/4));
-		Magic attack;
+		WizardBeam attack;
 
 		if(lastDirection==Facing.UP) {
 //changes made here
-			attack=new Magic(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Magic.DEFAULT_PROJECTILE_HEIGHT/4));
+			attack=new WizardBeam(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Magic.DEFAULT_PROJECTILE_HEIGHT/4));
 			//attack.setDirection(Direction.UP);
 			//handler.getWorld().getProjectileManager().addEntity(attack);
 		}
 		else if(lastDirection==Facing.DOWN) {
-			attack=new Magic(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y+height+Magic.DEFAULT_PROJECTILE_HEIGHT/4));
+			attack=new WizardBeam(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y+height+Magic.DEFAULT_PROJECTILE_HEIGHT/4));
 			//attack.setDirection(Direction.DOWN);
 			//handler.getWorld().getProjectileManager().addEntity(attack);
 		}
 		else if(lastDirection==Facing.LEFT) {
-			attack=new Magic(handler, (int)(x-Magic.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Magic.DEFAULT_PROJECTILE_HEIGHT/2);
+			attack=new WizardBeam(handler, (int)(x-Magic.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Magic.DEFAULT_PROJECTILE_HEIGHT/2);
 			//attack.setDirection(Direction.LEFT);
 			//handler.getWorld().getProjectileManager().addEntity(attack);
 		}
 		else /*if(lastDirection==Facing.RIGHT)*/ {
-			attack=new Magic(handler,(int)(x+width+Magic.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Magic.DEFAULT_PROJECTILE_HEIGHT/2);
+			attack=new WizardBeam(handler,(int)(x+width+Magic.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Magic.DEFAULT_PROJECTILE_HEIGHT/2);
 			//attack.setDirection(Direction.RIGHT);
 			//handler.getWorld().getProjectileManager().addEntity(attack);
 		}//else {
