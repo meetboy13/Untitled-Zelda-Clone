@@ -9,7 +9,7 @@ import dev.launcher.Assets;
 public class TransitionItem extends Item{
 	private String pathEntity,pathWorld;
 	public TransitionItem(String name, int id,String pathWorld,String pathEntity) {
-		super(Assets.drop,name, id);
+		super(Assets.drop,name, 3);
 		width=64;
 		height=64;
 		this.pathEntity=pathEntity;

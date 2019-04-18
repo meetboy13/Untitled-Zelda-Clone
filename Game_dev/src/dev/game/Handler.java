@@ -2,14 +2,18 @@ package dev.game;
 
 
 
+import dev.game.HUD.HUD;
 import dev.game.input.KeyManager;
 import dev.game.worlds.World;
 import dev.launcher.GameCamera;
 import dev.game.input.MouseManager;
+import dev.game.inventory.Inventory;
 
 public class Handler {
 	private Game game;
 	private World world;
+	private HUD hud;
+	private Inventory PlayerInventory;
 	//constructor
 	public Handler (Game Game) {
 		this.game=Game;
@@ -41,6 +45,10 @@ public class Handler {
 	}
 	public MouseManager getMouseManager() {
 		return game.getMouseManager();
+	}
+	public void setHUD(HUD hud) {
+		// TODO Auto-generated method stub
+		this.hud=hud;
 	}
 	
 }

@@ -13,7 +13,7 @@ public class Assets {
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
 	friend_right,friend_left,friend_down;
-	public static BufferedImage[] btn_start,wizard_beam;
+	public static BufferedImage[] btn_start,wizard_beam,healthSpriteSheet;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/gem.png"));
@@ -54,7 +54,8 @@ public class Assets {
 		SpriteSheet sheet38= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_left_down.png"));
 		SpriteSheet sheet39= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_right_up.png"));  
 		SpriteSheet sheet40= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_left_up.png"));   
-		SpriteSheet sheet41= new SpriteSheet(Loader.loadImage("/Textures/stone_null.png"));  
+		SpriteSheet sheet41= new SpriteSheet(Loader.loadImage("/Textures/stone_null.png"));    
+		SpriteSheet sheet42= new SpriteSheet(Loader.loadImage("/Textures/healthSpritesheet.png"));  
 		drop=sheet1.crop(0,0,100,100);
 		startUp = sheet10.crop(0, 0, 1024, 768);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
@@ -65,6 +66,12 @@ public class Assets {
 		btn_start = new BufferedImage[2];
 		btn_start[0]=sheet5.crop(0,0,550,70);
 		btn_start[1]=sheet6.crop(0,0,550,70);
+		healthSpriteSheet = new BufferedImage[5];
+		healthSpriteSheet[0] = sheet42.crop(0,0, 50, 50);
+		healthSpriteSheet[1] = sheet42.crop(50,0, 50, 50);
+		healthSpriteSheet[2] = sheet42.crop(50*2,0, 50, 50);
+		healthSpriteSheet[3] = sheet42.crop(50*3,0, 50, 50);
+		healthSpriteSheet[4] = sheet42.crop(50*4,0, 50, 50);
 		player_down = new BufferedImage[4];
 		player_up = new BufferedImage[4];
 		player_right = new BufferedImage[4];

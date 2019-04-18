@@ -9,8 +9,9 @@ public abstract class Creature extends Entity {
 	public static final int DEFAULT_CREATURE_WIDTH=64;
 	public static final int DEFAULT_CREATURE_HEIGHT=64;
 	public static final int DEFAULT_CREATURE_DAMAGE=1;
+	public static final int DEFAULT_CREATURE_MAX_HEALTH=10;
 
-	protected int damage;
+	protected int damage,maxHealth;
 	protected float speed;
 	protected float xMove,yMove;
 	protected enum Facing {UP,DOWN,LEFT,RIGHT;}
@@ -19,6 +20,7 @@ public abstract class Creature extends Entity {
 	//constructor
 	public Creature(Handler handler, float x, float y,int width, int height) {
 		super( handler, x, y, width, height);
+		maxHealth=DEFAULT_CREATURE_MAX_HEALTH;
 		damage=DEFAULT_CREATURE_DAMAGE;
 		speed=DEFAULT_SPEED;
 		xMove =0;
@@ -136,6 +138,14 @@ public abstract class Creature extends Entity {
 
 	public void setSpeed(float speed) {
 		this.speed = speed;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
 	}
 	
 }

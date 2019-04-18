@@ -39,9 +39,16 @@ public class Inventory {
 			}
 		}
 		inventoryItems.add(item);
-		
 	}
-	
+	public int getItemCount(int id) {
+		for(Item i: inventoryItems) {
+			if(i.getId()==id) {
+				return i.getCount();
+
+			}
+		}
+		return 0;
+	}
 	public Handler getHandler() {
 		return handler;
 	}
