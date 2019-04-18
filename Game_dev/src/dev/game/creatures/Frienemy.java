@@ -70,6 +70,7 @@ public class Frienemy extends Creature {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
+		active=false;
 		
 	}
 	private BufferedImage getCurrentAnimationFrame() {

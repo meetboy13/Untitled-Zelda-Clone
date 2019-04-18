@@ -245,6 +245,7 @@ public class Wizard extends Creature {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
+		active=false;
 		System.out.println("WIZARD GA SHINDA");
 
 	}

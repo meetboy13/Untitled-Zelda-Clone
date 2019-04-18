@@ -62,6 +62,7 @@ public abstract class Creature extends Entity {
 	}
 	@Override
 	public void hurt(int damage,int deltaX,int deltaY) {
+		
 		health-=damage;
 		if (health<=0) {
 			die();
