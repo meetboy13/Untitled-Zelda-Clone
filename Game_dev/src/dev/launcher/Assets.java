@@ -8,9 +8,11 @@ public class Assets {
 	public static BufferedImage 
 	tree,player,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
-	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,stone_wall_left_down,stone_wall_left_up,stone_wall_right_up;
+	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
+	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null,
+	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear;
-	public static BufferedImage[] btn_start;
+	public static BufferedImage[] btn_start,wizard_beam;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/gem.png"));
@@ -20,9 +22,11 @@ public class Assets {
 		SpriteSheet sheet5= new SpriteSheet(Loader.loadImage("/Textures/PlayButton.png"));
 		SpriteSheet sheet6= new SpriteSheet(Loader.loadImage("/Textures/PlayButtonSelected.png"));
 		SpriteSheet sheet7= new SpriteSheet(Loader.loadImage("/Textures/rock.png"));
-		SpriteSheet sheet8= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));	
-		SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Sprite/Wizard beam1.png"));
-		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Sprite/Wizard beam2.png"));
+		//SpriteSheet sheet8= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));	
+		//SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Sprite/Wizard beam1.png"));
+		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));
+		SpriteSheet sheet8= new SpriteSheet(Loader.loadImage("/Sprite/wizard_beam1.png")); 
+		SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Sprite/wizard_beam2.png")); 
 		SpriteSheet sheet13= new SpriteSheet(Loader.loadImage("/Textures/dirt.png"));
 		SpriteSheet sheet14= new SpriteSheet(Loader.loadImage("/Textures/bridge_left.png"));
 		SpriteSheet sheet15= new SpriteSheet(Loader.loadImage("/Textures/bridge_right.png"));
@@ -46,9 +50,17 @@ public class Assets {
 		SpriteSheet sheet34= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_left_down.png"));
 		SpriteSheet sheet35= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_right_up.png"));  
 		SpriteSheet sheet36= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_left_up.png"));  
+		SpriteSheet sheet37= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_right_down.png"));  
+		SpriteSheet sheet38= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_left_down.png"));
+		SpriteSheet sheet39= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_right_up.png"));  
+		SpriteSheet sheet40= new SpriteSheet(Loader.loadImage("/Textures/stone_wall_corner_left_up.png"));   
+		SpriteSheet sheet41= new SpriteSheet(Loader.loadImage("/Textures/stone_null.png"));  
 		drop=sheet1.crop(0,0,100,100);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
 		rock=sheet7.crop(0, 0, 100, 100);
+		wizard_beam=new BufferedImage[2];
+		wizard_beam[0]=sheet8.crop(0,0,100,100);
+		wizard_beam[1]=sheet9.crop(0,0,100,100);
 		btn_start = new BufferedImage[2];
 		btn_start[0]=sheet5.crop(0,0,550,70);
 		btn_start[1]=sheet6.crop(0,0,550,70);
@@ -83,7 +95,7 @@ public class Assets {
 		spear[1] = sheet27.crop(width, 0, width, height);
 		spear[2] = sheet27.crop(width*2, 0, width, height);
 		spear[3] = sheet27.crop(width*3, 0, width, height);
-		magic = sheet10.crop(0,0,width,height);
+		magic = sheet8.crop(0,0,width,height);
 		water = sheet3.crop(0, 0, 1000, 1000);
 		grass = sheet4.crop(0, 0, 1000, 1000);
 		dirt = sheet13.crop(0, 0, 1000, 1000);
@@ -106,6 +118,11 @@ public class Assets {
 		stone_wall_right_down = sheet33.crop(0, 0, 1000, 1000);
 		stone_wall_left_down = sheet34.crop(0, 0, 1000, 1000);
 		stone_wall_right_up = sheet35.crop(1, 0, 99, 100);
-		stone_wall_left_up = sheet36.crop(0, 0, 100, 100);
+		stone_wall_left_up = sheet36.crop(0, 1, 100, 99);
+		stone_wall_corner_right_down = sheet37.crop(1, 0, 99, 100);
+		stone_wall_corner_left_down = sheet38.crop(0, 0, 100, 100);
+		stone_wall_corner_right_up = sheet39.crop(0, 0, 100, 100);
+		stone_wall_corner_left_up = sheet40.crop(0, 0, 100, 100);
+		stone_null = sheet41.crop(0, 0, 100, 100);
 	}
 }

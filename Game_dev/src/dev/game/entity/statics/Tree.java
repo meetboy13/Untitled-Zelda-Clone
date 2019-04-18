@@ -42,7 +42,9 @@ public class Tree extends StaticEntity{
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) {continue;}
 			if(e.getCollisionBounds(0, 0).intersects(ar)) {
-				e.hurt(1);
+				int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
+				int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
+				e.hurt(1,deltaX,deltaY);
 			}
 		}
 	}

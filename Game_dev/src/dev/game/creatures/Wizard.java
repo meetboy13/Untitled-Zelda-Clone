@@ -8,7 +8,9 @@ import java.awt.image.BufferedImage;
 import dev.game.Handler;
 import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
-import dev.game.entity.projectile.Magic;
+//import dev.game.entity.projectile.Magic;
+import dev.game.entity.projectile.Arrow;
+import dev.game.entity.projectile.WizardBeam;
 import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -49,7 +51,10 @@ public class Wizard extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
-		getInput();
+		if(!stunned) {
+			getInput();
+		}
+		stunDecay();
 		move();
 		if (!alwaysAggressive) {
 			aggression();
@@ -83,6 +88,7 @@ public class Wizard extends Creature {
 		Magic attack;
 
 		if(lastDirection==Facing.UP) {
+//changes made here
 			attack=new Magic(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Magic.DEFAULT_PROJECTILE_HEIGHT/4));
 			//attack.setDirection(Direction.UP);
 			//handler.getWorld().getProjectileManager().addEntity(attack);
@@ -107,6 +113,26 @@ public class Wizard extends Creature {
 		
 		if(xDelta>0) {
 			attack.setXSpeed(-xRatio);
+/*
+			WizardBeam attack=new WizardBeam(handler, x+width/2-Arrow.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Arrow.DEFAULT_PROJECTILE_HEIGHT/4));
+			attack.setDirection(Direction.UP);
+			handler.getWorld().getProjectileManager().addEntity(attack);
+		}
+		else if(lastDirection==Facing.DOWN) {
+			WizardBeam attack=new WizardBeam(handler, x+width/2-Arrow.DEFAULT_PROJECTILE_WIDTH/2, (int)(y+height+Arrow.DEFAULT_PROJECTILE_HEIGHT/4));
+			attack.setDirection(Direction.DOWN);
+			handler.getWorld().getProjectileManager().addEntity(attack);
+		}
+		else if(lastDirection==Facing.LEFT) {
+			WizardBeam attack=new WizardBeam(handler, (int)(x-Arrow.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Arrow.DEFAULT_PROJECTILE_HEIGHT/2);
+			attack.setDirection(Direction.LEFT);
+			handler.getWorld().getProjectileManager().addEntity(attack);
+		}
+		else if(lastDirection==Facing.RIGHT) {
+			WizardBeam attack=new WizardBeam(handler,(int)(x+width+Arrow.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Arrow.DEFAULT_PROJECTILE_HEIGHT/2);
+			attack.setDirection(Direction.RIGHT);
+			handler.getWorld().getProjectileManager().addEntity(attack);
+*/
 		}else {
 			attack.setXSpeed(xRatio);
 		}

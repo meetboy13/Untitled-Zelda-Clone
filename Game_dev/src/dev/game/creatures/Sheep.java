@@ -38,7 +38,10 @@ public class Sheep extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
-		getInput();
+		stunDecay();
+		if(!stunned) {
+			getInput();
+		}
 		move();
 		
 	}

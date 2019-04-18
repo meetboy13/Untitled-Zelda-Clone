@@ -83,7 +83,9 @@ public abstract class Projectile extends Entity{
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) {continue;}
 			if(e.getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))&& e.isSolid()) {
-				e.hurt(damage);
+				int deltaX=(int) (this.getX()-e.getX());
+				int deltaY=(int) (this.getY()-e.getY());
+				e.hurt(damage,deltaX,deltaY);
 				damaged=true;
 			}
 		}
