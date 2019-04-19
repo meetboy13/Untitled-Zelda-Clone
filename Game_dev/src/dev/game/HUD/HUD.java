@@ -1,5 +1,7 @@
 package dev.game.HUD;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import dev.game.Handler;
@@ -39,19 +41,31 @@ public class HUD {
 	public void render(Graphics g) {
 		int xOffset=0;
 		int healthtemp=health;
+		
+		int x=100;
+		int y=200;
+		String gems="1:";
+		Font f = new Font("Courier", Font.PLAIN,50);
+		g.setColor(Color.BLACK);
+		g.setFont(f);
+		g.drawString(gems, handler.getWidth()-x, 50);
+		
 		while(healthtemp>4) {
 			g.drawImage(Assets.healthSpriteSheet[4], xOffset, 0, Assets.healthSpriteSheet[4].getWidth(), Assets.healthSpriteSheet[4].getHeight(),null);
 			xOffset+=Assets.healthSpriteSheet[4].getWidth();
 			healthtemp-=4;
 		}
+		
 		g.drawImage(Assets.healthSpriteSheet[healthtemp], xOffset, 0, Assets.healthSpriteSheet[healthtemp].getWidth(), Assets.healthSpriteSheet[healthtemp].getHeight(),null);
 		xOffset+=Assets.healthSpriteSheet[healthtemp].getWidth();
+		
 		int emptyslots=((handler.getWorld().getEntityManager().getPlayer().getMaxHealth())/4-(health-1)/4);
 		while(emptyslots>0) {
 			g.drawImage(Assets.healthSpriteSheet[0], xOffset, 0, Assets.healthSpriteSheet[0].getWidth(), Assets.healthSpriteSheet[0].getHeight(),null);
 			xOffset+=Assets.healthSpriteSheet[0].getWidth();
 			emptyslots--;
 		}
+
 		
 	}
 }
