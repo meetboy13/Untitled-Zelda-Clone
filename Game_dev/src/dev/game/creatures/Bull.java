@@ -16,7 +16,6 @@ import dev.launcher.Assets;
 
 public class Bull extends Creature {
 
-	private long lastAttackTimer = 0,attackCooldown=1000,attackTimer=attackCooldown;
 	private boolean aggressive = false;
 	private boolean face=false;
 	private boolean alwaysAggressive;
@@ -24,6 +23,8 @@ public class Bull extends Creature {
 	private Animation animDown,animUp,animLeft,animRight;
 	private Facing lastDirection=Facing.DOWN;
 	private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
+	private Rectangle cb =this.getCollisionBounds(0,0);
+	private Rectangle ar= new Rectangle();
 	private Random rand = new Random();
 	public Bull(Handler handler, float x, float y, int width, int height, boolean fixedAggre) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
@@ -51,57 +52,71 @@ public class Bull extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
-		getInput();
-		stunDecay();
-		move();
-		if (!alwaysAggressive) {
+		if (!stunned) {	
+			getInput();
+			stunDecay();
+			move();
 			aggression();
+			checkAttacks();
+		}else {
+			stunDecay();
 		}
-		checkAttacks();
 	}
 
 
 	private void checkAttacks() {
-		attackTimer+=System.currentTimeMillis()-lastAttackTimer;
-		lastAttackTimer=System.currentTimeMillis();
-		if(attackTimer<attackCooldown) {
-			return;
-		}
 		// TODO Auto-generated method stub
 		if(!aggressive && !alwaysAggressive) {
 			return;
 		}
-		if((xMove!=0) || (yMove!=0)) {
+		if(!face) {
 			return;
 		}
-		attackTimer = 0;
+		if(xMove==1||xMove==-1||yMove==-1||yMove==1) {
+			return;
+		}
 		attacking = true;
 
-		
+		cb =this.getCollisionBounds(0,0);
+		ar= new Rectangle();
+		int arSize=20;
+		ar.width=arSize;
+		ar.height=arSize;
+		xMove=0;
+		yMove=0;
 		if(lastDirection==Facing.UP) {
-			//WizardBeam attack=new WizardBeam(handler, x+width/2-Arrow.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Arrow.DEFAULT_PROJECTILE_HEIGHT/4));
-			//attack.setDirection(Direction.UP);
-			//handler.getWorld().getProjectileManager().addEntity(attack);
 			yMove = -6;
+			ar.x=cb.x+cb.width/2-arSize/2;
+			ar.y=cb.y-arSize;
 		}
 		else if(lastDirection==Facing.DOWN) {
-			//WizardBeam attack=new WizardBeam(handler, x+width/2-Arrow.DEFAULT_PROJECTILE_WIDTH/2, (int)(y+height+Arrow.DEFAULT_PROJECTILE_HEIGHT/4));
-			//attack.setDirection(Direction.DOWN);
-			//handler.getWorld().getProjectileManager().addEntity(attack);
 			yMove = 6;
+			ar.x=cb.x+cb.width/2-arSize/2;
+			ar.y=cb.y+cb.height;
 		}
 		else if(lastDirection==Facing.LEFT) {
-			//WizardBeam attack=new WizardBeam(handler, (int)(x-Arrow.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Arrow.DEFAULT_PROJECTILE_HEIGHT/2);
-			//attack.setDirection(Direction.LEFT);
-			//handler.getWorld().getProjectileManager().addEntity(attack);
 			xMove = -6;
+			ar.x=cb.x-arSize;
+			ar.y=cb.y+cb.height/2-arSize/2;
 		}
 		else if(lastDirection==Facing.RIGHT) {
-			//WizardBeam attack=new WizardBeam(handler,(int)(x+width+Arrow.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Arrow.DEFAULT_PROJECTILE_HEIGHT/2);
-			//attack.setDirection(Direction.RIGHT);
-			//handler.getWorld().getProjectileManager().addEntity(attack);
 			xMove = 6;
+			ar.x=cb.x+cb.width;
+			ar.y=cb.y+cb.height/2-arSize/2;
 		}
+		
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+			if(e.equals(this)) {continue;}
+			if(e.getCollisionBounds(0, 0).intersects(ar)) {
+				int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
+				int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
+				e.hurt(damage,deltaX,deltaY);
+				attacking=false;
+				stunned=true;
+				stunnedDuration=150;
+			}
+		}
+		
 	}
 
 
@@ -109,7 +124,6 @@ public class Bull extends Creature {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-
 	}
 	public void aggression() {
 		//square detection
@@ -119,8 +133,7 @@ public class Bull extends Creature {
 			setAggressive(true);
 		} else {
 			setAggressive(false);
-			face=true;
-			//face=false;
+			face=false;
 			attacking = false;
 		}
 	}
@@ -133,8 +146,8 @@ public class Bull extends Creature {
 
 			
 			if (Math.abs(xDelta) < 15){
-				if (face){//face the player before shooting
-					face=false;
+				if (!face){//face the player before shooting
+					face=true;
 					if(yDelta>0) {
 						yMove=-1;
 					}else if(yDelta<0) {
@@ -142,8 +155,8 @@ public class Bull extends Creature {
 					}
 				}
 			}else if(Math.abs(yDelta)<15){
-				if (face){//face the player before shooting
-					face=false;
+				if (!face){//face the player before shooting
+					face=true;
 					if(xDelta>0) {
 						xMove=-1;
 					}else if(xDelta<0) {
@@ -151,15 +164,14 @@ public class Bull extends Creature {
 					}
 				}
 			}else if (Math.abs(xDelta)<Math.abs(yDelta)) {//LOS with player is closest in x direction
-				face=true;
+				face=false;
 				if(xDelta>0) {
 					xMove=-speed;
 				}else if(xDelta<0) {
 					xMove=speed;
 				}
 			}else if (Math.abs(yDelta)<Math.abs(xDelta)) {//LOS with player is closest in y direction
-				System.out.println("Ymatch");
-				face=true;
+				face=false;
 				if(yDelta>0) {
 					yMove=-speed;
 				}else if(yDelta<0) {
@@ -207,7 +219,6 @@ public class Bull extends Creature {
 	public void die() {
 		// TODO Auto-generated method stub
 		active=false;
-		System.out.println("BULL GA SHINDA");
 
 	}
 	public void setAggressive(boolean aggro) {

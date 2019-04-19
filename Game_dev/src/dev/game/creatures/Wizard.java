@@ -11,6 +11,7 @@ import dev.game.entity.Entity;
 import dev.game.entity.projectile.Magic;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.WizardBeam;
+import dev.game.item.Item;
 import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -246,7 +247,9 @@ public class Wizard extends Creature {
 	public void die() {
 		// TODO Auto-generated method stub
 		active=false;
-		System.out.println("WIZARD GA SHINDA");
+		int xVar=rand.nextInt(128)-64;
+		int yVar=rand.nextInt(128)-64;
+		handler.getWorld().getItemManager().addItem(Item.drop.createNew((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
 
 	}
 	public void setAggressive(boolean aggro) {

@@ -94,7 +94,6 @@ public abstract class Creature extends Entity {
 		moveY();
 		}
 	}
-	
 	public void stunDecay() {
 		if (stunnedDuration>0) {
 			stunnedDuration--;

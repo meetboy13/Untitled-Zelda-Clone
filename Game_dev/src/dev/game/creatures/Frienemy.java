@@ -3,8 +3,10 @@ package dev.game.creatures;
 import java.awt.Graphics;
 //import java.util.Random;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import dev.game.Handler;
+import dev.game.item.Item;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 
@@ -12,6 +14,7 @@ public class Frienemy extends Creature {
 
 	private Animation animDown,animUp,animLeft,animRight;
 	private Facing lastDirection=Facing.DOWN;
+	private Random rand = new Random();
 	//private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	//private Random rand = new Random();
 	public Frienemy(Handler handler, float x, float y, int width, int height) {
@@ -71,6 +74,9 @@ public class Frienemy extends Creature {
 	public void die() {
 		// TODO Auto-generated method stub
 		active=false;
+		int xVar=rand.nextInt(128)-64;
+		int yVar=rand.nextInt(128)-64;
+		handler.getWorld().getItemManager().addItem(Item.drop.createNew((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
 		
 	}
 	private BufferedImage getCurrentAnimationFrame() {
