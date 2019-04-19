@@ -69,6 +69,7 @@ public abstract class Creature extends Entity {
 		if (health<=0) {
 			die();
 		}
+		//knockback
 		xMove=0;
 		yMove=0;
 		if (deltaX<0) {
@@ -82,7 +83,7 @@ public abstract class Creature extends Entity {
 			yMove=-(4*speed);
 		}
 		stunned=true;
-		stunnedDuration=3;
+		stunnedDuration=2;
 	}
 	//just calls the movement methods
 	public void move() {
@@ -93,6 +94,7 @@ public abstract class Creature extends Entity {
 		moveY();
 		}
 	}
+	
 	public void stunDecay() {
 		if (stunnedDuration>0) {
 			stunnedDuration--;

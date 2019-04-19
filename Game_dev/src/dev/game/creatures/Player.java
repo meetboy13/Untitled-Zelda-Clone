@@ -19,8 +19,8 @@ public class Player extends Creature{
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Facing lastDirection=Facing.DOWN;
 	private Inventory inventory;
-	private boolean dead = false;
-	private int deathLoop=0;
+	private boolean dead = false,temp=false;
+	private int deathLoop=0,corruption=0,corruptionMax=200;
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
@@ -59,6 +59,14 @@ public class Player extends Creature{
 		handler.getGameCamera().centeronEntity(this);
 		checkAttacks();
 		inventory.tick();
+		if (corruption>=200||corruption<=0) {
+			temp=!temp;
+		}
+		if (temp) {
+			corruption++;
+		}else {
+			corruption--;
+		}
 	}
 	
 	private void checkAttacks() {
@@ -186,7 +194,21 @@ public class Player extends Creature{
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
-	
-	
+
+	public int getCorruption() {
+		return corruption;
+	}
+
+	public void setCorruption(int corruption) {
+		this.corruption = corruption;
+	}
+
+	public int getCorruptionMax() {
+		return corruptionMax;
+	}
+
+	public void setCorruptionMax(int corruptionMax) {
+		this.corruptionMax = corruptionMax;
+	}
 	
 }

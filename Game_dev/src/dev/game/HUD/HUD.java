@@ -9,7 +9,8 @@ import dev.game.states.State;
 import dev.launcher.Assets;
 
 public class HUD {
-	private int health,gems,corruption;
+	private int health,gems;
+	private float corruption;
 	private Handler handler;
 	public HUD (Handler handler) {
 		this.handler=handler;
@@ -27,7 +28,7 @@ public class HUD {
 
 	private void getCorruption() {
 		// TODO Auto-generated method stub
-		this.corruption=0;
+		this.corruption=handler.getWorld().getEntityManager().getPlayer().getCorruption();
 	}
 
 	private void getHealth() {
@@ -43,29 +44,36 @@ public class HUD {
 		int healthtemp=health;
 		
 		int x=100;
-		int y=200;
-		String gems="1:";
-		Font f = new Font("Courier", Font.PLAIN,50);
+		Font f = new Font("Courier", Font.PLAIN,20);
 		g.setColor(Color.BLACK);
 		g.setFont(f);
-		g.drawString(gems, handler.getWidth()-x, 50);
+		if(this.gems>0) {
+			g.drawString(this.gems+"X", (int) (handler.getWidth()-x-((int)(Math.log10(this.gems))*12)), 20);
+		}else {
+			g.drawString(this.gems+"X", (int) (handler.getWidth()-x), 20);
+		}
+		g.drawImage(Assets.drop, handler.getWidth()-70, 0, 15,24,null);
 		
 		while(healthtemp>4) {
-			g.drawImage(Assets.healthSpriteSheet[4], xOffset, 0, Assets.healthSpriteSheet[4].getWidth(), Assets.healthSpriteSheet[4].getHeight(),null);
+			g.drawImage(Assets.healthSpriteSheet[4], xOffset, 20, Assets.healthSpriteSheet[4].getWidth(), Assets.healthSpriteSheet[4].getHeight(),null);
 			xOffset+=Assets.healthSpriteSheet[4].getWidth();
 			healthtemp-=4;
 		}
 		
-		g.drawImage(Assets.healthSpriteSheet[healthtemp], xOffset, 0, Assets.healthSpriteSheet[healthtemp].getWidth(), Assets.healthSpriteSheet[healthtemp].getHeight(),null);
+		g.drawImage(Assets.healthSpriteSheet[healthtemp], xOffset, 20, Assets.healthSpriteSheet[healthtemp].getWidth(), Assets.healthSpriteSheet[healthtemp].getHeight(),null);
 		xOffset+=Assets.healthSpriteSheet[healthtemp].getWidth();
 		
 		int emptyslots=((handler.getWorld().getEntityManager().getPlayer().getMaxHealth())/4-(health-1)/4);
 		while(emptyslots>0) {
-			g.drawImage(Assets.healthSpriteSheet[0], xOffset, 0, Assets.healthSpriteSheet[0].getWidth(), Assets.healthSpriteSheet[0].getHeight(),null);
+			g.drawImage(Assets.healthSpriteSheet[0], xOffset, 20, Assets.healthSpriteSheet[0].getWidth(), Assets.healthSpriteSheet[0].getHeight(),null);
 			xOffset+=Assets.healthSpriteSheet[0].getWidth();
 			emptyslots--;
 		}
-
+		g.setColor(Color.gray);
+		g.fillRect(0, 0, 200, 20);
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 5, (int) (200*(corruption/handler.getWorld().getEntityManager().getPlayer().getCorruptionMax())), 10);
+		
 		
 	}
 }

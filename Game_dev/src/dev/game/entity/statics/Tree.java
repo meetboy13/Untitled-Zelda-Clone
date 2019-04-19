@@ -2,6 +2,7 @@ package dev.game.entity.statics;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 import dev.game.Handler;
 import dev.game.entity.Entity;
@@ -12,6 +13,7 @@ import dev.launcher.Assets;
 public class Tree extends StaticEntity{
 
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
+	private Random rand = new Random();
 
 	public Tree(Handler handler,float x, float y) {
 	super(handler,x,y,(int)(Tile.TILEWIDTH/.6),Tile.TILEHEIGHT*2);
@@ -54,7 +56,9 @@ public class Tree extends StaticEntity{
 	
 	public void die() {
 		//add random location variability
-		handler.getWorld().getItemManager().addItem(Item.drop.createNew((int)x,(int) y));
+		int xVar=rand.nextInt(128)-64;
+		int yVar=rand.nextInt(128)-64;
+		handler.getWorld().getItemManager().addItem(Item.drop.createNew((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
 	}
 	@Override
 	public void tick() {
