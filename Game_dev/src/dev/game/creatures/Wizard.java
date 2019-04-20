@@ -1,5 +1,6 @@
 package dev.game.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
@@ -8,7 +9,6 @@ import java.awt.image.BufferedImage;
 import dev.game.Handler;
 import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
-import dev.game.entity.projectile.Magic;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.WizardBeam;
 import dev.game.item.Item;
@@ -30,7 +30,7 @@ public class Wizard extends Creature {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
 		bounds.x=16;
-		bounds.y=32;
+		bounds.y=28;
 		bounds.width=32;
 		bounds.height=32;
 		speed=Creature.DEFAULT_SPEED/6;
@@ -85,55 +85,33 @@ public class Wizard extends Creature {
 		float xRatio = Math.abs(xDelta)/(Math.abs(xDelta)+Math.abs(yDelta));
 		float yRatio = Math.abs(yDelta)/(Math.abs(xDelta)+Math.abs(yDelta));
 
-		//Magic attack=new Magic(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Magic.DEFAULT_PROJECTILE_HEIGHT/4));
 		WizardBeam attack;
 
 		if(lastDirection==Facing.UP) {
-//changes made here
-			attack=new WizardBeam(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Magic.DEFAULT_PROJECTILE_HEIGHT/4));
-			//attack.setDirection(Direction.UP);
-			//handler.getWorld().getProjectileManager().addEntity(attack);
+			attack=new WizardBeam(handler,0,0);
+			attack.setX((float) (x+width/2-attack.getWidth()/2));
+			attack.setY(this.getCollisionBounds(0, 0).y-attack.getHeight()/2-attack.getCollisionBounds(0, 0).height/2);
 		}
 		else if(lastDirection==Facing.DOWN) {
-			attack=new WizardBeam(handler, x+width/2-Magic.DEFAULT_PROJECTILE_WIDTH/2, (int)(y+height+Magic.DEFAULT_PROJECTILE_HEIGHT/4));
-			//attack.setDirection(Direction.DOWN);
-			//handler.getWorld().getProjectileManager().addEntity(attack);
+			attack=new WizardBeam(handler,0,0);
+			attack.setX((float) (x+width/2-attack.getWidth()/2));
+			attack.setY((float) (this.getCollisionBounds(0, 0).y+this.bounds.height-attack.getBounds().getY()));
 		}
 		else if(lastDirection==Facing.LEFT) {
-			attack=new WizardBeam(handler, (int)(x-Magic.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Magic.DEFAULT_PROJECTILE_HEIGHT/2);
-			//attack.setDirection(Direction.LEFT);
-			//handler.getWorld().getProjectileManager().addEntity(attack);
+			attack=new WizardBeam(handler,0, 0);
+			attack.setX(x-attack.getCollisionBounds(0, 0).width);
+			attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
 		}
-		else /*if(lastDirection==Facing.RIGHT)*/ {
-			attack=new WizardBeam(handler,(int)(x+width+Magic.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Magic.DEFAULT_PROJECTILE_HEIGHT/2);
-			//attack.setDirection(Direction.RIGHT);
-			//handler.getWorld().getProjectileManager().addEntity(attack);
-		}//else {
-			//return;
-		//}
+		else if(lastDirection==Facing.RIGHT) {
+			attack=new WizardBeam(handler,0,0);
+			attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX()));
+			attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
+		}else {
+			return;
+		}
 		
 		if(xDelta>0) {
 			attack.setXSpeed(-xRatio);
-/*
-			WizardBeam attack=new WizardBeam(handler, x+width/2-Arrow.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Arrow.DEFAULT_PROJECTILE_HEIGHT/4));
-			attack.setDirection(Direction.UP);
-			handler.getWorld().getProjectileManager().addEntity(attack);
-		}
-		else if(lastDirection==Facing.DOWN) {
-			WizardBeam attack=new WizardBeam(handler, x+width/2-Arrow.DEFAULT_PROJECTILE_WIDTH/2, (int)(y+height+Arrow.DEFAULT_PROJECTILE_HEIGHT/4));
-			attack.setDirection(Direction.DOWN);
-			handler.getWorld().getProjectileManager().addEntity(attack);
-		}
-		else if(lastDirection==Facing.LEFT) {
-			WizardBeam attack=new WizardBeam(handler, (int)(x-Arrow.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Arrow.DEFAULT_PROJECTILE_HEIGHT/2);
-			attack.setDirection(Direction.LEFT);
-			handler.getWorld().getProjectileManager().addEntity(attack);
-		}
-		else if(lastDirection==Facing.RIGHT) {
-			WizardBeam attack=new WizardBeam(handler,(int)(x+width+Arrow.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Arrow.DEFAULT_PROJECTILE_HEIGHT/2);
-			attack.setDirection(Direction.RIGHT);
-			handler.getWorld().getProjectileManager().addEntity(attack);
-*/
 		}else {
 			attack.setXSpeed(xRatio);
 		}
@@ -153,7 +131,11 @@ public class Wizard extends Creature {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-
+		/*
+		Code to show wizard hitboxes
+		g.setColor(Color.BLACK);
+		g.drawRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),(int)(y+bounds.y-handler.getGameCamera().getyOffset()),bounds.width,bounds.height);
+		*/
 	}
 	public void aggression() {
 		//square detection

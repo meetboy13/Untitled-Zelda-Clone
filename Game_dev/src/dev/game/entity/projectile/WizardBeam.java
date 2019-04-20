@@ -15,12 +15,12 @@ public class WizardBeam extends Projectile{
 	public WizardBeam(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
 		// TODO Auto-generated constructor stub
-		/*
-		bounds.x+=23;
-		bounds.y+=5;
-		bounds.height-=10;
-		bounds.width-=23*2;
-		*/
+		
+		bounds.x+=15;
+		bounds.y+=15;
+		bounds.height=20;
+		bounds.width=20;
+		speed=5;
 		int rate=rand.nextInt(20);
 		beam= new Animation(rate+20, Assets.wizard_beam);
 	}
@@ -51,6 +51,10 @@ public class WizardBeam extends Projectile{
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.drawImage(beam.getCurrentFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),DEFAULT_PROJECTILE_WIDTH,DEFAULT_PROJECTILE_HEIGHT,null);
+		/*
+		 * code to show projectile hitboxes
+		g.drawRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),(int)(y+bounds.y-handler.getGameCamera().getyOffset()),bounds.width,bounds.height);
+		*/
 	}
 	public void setXSpeed(float xRatio) {
 		xMove = xRatio*speed;
@@ -59,4 +63,6 @@ public class WizardBeam extends Projectile{
 	public void setYSpeed(float yRatio) {
 		yMove = yRatio*speed;
 	}
+	
+	
 }

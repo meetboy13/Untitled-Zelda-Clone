@@ -15,7 +15,7 @@ public abstract class Entity {
 	protected boolean active=true;
 	protected int health;
 	protected boolean solid=true;
-	public static final int DEFAULT_HEALTH=3;
+	public static final int DEFAULT_HEALTH=2;
 	protected Handler handler;
 
 	public String name="Default";
@@ -98,6 +98,10 @@ public abstract class Entity {
 
 	public void setSolid(boolean solid) {
 		this.solid = solid;
+	}
+	
+	public Rectangle getBounds() {
+		return bounds;
 	}
 
 	public abstract void tick();

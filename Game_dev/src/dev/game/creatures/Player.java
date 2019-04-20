@@ -20,11 +20,13 @@ public class Player extends Creature{
 	private Facing lastDirection=Facing.DOWN;
 	private Inventory inventory;
 	private boolean dead = false,temp=false;
-	private int deathLoop=0,corruption=0,corruptionMax=200;
+	private int deathLoop=0,corruption=0,corruptionMax=2000;
+	private Rectangle cb =getCollisionBounds(0,0);
+	private Rectangle ar= new Rectangle();
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
-		damage=500;
+		damage=1;
 		bounds.x=16;
 		bounds.y=32;
 		bounds.width=32;
@@ -59,7 +61,7 @@ public class Player extends Creature{
 		handler.getGameCamera().centeronEntity(this);
 		checkAttacks();
 		inventory.tick();
-		if (corruption>=200||corruption<=0) {
+		if (corruption>=corruptionMax||corruption<=0) {
 			temp=!temp;
 		}
 		if (temp) {
@@ -76,27 +78,31 @@ public class Player extends Creature{
 			return;
 		}
 		// TODO Auto-generated method stub
-		Rectangle cb =getCollisionBounds(0,0);
-		Rectangle ar= new Rectangle();
+		cb =getCollisionBounds(0,0);
+		ar= new Rectangle();
 		int arSize=20;
 		ar.width=arSize;
 		ar.height=arSize;
 		if(handler.getKeyManager().attack){
 			if(lastDirection==Facing.UP) {
-				ar.x=cb.x+cb.width/2-arSize/2;
+				ar.x=cb.x;
 				ar.y=cb.y-arSize;
+				ar.width=cb.width;
 			}
 			else if(lastDirection==Facing.DOWN) {
-				ar.x=cb.x+cb.width/2-arSize/2;
+				ar.x=cb.x;
 				ar.y=cb.y+cb.height;
+				ar.width=cb.width;
 			}
 			else if(lastDirection==Facing.LEFT) {
 				ar.x=cb.x-arSize;
-				ar.y=cb.y+cb.height/2-arSize/2;
+				ar.y=cb.y;
+				ar.height=cb.height;
 			}
 			else if(lastDirection==Facing.RIGHT) {
 				ar.x=cb.x+cb.width;
-				ar.y=cb.y+cb.height/2-arSize/2;
+				ar.y=cb.y;
+				ar.height=cb.height;
 			}else {
 				return;
 			}
@@ -140,12 +146,14 @@ public class Player extends Creature{
 			}
 			deathLoop++;
 		}
-		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);inventory.render(g);
+		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		inventory.render(g);
-		// bounding box code, commented out in case needed for debugging later
+		//draw hitboxes for attacks and for the player
+		//this code should be generic except the ar rect which may require some temporary reworking
 		/*
 		g.setColor(Color.blue);
-		g.fillRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),(int)(y+bounds.y - handler.getGameCamera().getyOffset()),bounds.width,bounds.height);
+		g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
+		g.drawRect((int)(ar.x-handler.getGameCamera().getxOffset()),(int)(ar.y-handler.getGameCamera().getyOffset()),ar.width,ar.height);
 		*/
 	}
 	
