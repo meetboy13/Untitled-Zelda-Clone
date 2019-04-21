@@ -159,11 +159,11 @@ public class Assets {
 		stone_wall_corner_right_up = sheet39.crop(0, 0, 100, 100);
 		stone_wall_corner_left_up = sheet40.crop(0, 0, 100, 100);
 		stone_null = sheet41.crop(0, 0, 100, 100);
-		carpet_left = sheet43.crop(0, 0, 100, 100);
-		carpet_right = sheet44.crop(0, 0, 100, 100);
-		carpet_right_down = sheet45.crop(0, 0, 100, 100);
-		carpet_left_down = sheet46.crop(0, 0, 100, 100);
-		carpet_right_up = sheet47.crop(0, 0, 100, 100);
-		carpet_left_up = sheet48.crop(0, 0, 100, 100);
+		carpet_left = sheet43.crop(0, 1, 99, 98);
+		carpet_right = sheet44.crop(0, 1, 100, 98);
+		carpet_right_down = sheet45.crop(1, 1, 99, 99);
+		carpet_left_down = sheet46.crop(0, 1, 100, 99);
+		carpet_right_up = sheet47.crop(0, 0, 99, 99);
+		carpet_left_up = sheet48.crop(0, 0, 99, 99);
 	}
 }
