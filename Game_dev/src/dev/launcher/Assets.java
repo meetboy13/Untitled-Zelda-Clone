@@ -11,6 +11,7 @@ public class Assets {
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
 	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp,
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
+	stone_wall_crown,stone_wall_eagle,
 	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
 	friend_right,friend_left,friend_down;
@@ -62,7 +63,9 @@ public class Assets {
 		SpriteSheet sheet45= new SpriteSheet(Loader.loadImage("/Textures/carpet_right_down.png"));  
 		SpriteSheet sheet46= new SpriteSheet(Loader.loadImage("/Textures/carpet_left_down.png"));
 		SpriteSheet sheet47= new SpriteSheet(Loader.loadImage("/Textures/carpet_right_top.png"));  
-		SpriteSheet sheet48= new SpriteSheet(Loader.loadImage("/Textures/carpet_left_up.png"));   
+		SpriteSheet sheet48= new SpriteSheet(Loader.loadImage("/Textures/carpet_left_up.png"));  
+		SpriteSheet sheet49= new SpriteSheet(Loader.loadImage("/Textures/stone_eagle_banner.png"));  
+		SpriteSheet sheet50= new SpriteSheet(Loader.loadImage("/Textures/stone_crown_banner.png"));    
 		drop=sheet1.crop(0,0,100,100);
 		startUp = sheet10.crop(0, 0, 1024, 768);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
@@ -165,5 +168,7 @@ public class Assets {
 		carpet_left_down = sheet46.crop(0, 1, 100, 99);
 		carpet_right_up = sheet47.crop(0, 0, 99, 99);
 		carpet_left_up = sheet48.crop(0, 0, 99, 99);
+		stone_wall_eagle = sheet49.crop(0, 0, 99, 99);
+		stone_wall_crown = sheet50.crop(0, 0, 99, 99);
 	}
 }

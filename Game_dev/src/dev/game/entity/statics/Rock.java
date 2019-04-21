@@ -14,10 +14,10 @@ public class Rock extends StaticEntity{
 	super(handler,x,y,(int)(1.5*Tile.TILEWIDTH/1.2), (int) (1.5*Tile.TILEHEIGHT));
 	this.health=1;
 	name="Rock";
-	bounds.x=10;
-	bounds.y=(int)(height/1.5f);
-	bounds.width = width-20;
-	bounds.height=(int)(height-height/1.5f);
+	bounds.x=20;
+	bounds.y=(int)(height/2);
+	bounds.width = width-40;
+	bounds.height=(int)(height-height/1.25f);
 	}
 	
 	public void die() {
@@ -28,6 +28,8 @@ public class Rock extends StaticEntity{
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(Assets.rock,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+		g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
+		
 	}
 
 	@Override

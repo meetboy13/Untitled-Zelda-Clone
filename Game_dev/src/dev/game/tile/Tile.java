@@ -42,6 +42,8 @@ public class Tile {
 	public static Tile carpet_left_down = new NonSolidTile(Assets.carpet_left_down,30);
 	public static Tile carpet_right_up = new NonSolidTile(Assets.carpet_right_up,31);
 	public static Tile carpet_left_up = new NonSolidTile(Assets.carpet_left_up,32);
+	public static Tile stone_wall_eagle = new SolidTile(Assets.stone_wall_eagle,33);
+	public static Tile stone_wall_crown = new SolidTile(Assets.stone_wall_crown,34);
 	
 	//class
 	protected BufferedImage texture;
