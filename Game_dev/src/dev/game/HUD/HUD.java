@@ -12,6 +12,10 @@ public class HUD {
 	private int health,gems;
 	private float corruption;
 	private Handler handler;
+	private long now;
+	private long lastTime = System.nanoTime();
+	private long timer =0;
+	private int timeLimit=300,mins,secs;
 	public HUD (Handler handler) {
 		this.handler=handler;
 	}
@@ -20,6 +24,19 @@ public class HUD {
 		getHealth();
 		getCorruption();
 		getGems();
+		now = System.nanoTime();
+		timer += now-lastTime;
+		lastTime=now;
+		if (timer >= 1000000000){
+			timer=0;
+			timeLimit--;
+			if (timeLimit<0) {
+				timeLimit=0;
+			}
+		}
+		mins=timeLimit/60;
+		secs=timeLimit%60;
+				
 	}
 	private void getGems() {
 		// TODO Auto-generated method stub
@@ -47,6 +64,12 @@ public class HUD {
 		Font f = new Font("Courier", Font.PLAIN,20);
 		g.setColor(Color.BLACK);
 		g.setFont(f);
+		if(this.secs<=0) {
+			g.drawString(this.mins+":"+this.secs+ "0", (int) (handler.getWidth()-100), 40);
+		}else {
+			g.drawString(this.mins+":"+this.secs, (int) (handler.getWidth()-100), 40);
+		}
+		g.drawImage(Assets.drop, handler.getWidth()-70, 0, 15,24,null);
 		if(this.gems>0) {
 			g.drawString(this.gems+"X", (int) (handler.getWidth()-x-((int)(Math.log10(this.gems))*12)), 20);
 		}else {
