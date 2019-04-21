@@ -9,21 +9,22 @@ import dev.game.Handler;
 import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
 import dev.game.entity.projectile.Arrow;
-import dev.game.entity.projectile.WizardBeam;
 import dev.game.inventory.Inventory;
+import dev.game.inventory.Inventory.Equipment;
+import dev.game.inventory.Inventory.Sword;
 import dev.game.states.GameOverState;
 import dev.game.states.State;
 import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 public class Player extends Creature{
-	
+
 	private Animation animDown,animUp,animLeft,animRight,animDie;
-	
+
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Facing lastDirection=Facing.DOWN;
 	private Inventory inventory;
-	private boolean dead = false,temp=false;
+	private boolean dead = false,temp=false, shielding=false;
 	private int deathLoop=0,corruption=0,corruptionMax=2000;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
@@ -59,7 +60,7 @@ public class Player extends Creature{
 			if(!stunned) {///change later so the player can still pause
 				getInput();
 			}
-				move();
+			move();
 		}else {
 			animDie.tick();
 		}
@@ -72,10 +73,10 @@ public class Player extends Creature{
 		if (temp) {
 			corruption++;
 		}else {
-			corruption--;
+			//corruption--;
 		}
 	}
-	
+
 	private void checkAttacks() {
 		attackTimer+=System.currentTimeMillis()-lastAttackTimer;
 		lastAttackTimer=System.currentTimeMillis();
@@ -112,6 +113,13 @@ public class Player extends Creature{
 				return;
 			}
 			attackTimer=0;
+			if(inventory.getPrimary()==Sword.mirror) {
+				damage = 1;
+			}else if(inventory.getPrimary()==Sword.training) {
+				damage = 0;
+			}else if (inventory.getPrimary()==Sword.OP) {
+				damage = 3;
+			}
 			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 				if(e.equals(this)) {continue;}
 				if(e.getCollisionBounds(0, 0).intersects(ar)) {
@@ -122,36 +130,42 @@ public class Player extends Creature{
 			}
 		}else if (handler.getKeyManager().attack2) {
 			//ranged javelin attack
-			Arrow attack;
 
-			if(lastDirection==Facing.UP) {
-				attack=new Arrow(handler,0,0);
-				attack.setX((float) (x+width/2-attack.getWidth()/2));
-				attack.setY(this.getCollisionBounds(0, 0).y-attack.getHeight()/2-attack.getCollisionBounds(0, 0).height/2);
-				attack.setDirection(Direction.UP);
+			if (inventory.getSecondary()==Equipment.spear) {
+				Arrow attack;
+
+				if(lastDirection==Facing.UP) {
+					attack=new Arrow(handler,0,0);
+					attack.setX((float) (x+width/2-attack.getWidth()/2));
+					attack.setY(this.getCollisionBounds(0, 0).y-attack.getHeight()/2-attack.getCollisionBounds(0, 0).height/2);
+					attack.setDirection(Direction.UP);
+				}
+				else if(lastDirection==Facing.DOWN) {
+					attack=new Arrow(handler,0,0);
+					attack.setX((float) (x+width/2-attack.getWidth()/2));
+					attack.setY((float) (this.getCollisionBounds(0, 0).y+this.bounds.height-attack.getBounds().getY()));
+					attack.setDirection(Direction.DOWN);
+				}
+				else if(lastDirection==Facing.LEFT) {
+					attack=new Arrow(handler,0, 0);
+					attack.setDirection(Direction.LEFT);
+					attack.setX(x-attack.getCollisionBounds(0, 0).width+10);
+					attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
+				}
+				else if(lastDirection==Facing.RIGHT) {
+					attack=new Arrow(handler,0,0);
+					attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX())+10);
+					attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
+					attack.setDirection(Direction.RIGHT);
+				}else {
+					return;
+				}
+				attackTimer=0;
+				handler.getWorld().getProjectileManager().addEntity(attack);
+				inventory.setSecondary(Equipment.none);
+			} else if (inventory.getSecondary()==Equipment.shield) {
+				shielding = !shielding;
 			}
-			else if(lastDirection==Facing.DOWN) {
-				attack=new Arrow(handler,0,0);
-				attack.setX((float) (x+width/2-attack.getWidth()/2));
-				attack.setY((float) (this.getCollisionBounds(0, 0).y+this.bounds.height-attack.getBounds().getY()));
-				attack.setDirection(Direction.DOWN);
-			}
-			else if(lastDirection==Facing.LEFT) {
-				attack=new Arrow(handler,0, 0);
-				attack.setDirection(Direction.LEFT);
-				attack.setX(x-attack.getCollisionBounds(0, 0).width+10);
-				attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
-			}
-			else if(lastDirection==Facing.RIGHT) {
-				attack=new Arrow(handler,0,0);
-				attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX())+10);
-				attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
-				attack.setDirection(Direction.RIGHT);
-			}else {
-				return;
-			}
-			attackTimer=0;
-			handler.getWorld().getProjectileManager().addEntity(attack);
 		}
 	}
 
@@ -171,7 +185,7 @@ public class Player extends Creature{
 			xMove= speed;
 		}
 	}
-	
+
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
@@ -184,7 +198,7 @@ public class Player extends Creature{
 			deathLoop++;
 		}
 		if (damageFlicker%20<15) {
-		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
 		inventory.render(g);
 		//draw hitboxes for attacks and for the player
@@ -193,17 +207,27 @@ public class Player extends Creature{
 		g.setColor(Color.blue);
 		g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
 		g.drawRect((int)(ar.x-handler.getGameCamera().getxOffset()),(int)(ar.y-handler.getGameCamera().getyOffset()),ar.width,ar.height);
-		*/
+		 */
 	}
-	
+
 	private BufferedImage getCurrentAnimationFrame() {
 		if(dead) {
 			return animDie.getCurrentFrame();
 		}
 		else if(xMove<0) {
+			if((yMove<0) && (lastDirection==Facing.UP)) {
+				return animUp.getCurrentFrame();
+			} else if ((yMove>0) && (lastDirection==Facing.DOWN)) {
+				return animDown.getCurrentFrame();
+			}
 			lastDirection=Facing.LEFT;
 			return animLeft.getCurrentFrame();
 		}else if(xMove>0) {
+			if((yMove<0) && (lastDirection==Facing.UP)) {
+				return animUp.getCurrentFrame();
+			} else if ((yMove>0) && (lastDirection==Facing.DOWN)) {
+				return animDown.getCurrentFrame();
+			}
 			lastDirection=Facing.RIGHT;
 			return animRight.getCurrentFrame();
 		}else if (yMove<0) {
@@ -213,7 +237,7 @@ public class Player extends Creature{
 			lastDirection=Facing.DOWN;
 			return animDown.getCurrentFrame();
 		}else if (lastDirection==Facing.LEFT) {;
-			return Assets.player_left[1];
+		return Assets.player_left[1];
 		}
 		else if (lastDirection==Facing.RIGHT) {
 			return Assets.player_right[1];
@@ -257,5 +281,5 @@ public class Player extends Creature{
 	public void setCorruptionMax(int corruptionMax) {
 		this.corruptionMax = corruptionMax;
 	}
-	
+
 }

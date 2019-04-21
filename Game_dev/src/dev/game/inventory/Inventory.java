@@ -8,6 +8,14 @@ import dev.game.Handler;
 import dev.game.item.Item;
 
 public class Inventory {
+	
+	
+	public enum Equipment{shield,spear,wand,none};
+	private Equipment secondary = Equipment.shield;
+
+	public enum Sword{training,mirror,OP};
+	private Sword primary = Sword.mirror;
+	
 	private Handler handler;
 	private boolean active = false;
 	private ArrayList<Item> inventoryItems;
@@ -54,6 +62,18 @@ public class Inventory {
 	}
 	public void setHandler(Handler handler) {
 		this.handler = handler;
+	}
+	public Equipment getSecondary() {
+		return secondary;
+	}
+	public void setSecondary(Equipment secondary) {
+		this.secondary = secondary;
+	}
+	public Sword getPrimary() {
+		return primary;
+	}
+	public void setPrimary(Sword primary) {
+		this.primary = primary;
 	}
 	
 }

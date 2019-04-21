@@ -6,7 +6,7 @@ import dev.ImageLoader.Loader;
 
 public class Assets {
 	public static BufferedImage 
-	tree,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,
+	tree,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,key,health,shield,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
 	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp,
@@ -30,9 +30,11 @@ public class Assets {
 		SpriteSheet sheet9= new SpriteSheet(Loader.loadImage("/Sprite/wizard_beam2.png")); 
 		SpriteSheet sheet10= new SpriteSheet(Loader.loadImage("/Textures/K13.png"));
 		SpriteSheet sheet11= new SpriteSheet(Loader.loadImage("/Sprite/FriendSpriteSheet.png"));
+		SpriteSheet sheet12= new SpriteSheet(Loader.loadImage("/Sprite/Shield.png"));
 		SpriteSheet sheet13= new SpriteSheet(Loader.loadImage("/Textures/dirt.png"));
 		SpriteSheet sheet14= new SpriteSheet(Loader.loadImage("/Textures/bridge_left.png"));
 		SpriteSheet sheet15= new SpriteSheet(Loader.loadImage("/Textures/bridge_right.png"));
+		SpriteSheet sheet16= new SpriteSheet(Loader.loadImage("/Sprite/Key.png"));
 		SpriteSheet sheet17= new SpriteSheet(Loader.loadImage("/Textures/wall_left.png"));
 		SpriteSheet sheet18= new SpriteSheet(Loader.loadImage("/Textures/wall_right.png"));
 		SpriteSheet sheet19= new SpriteSheet(Loader.loadImage("/Textures/wall_down.png"));
@@ -67,8 +69,13 @@ public class Assets {
 		SpriteSheet sheet48= new SpriteSheet(Loader.loadImage("/Textures/carpet_left_up.png"));  
 		SpriteSheet sheet49= new SpriteSheet(Loader.loadImage("/Textures/stone_eagle_banner.png"));  
 		SpriteSheet sheet50= new SpriteSheet(Loader.loadImage("/Textures/stone_crown_banner.png"));
-		SpriteSheet sheet51= new SpriteSheet(Loader.loadImage("/Sprite/WizardSpriteSheet.png"));      
-		drop=sheet1.crop(0,0,100,100);
+		SpriteSheet sheet51= new SpriteSheet(Loader.loadImage("/Sprite/WizardSpriteSheet.png"));
+		SpriteSheet sheet52= new SpriteSheet(Loader.loadImage("/Sprite/health pickup.png"));
+		
+		drop=sheet1.crop(0,0,width,height);
+		key=sheet16.crop(0, 0, width, height);
+		shield=sheet12.crop(0, 0, 34, 33);
+		health=sheet52.crop(0, 0, width, height);
 		startUp = sheet10.crop(0, 0, 1024, 768);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
 		rock=sheet7.crop(0, 0, 100, 100);
