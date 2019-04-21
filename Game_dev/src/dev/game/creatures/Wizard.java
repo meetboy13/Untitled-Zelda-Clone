@@ -38,14 +38,14 @@ public class Wizard extends Creature {
 		name="Wizard";
 		health=3;
 		//animations
-		animDown = new Animation(50,Assets.wizard_down);
-		animLeft = new Animation(50,Assets.wizard_left);
-		animUp = new Animation(50,Assets.wizard_up);
-		animRight = new Animation(50,Assets.wizard_right);
-		floatDown = new Animation(50,Assets.wizard_float_down);
-		floatLeft = new Animation(50,Assets.wizard_float_left);
-		floatUp = new Animation(50,Assets.wizard_float_up);
-		floatRight = new Animation(50,Assets.wizard_float_right);
+		animDown = new Animation(200,Assets.wizard_down);
+		animLeft = new Animation(200,Assets.wizard_left);
+		animUp = new Animation(200,Assets.wizard_up);
+		animRight = new Animation(200,Assets.wizard_right);
+		floatDown = new Animation(200,Assets.wizard_float_down);
+		floatLeft = new Animation(200,Assets.wizard_float_left);
+		floatUp = new Animation(200,Assets.wizard_float_up);
+		floatRight = new Animation(200,Assets.wizard_float_right);
 
 	}
 
@@ -87,10 +87,10 @@ public class Wizard extends Creature {
 		//	return;
 		//}
 		attackTimer = 0;
-		
+
 		float xDelta = x-handler.getWorld().getEntityManager().getPlayer().getX();
 		float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
-		
+
 		float xRatio = Math.abs(xDelta)/(Math.abs(xDelta)+Math.abs(yDelta));
 		float yRatio = Math.abs(yDelta)/(Math.abs(xDelta)+Math.abs(yDelta));
 
@@ -118,21 +118,21 @@ public class Wizard extends Creature {
 		}else {
 			return;
 		}
-		
+
 		if(xDelta>0) {
 			attack.setXSpeed(-xRatio);
 		}else {
 			attack.setXSpeed(xRatio);
 		}
-		
+
 		if(yDelta>0) {
 			attack.setYSpeed(-yRatio);
 		}else {
 			attack.setYSpeed(yRatio);
 		}
-		
+
 		handler.getWorld().getProjectileManager().addEntity(attack);
-		
+
 	}
 
 
@@ -140,13 +140,13 @@ public class Wizard extends Creature {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		if (damageFlicker%20<15) {
-		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
 		/*
 		//Code to show wizard hitboxes
 		g.setColor(Color.BLACK);
 		g.drawRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),(int)(y+bounds.y-handler.getGameCamera().getyOffset()),bounds.width,bounds.height);
-		*/
+		 */
 	}
 	public void aggression() {
 		//square detection
@@ -274,27 +274,27 @@ public class Wizard extends Creature {
 		}else {
 			if(xMove<0) {
 				lastDirection=Facing.LEFT;
-				return animLeft.getCurrentFrame();
+				return floatLeft.getCurrentFrame();
 			}else if(xMove>0) {
 				lastDirection=Facing.RIGHT;
-				return animRight.getCurrentFrame();
+				return floatRight.getCurrentFrame();
 			}else if (yMove<0) {
 				lastDirection=Facing.UP;
-				return animUp.getCurrentFrame();
+				return floatUp.getCurrentFrame();
 			}else if (yMove>0) {
 				lastDirection=Facing.DOWN;
-				return animDown.getCurrentFrame();
+				return floatDown.getCurrentFrame();
 			}else if (lastDirection==Facing.LEFT) {
-				return floatLeft.getCurrentFrame();	
+				return animLeft.getCurrentFrame();	
 			}
 			else if (lastDirection==Facing.RIGHT) {
-				return floatRight.getCurrentFrame();
+				return animRight.getCurrentFrame();
 			}
 			else if (lastDirection==Facing.UP) {
-				return floatUp.getCurrentFrame();
+				return animUp.getCurrentFrame();
 			}
 			else if (lastDirection==Facing.DOWN) {
-				return floatDown.getCurrentFrame();
+				return animDown.getCurrentFrame();
 			}
 			//default animation to display if not condition is met.
 			return Assets.wizard_down[1];

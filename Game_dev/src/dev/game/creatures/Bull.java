@@ -253,6 +253,6 @@ public class Bull extends Creature {
 				return Assets.player_down[1];
 			}
 			//default animation to display if not condition is met.
-			return Assets.player;
+			return Assets.player_down[1];
 	}
 }

@@ -6,7 +6,7 @@ import dev.ImageLoader.Loader;
 
 public class Assets {
 	public static BufferedImage 
-	tree,player,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,
+	tree,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
 	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp,
@@ -109,7 +109,6 @@ public class Assets {
 		player_die[1] = sheet26.crop(width,4*height, width, height);
 		player_die[2] = sheet26.crop(width*3,0, width, height);
 		player_die[3] = sheet26.crop(width*2,4*height, width, height);
-		player = sheet26.crop(0, 0, width, height);
 		friend_down = new BufferedImage[4];
 		friend_up = new BufferedImage[4];
 		friend_left = new BufferedImage[4];
@@ -191,17 +190,17 @@ public class Assets {
 		
 		wizard_stunned_down = sheet51.crop(0, 10*height, width, height);
 		
-		wizard_left=new BufferedImage[4];
+		wizard_left=new BufferedImage[3];
 		wizard_left[0] = sheet51.crop(width, 0, width, height);
 		wizard_left[1] = sheet51.crop(width, height, width, height);
 		wizard_left[2] = sheet51.crop(width, 2*height, width, height);
-		wizard_left[3] = sheet51.crop(width, height, width, height);
+		//wizard_left[3] = sheet51.crop(width, height, width, height);
 		
-		wizard_float_left=new BufferedImage[4];
+		wizard_float_left=new BufferedImage[3];
 		wizard_float_left[0] = sheet51.crop(width, 3*height, width, height);
 		wizard_float_left[1] = sheet51.crop(width, 4*height, width, height);
 		wizard_float_left[2] = sheet51.crop(width, 5*height, width, height);
-		wizard_float_left[3] = sheet51.crop(width, 4*height, width, height);
+		//wizard_float_left[3] = sheet51.crop(width, 4*height, width, height);
 		
 		wizard_attack_left=new BufferedImage[4];
 		wizard_attack_left[0] = sheet51.crop(width, 6*height, width, height);
@@ -211,17 +210,17 @@ public class Assets {
 		
 		wizard_stunned_left = sheet51.crop(width, 10*height, width, height);
 		
-		wizard_right=new BufferedImage[11];
-		wizard_right[0] = sheet51.crop(width*2, 0, width, height);
-		wizard_right[1] = sheet51.crop(width*2, height, width, height);
+		wizard_right=new BufferedImage[4];
+		wizard_right[0] = sheet51.crop(width*2, height, width, height);
+		wizard_right[1] = sheet51.crop(width*2, 0, width, height);
 		wizard_right[2] = sheet51.crop(width*2, 2*height, width, height);
-		wizard_right[3] = sheet51.crop(width*2, height, width, height);
+		wizard_right[3] = sheet51.crop(width*2, 0, width, height);
 		
 		wizard_float_right = new BufferedImage[4];
-		wizard_float_right[0] = sheet51.crop(width*2, 3*height, width, height);
-		wizard_float_right[1] = sheet51.crop(width*2, 4*height, width, height);
+		wizard_float_right[0] = sheet51.crop(width*2+10, 4*height, width, height);
+		wizard_float_right[1] = sheet51.crop(width*2, 3*height, width, height);
 		wizard_float_right[2] = sheet51.crop(width*2, 5*height, width, height);
-		wizard_float_right[3] = sheet51.crop(width*2, 4*height, width, height);
+		wizard_float_right[3] = sheet51.crop(width*2, 3*height, width, height);
 
 		wizard_attack_right = new BufferedImage[4];
 		wizard_attack_right[0] = sheet51.crop(width*2, 6*height, width, height);
