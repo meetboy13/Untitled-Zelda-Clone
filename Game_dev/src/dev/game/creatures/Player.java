@@ -13,6 +13,7 @@ import dev.game.entity.projectile.Arrow;
 import dev.game.inventory.Inventory;
 import dev.game.inventory.Inventory.Equipment;
 import dev.game.inventory.Inventory.Sword;
+import dev.game.inventory.Weapons;
 import dev.game.states.GameOverState;
 import dev.game.states.State;
 import dev.game.worlds.World.Direction;
@@ -28,6 +29,7 @@ public class Player extends Creature{
 	private int deathLoop=0,corruption=0,corruptionMax=2000;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
+	private Weapons weapons;
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
@@ -50,6 +52,7 @@ public class Player extends Creature{
 		animUpT = new Animation(150,Assets.friend_up);
 		animRightT = new Animation(150,Assets.friend_right);
 		inventory = new Inventory(handler);
+		weapons = new Weapons(handler);
 	}
 
 	@Override
@@ -83,46 +86,20 @@ public class Player extends Creature{
 	private void checkAttacks() {
 		attackTimer+=System.currentTimeMillis()-lastAttackTimer;
 		lastAttackTimer=System.currentTimeMillis();
-		if(attackTimer<attackCooldown) {
+		if(attackTimer<weapons.getPrimaryCooldown()) {
 			return;
 		}
 		// TODO Auto-generated method stub
+		
 		cb =getCollisionBounds(0,0);
 		ar= new Rectangle();
 		int arSize=20;
 		ar.width=arSize;
 		ar.height=arSize;
 		if(handler.getKeyManager().attack1){
-			if(lastDirection==Facing.UP) {
-				ar.x=cb.x;
-				ar.y=cb.y-arSize;
-				ar.width=cb.width;
-			}
-			else if(lastDirection==Facing.DOWN) {
-				ar.x=cb.x;
-				ar.y=cb.y+cb.height;
-				ar.width=cb.width;
-			}
-			else if(lastDirection==Facing.LEFT) {
-				ar.x=cb.x-arSize;
-				ar.y=cb.y;
-				ar.height=cb.height;
-			}
-			else if(lastDirection==Facing.RIGHT) {
-				ar.x=cb.x+cb.width;
-				ar.y=cb.y;
-				ar.height=cb.height;
-			}else {
-				return;
-			}
+			ar=weapons.getHitBox(lastDirection, cb);
 			attackTimer=0;
-			if(inventory.getPrimary()==Sword.mirror) {
-				damage = 1;
-			}else if(inventory.getPrimary()==Sword.training) {
-				damage = 0;
-			}else if (inventory.getPrimary()==Sword.OP) {
-				damage = 3;
-			}
+			damage=weapons.getDamagePrimary();
 			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 				if(e.equals(this)) {continue;}
 				if(e.getCollisionBounds(0, 0).intersects(ar)) {
@@ -312,6 +289,8 @@ public class Player extends Creature{
 	private void corruptionTick() {
 		if (transformed &&(corruption<corruptionMax)) {
 			corruption++;
+		}else if(corruption>0) {
+			corruption--;
 		}
 		if(corruption == corruptionMax) {
 			setTransformable(false);
@@ -355,5 +334,14 @@ public class Player extends Creature{
 	public void setTransformable(boolean transformable) {
 		this.transformable = transformable;
 	}
+
+	public Weapons getWeapons() {
+		return weapons;
+	}
+
+	public void setWeapons(Weapons weapons) {
+		this.weapons = weapons;
+	}
+	
 
 }

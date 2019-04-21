@@ -15,7 +15,7 @@ public abstract class Creature extends Entity {
 	protected int damage,maxHealth;
 	protected float speed;
 	protected float xMove,yMove;
-	protected enum Facing {UP,DOWN,LEFT,RIGHT;}
+	public enum Facing {UP,DOWN,LEFT,RIGHT;}
 	protected Facing lastDirection=Facing.DOWN;
 	protected boolean stunned = false;
 	protected int stunnedDuration=0,damageFlicker=0;

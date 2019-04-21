@@ -16,22 +16,24 @@ import dev.game.entity.projectile.Projectile;
 import dev.game.entity.statics.Rock;
 import dev.game.entity.statics.Tree;
 import dev.game.item.ItemManager;
-import dev.game.item.TransitionItem;
+import dev.game.item.TransitionSpace;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
 
 public class World {
-	private Handler handler;
+	protected Handler handler;
 	private int width, height;
 	private int entityNum;
 	private int spawnX,spawnY;
-	private EntityManager entityManager,projectileManager;
-	private ItemManager itemManager;
+	protected EntityManager entityManager,projectileManager;
+	protected ItemManager itemManager;
 	private int[][] tiles;
 	public enum Direction{UP,DOWN,LEFT,RIGHT};
-	private String pathWorldTemp,pathEntityTemp;
-	private boolean flagToLoad=true,ticking=false;
-	private TransitionItem world2,world1;
+	protected String pathWorldTemp;
+	protected String pathEntityTemp;
+	protected boolean flagToLoad=true;
+	protected boolean ticking=false;
+	private TransitionSpace world2,world1;
 	private String currentWorldPath="Resources/worlds/world1.txt"
 			,currentEntityPath="Resources/entities/world1.txt";
 	//constructor
@@ -204,13 +206,13 @@ public class World {
 			}
 			
 			else if(entityType==92) {
-				world2= new TransitionItem(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt");
+				world2= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt");
 				world2.setX(entitySpawnX);
 				world2.setY(entitySpawnY);
 				entityManager.addEntity(world2);
 			}
 			else if(entityType==91) {
-				world1= new TransitionItem(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt");
+				world1= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt");
 				world1.setX(entitySpawnX);
 				world1.setY(entitySpawnY);
 				entityManager.addEntity(world1);
