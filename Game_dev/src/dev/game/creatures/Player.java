@@ -54,6 +54,7 @@ public class Player extends Creature{
 		animRight.tick();
 		animLeft.tick();
 		stunDecay();
+		flickerDecay();
 		if (!dead) {
 			if(!stunned) {///change later so the player can still pause
 				getInput();
@@ -182,7 +183,9 @@ public class Player extends Creature{
 			}
 			deathLoop++;
 		}
+		if (damageFlicker%20<15) {
 		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+		}
 		inventory.render(g);
 		//draw hitboxes for attacks and for the player
 		//this code should be generic except the ar rect which may require some temporary reworking
