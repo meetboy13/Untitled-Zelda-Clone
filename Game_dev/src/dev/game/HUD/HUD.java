@@ -66,6 +66,8 @@ public class HUD {
 		g.setFont(f);
 		if(this.secs<=0) {
 			g.drawString(this.mins+":"+this.secs+ "0", (int) (handler.getWidth()-100), 40);
+		}else if(this.secs<=10) {
+			g.drawString(this.mins+":"+ "0"+this.secs, (int) (handler.getWidth()-100), 40);
 		}else {
 			g.drawString(this.mins+":"+this.secs, (int) (handler.getWidth()-100), 40);
 		}

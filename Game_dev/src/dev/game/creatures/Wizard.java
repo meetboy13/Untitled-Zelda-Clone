@@ -30,9 +30,9 @@ public class Wizard extends Creature {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
 		bounds.x=16;
-		bounds.y=28;
-		bounds.width=32;
-		bounds.height=32;
+		bounds.y=18;
+		bounds.width=28;
+		bounds.height=42;
 		speed=Creature.DEFAULT_SPEED/6;
 		alwaysAggressive = fixedAggre;
 		name="Wizard";
@@ -104,7 +104,7 @@ public class Wizard extends Creature {
 		}
 		else if(lastDirection==Facing.RIGHT) {
 			attack=new WizardBeam(handler,0,0);
-			attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX()));
+			attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX())+15);
 			attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
 		}else {
 			return;
@@ -131,11 +131,11 @@ public class Wizard extends Creature {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-		/*
-		Code to show wizard hitboxes
+		
+		//Code to show wizard hitboxes
 		g.setColor(Color.BLACK);
 		g.drawRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),(int)(y+bounds.y-handler.getGameCamera().getyOffset()),bounds.width,bounds.height);
-		*/
+		
 	}
 	public void aggression() {
 		//square detection
