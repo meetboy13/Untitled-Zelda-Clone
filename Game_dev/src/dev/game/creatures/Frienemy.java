@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import dev.game.Handler;
+import dev.game.creatures.Creature.Facing;
 import dev.game.item.Item;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -13,7 +14,6 @@ import dev.launcher.Assets;
 public class Frienemy extends Creature {
 
 	private Animation animDown,animUp,animLeft,animRight;
-	private Facing lastDirection=Facing.DOWN;
 	private Random rand = new Random();
 	//private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	//private Random rand = new Random();
@@ -83,9 +83,19 @@ public class Frienemy extends Creature {
 	}
 	private BufferedImage getCurrentAnimationFrame() {
 		if(xMove<0) {
+			if((yMove<0) && (lastDirection==Facing.UP)) {
+				return animUp.getCurrentFrame();
+			} else if ((yMove>0) && (lastDirection==Facing.DOWN)) {
+				return animDown.getCurrentFrame();
+			}
 			lastDirection=Facing.LEFT;
 			return animLeft.getCurrentFrame();
 		}else if(xMove>0) {
+			if((yMove<0) && (lastDirection==Facing.UP)) {
+				return animUp.getCurrentFrame();
+			} else if ((yMove>0) && (lastDirection==Facing.DOWN)) {
+				return animDown.getCurrentFrame();
+			}
 			lastDirection=Facing.RIGHT;
 			return animRight.getCurrentFrame();
 		}else if (yMove<0) {

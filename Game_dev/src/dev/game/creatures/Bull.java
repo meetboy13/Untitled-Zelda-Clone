@@ -21,7 +21,6 @@ public class Bull extends Creature {
 	private boolean alwaysAggressive;
 	private boolean attacking = false;
 	private Animation animDown,animUp,animLeft,animRight;
-	private Facing lastDirection=Facing.DOWN;
 	private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	private Rectangle cb =this.getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();

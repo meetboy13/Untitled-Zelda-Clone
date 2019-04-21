@@ -3,6 +3,7 @@ package dev.game.creatures;
 import dev.game.entity.Entity;
 import dev.game.tile.Tile;
 import dev.game.Handler;
+import dev.game.creatures.Creature.Facing;
 
 public abstract class Creature extends Entity {
 	public static final float DEFAULT_SPEED=3.0f;
@@ -15,6 +16,7 @@ public abstract class Creature extends Entity {
 	protected float speed;
 	protected float xMove,yMove;
 	protected enum Facing {UP,DOWN,LEFT,RIGHT;}
+	protected Facing lastDirection=Facing.DOWN;
 	protected boolean stunned = false;
 	protected int stunnedDuration=0,damageFlicker=0;
 	//constructor

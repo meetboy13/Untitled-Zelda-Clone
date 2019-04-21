@@ -22,7 +22,6 @@ public class Player extends Creature{
 	private Animation animDown,animUp,animLeft,animRight,animDie;
 
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
-	private Facing lastDirection=Facing.DOWN;
 	private Inventory inventory;
 	private boolean dead = false,temp=false, shielding=false;
 	private int deathLoop=0,corruption=0,corruptionMax=2000;
@@ -172,16 +171,25 @@ public class Player extends Creature{
 	private void getInput() {
 		xMove=0;
 		yMove=0;
-		if(handler.getKeyManager().up) {
+		if(handler.getKeyManager().up && handler.getKeyManager().right) {
+			yMove= (float) (-speed/Math.sqrt(2));
+			xMove= (float) (speed/Math.sqrt(2));
+		}else if(handler.getKeyManager().up && handler.getKeyManager().left) {
+			yMove= (float) (-speed/Math.sqrt(2));
+			xMove= (float) (-speed/Math.sqrt(2));
+		}else if(handler.getKeyManager().down && handler.getKeyManager().right) {
+			yMove= (float) (speed/Math.sqrt(2));
+			xMove= (float) (speed/Math.sqrt(2));
+		}else if(handler.getKeyManager().down && handler.getKeyManager().left) {
+			yMove= (float) (speed/Math.sqrt(2));
+			xMove= (float) (-speed/Math.sqrt(2));
+		}else if(handler.getKeyManager().up) {
 			yMove= -speed;
-		}
-		if(handler.getKeyManager().down) {
+		} else	if(handler.getKeyManager().down) {
 			yMove= speed;
-		}
-		if(handler.getKeyManager().left) {
+		}else if(handler.getKeyManager().left) {
 			xMove= -speed;
-		}
-		if(handler.getKeyManager().right) {
+		}else if(handler.getKeyManager().right) {
 			xMove= speed;
 		}
 	}

@@ -11,7 +11,6 @@ import dev.launcher.Assets;
 public class Sheep extends Creature {
 
 	private Animation animDown,animUp,animLeft,animRight;
-	private Facing lastDirection=Facing.DOWN;
 	private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	private Random rand = new Random();
 	public Sheep(Handler handler, float x, float y, int width, int height) {
