@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 	
 import dev.game.Handler;
+import dev.game.item.Item;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 
@@ -90,6 +91,9 @@ public class Sheep extends Creature {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
+		int xVar=rand.nextInt(64)-32;
+		int yVar=rand.nextInt(64)-32;
+		handler.getWorld().getItemManager().addItem(Item.healthPickup.createNewHealthPickup((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
 		active=false;
 	}
 	private BufferedImage getCurrentAnimationFrame() {

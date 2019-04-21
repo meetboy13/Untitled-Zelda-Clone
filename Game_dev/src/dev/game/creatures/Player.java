@@ -36,7 +36,8 @@ public class Player extends Creature{
 		bounds.width=32;
 		bounds.height=32;
 		speed=Creature.DEFAULT_SPEED;
-		this.health=12;
+		maxHealth=12;
+		this.health=maxHealth;
 		//animations
 		animDown = new Animation(150,Assets.player_down);
 		animLeft = new Animation(150,Assets.player_left);

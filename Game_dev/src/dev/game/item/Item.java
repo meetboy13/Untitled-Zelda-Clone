@@ -12,6 +12,7 @@ public class Item {
 	public static Item[] items = new Item[256];
 	public static Item drop = new Item(Assets.drop,"Gem",0);
 	public static Item key = new Item(Assets.drop,"Key",1);
+	public static HealthPickup healthPickup = new HealthPickup("HealthPickup",1);
 	
 	public static final int ITEMWIDTH=20,ITEMHEIGHT=32;
 	protected Handler handler;
@@ -54,6 +55,11 @@ public class Item {
 	}
 	public Item createNew(int x,int y) {
 		Item i = new Item(texture,name,id);
+		i.setPosition(x, y);
+		return i;
+	}
+	public HealthPickup createNewHealthPickup(int x,int y) {
+		HealthPickup i = new HealthPickup(name,id);
 		i.setPosition(x, y);
 		return i;
 	}
