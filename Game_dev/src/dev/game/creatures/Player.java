@@ -6,10 +6,14 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import dev.game.Handler;
+import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
+import dev.game.entity.projectile.Arrow;
+import dev.game.entity.projectile.WizardBeam;
 import dev.game.inventory.Inventory;
 import dev.game.states.GameOverState;
 import dev.game.states.State;
+import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 public class Player extends Creature{
@@ -83,7 +87,7 @@ public class Player extends Creature{
 		int arSize=20;
 		ar.width=arSize;
 		ar.height=arSize;
-		if(handler.getKeyManager().attack){
+		if(handler.getKeyManager().attack1){
 			if(lastDirection==Facing.UP) {
 				ar.x=cb.x;
 				ar.y=cb.y-arSize;
@@ -115,6 +119,38 @@ public class Player extends Creature{
 					e.hurt(damage,deltaX,deltaY);
 				}
 			}
+		}else if (handler.getKeyManager().attack2) {
+			//ranged javelin attack
+			Arrow attack;
+
+			if(lastDirection==Facing.UP) {
+				attack=new Arrow(handler,0,0);
+				attack.setX((float) (x+width/2-attack.getWidth()/2));
+				attack.setY(this.getCollisionBounds(0, 0).y-attack.getHeight()/2-attack.getCollisionBounds(0, 0).height/2);
+				attack.setDirection(Direction.UP);
+			}
+			else if(lastDirection==Facing.DOWN) {
+				attack=new Arrow(handler,0,0);
+				attack.setX((float) (x+width/2-attack.getWidth()/2));
+				attack.setY((float) (this.getCollisionBounds(0, 0).y+this.bounds.height-attack.getBounds().getY()));
+				attack.setDirection(Direction.DOWN);
+			}
+			else if(lastDirection==Facing.LEFT) {
+				attack=new Arrow(handler,0, 0);
+				attack.setDirection(Direction.LEFT);
+				attack.setX(x-attack.getCollisionBounds(0, 0).width+10);
+				attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
+			}
+			else if(lastDirection==Facing.RIGHT) {
+				attack=new Arrow(handler,0,0);
+				attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX())+10);
+				attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
+				attack.setDirection(Direction.RIGHT);
+			}else {
+				return;
+			}
+			attackTimer=0;
+			handler.getWorld().getProjectileManager().addEntity(attack);
 		}
 	}
 
