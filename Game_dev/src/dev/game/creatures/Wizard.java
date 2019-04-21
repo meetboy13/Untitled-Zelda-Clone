@@ -38,10 +38,10 @@ public class Wizard extends Creature {
 		name="Wizard";
 		health=10;
 		//animations
-		animDown = new Animation(200,Assets.player_down);
-		animLeft = new Animation(200,Assets.player_left);
-		animUp = new Animation(200,Assets.player_up);
-		animRight = new Animation(200,Assets.player_right);
+		animDown = new Animation(50,Assets.wizard_down);
+		animLeft = new Animation(50,Assets.wizard_left);
+		animUp = new Animation(50,Assets.wizard_up);
+		animRight = new Animation(50,Assets.wizard_right);
 
 	}
 
@@ -245,17 +245,18 @@ public class Wizard extends Creature {
 			if (Math.abs(yDelta)<Math.abs(xDelta)) {
 				if(xDelta<0) {
 					lastDirection=Facing.RIGHT;
-					return Assets.player_right[1];
+					return Assets.wizard_right[1];
 				}else {
 					lastDirection=Facing.LEFT;
-					return Assets.player_left[1];				} 
+					return Assets.wizard_left[1];				
+				} 
 			}else {
 				if(yDelta>0) {
 					lastDirection=Facing.UP;
-					return Assets.player_up[1];
+					return Assets.wizard_up[1];
 				}else {
 					lastDirection=Facing.DOWN;
-					return Assets.player_down[1];
+					return Assets.wizard_down[1];
 
 				}
 			}
@@ -272,17 +273,17 @@ public class Wizard extends Creature {
 			}else if (yMove>0) {
 				lastDirection=Facing.DOWN;
 				return animDown.getCurrentFrame();
-			}else if (lastDirection==Facing.LEFT) {;
-				return Assets.player_left[1];
+			}else if (lastDirection==Facing.LEFT) {
+				return Assets.wizard_left[1];	
 			}
 			else if (lastDirection==Facing.RIGHT) {
-				return Assets.player_right[1];
+				return Assets.wizard_right[1];
 			}
 			else if (lastDirection==Facing.UP) {
-				return Assets.player_up[1];
+				return Assets.wizard_up[1];
 			}
 			else if (lastDirection==Facing.DOWN) {
-				return Assets.player_down[1];
+				return Assets.wizard_down[1];
 			}
 			//default animation to display if not condition is met.
 			return Assets.player;
