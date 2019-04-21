@@ -14,7 +14,7 @@ public class Assets {
 	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
 	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
-	friend_right,friend_left,friend_down;
+	friend_right,friend_left,friend_down,player_throw_front, player_hurt;
 	public static BufferedImage[] btn_start,wizard_beam,healthSpriteSheet,wizard_down,wizard_left,wizard_right,wizard_up,
 	wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
@@ -91,11 +91,14 @@ public class Assets {
 		healthSpriteSheet[2] = sheet42.crop(50*2,0, 50, 50);
 		healthSpriteSheet[3] = sheet42.crop(50*3,0, 50, 50);
 		healthSpriteSheet[4] = sheet42.crop(50*4,0, 50, 50);
+		
 		player_down = new BufferedImage[4];
 		player_up = new BufferedImage[4];
 		player_right = new BufferedImage[4];
 		player_left = new BufferedImage[4];
 		player_die = new BufferedImage[4];
+		player_hurt = new BufferedImage[4];
+		player_throw_front = new BufferedImage[4];
 		player_down[1] = sheet26.crop(0,0, width, height);
 		player_down[3] = sheet26.crop(0,0, width, height);
 		player_right[1] = sheet26.crop(width,0, width, height);
@@ -116,6 +119,15 @@ public class Assets {
 		player_die[1] = sheet26.crop(width,4*height, width, height);
 		player_die[2] = sheet26.crop(width*3,0, width, height);
 		player_die[3] = sheet26.crop(width*2,4*height, width, height);
+		player_hurt[0] = sheet26.crop(0,height*7, width, height);
+		player_hurt[1] = sheet26.crop(width*1,height*3, width, height);
+		player_hurt[2] = sheet26.crop(width*2,height*3, width, height);
+		player_hurt[3] = sheet26.crop(width*3,0, width, height);		
+		player_throw_front[0] = sheet26.crop(0,height*7, width, height);
+		player_throw_front[1] = sheet26.crop(width*1,height*7, width, height);
+		player_throw_front[2] = sheet26.crop(width*2,height*7, width, height);
+		player_throw_front[3] = sheet26.crop(width*3,height*7, width, height);
+
 		
 		friend_down = new BufferedImage[4];
 		friend_up = new BufferedImage[4];

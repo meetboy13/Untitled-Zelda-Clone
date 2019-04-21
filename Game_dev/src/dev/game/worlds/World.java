@@ -7,6 +7,7 @@ import dev.game.Handler;
 import dev.game.creatures.Bull;
 import dev.game.creatures.Frienemy;
 import dev.game.creatures.Player;
+import dev.game.creatures.Player2;
 import dev.game.creatures.Sheep;
 import dev.game.creatures.Wizard;
 import dev.game.entity.EntityManager;
@@ -188,7 +189,7 @@ public class World {
 				wizard.setY(entitySpawnY);
 				entityManager.addEntity(wizard);
 			}else if(entityType==4) {
-				Frienemy frienemy= new Frienemy(handler,0,0,100,100);
+				Player2 frienemy= new Player2(handler,0,0,100,100);
 				frienemy.setX(entitySpawnX);
 				frienemy.setY(entitySpawnY);
 				entityManager.addEntity(frienemy);

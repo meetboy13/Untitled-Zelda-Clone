@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyManager implements KeyListener{
 	private boolean[] keys,justPressed,cantPress;
-	public boolean up,down,left,right,attack1,attack2,transform;
+	public boolean up,down,left,right,attack1,attack2,transform,P2up, P2down, P2left, P2right;
 	
 	public KeyManager() {
 		keys = new boolean[256];
@@ -31,6 +31,10 @@ public class KeyManager implements KeyListener{
 		attack1 = keys[KeyEvent.VK_SPACE];
 		attack2 = keys[KeyEvent.VK_C];
 		transform = keys[KeyEvent.VK_E];
+		P2up = keys[KeyEvent.VK_UP];
+		P2down = keys[KeyEvent.VK_DOWN];
+		P2left = keys[KeyEvent.VK_LEFT]; 
+		P2right = keys[KeyEvent.VK_RIGHT];
 	}
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
