@@ -9,7 +9,7 @@ import dev.game.states.State;
 import dev.launcher.Assets;
 
 public class HUD {
-	private int health,gems;
+	private int health,gems,keys;
 	private float corruption;
 	private Handler handler;
 	private long now;
@@ -88,7 +88,7 @@ public class HUD {
 		g.drawImage(Assets.healthSpriteSheet[healthtemp], xOffset, 20, Assets.healthSpriteSheet[healthtemp].getWidth(), Assets.healthSpriteSheet[healthtemp].getHeight(),null);
 		xOffset+=Assets.healthSpriteSheet[healthtemp].getWidth();
 		
-		int emptyslots=((handler.getWorld().getEntityManager().getPlayer().getMaxHealth())/4-(health-1)/4);
+		int emptyslots=((handler.getWorld().getEntityManager().getPlayer().getMaxHealth()-health)/4);
 		while(emptyslots>0) {
 			g.drawImage(Assets.healthSpriteSheet[0], xOffset, 20, Assets.healthSpriteSheet[0].getWidth(), Assets.healthSpriteSheet[0].getHeight(),null);
 			xOffset+=Assets.healthSpriteSheet[0].getWidth();
