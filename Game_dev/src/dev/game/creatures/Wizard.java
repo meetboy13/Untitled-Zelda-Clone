@@ -60,6 +60,7 @@ public class Wizard extends Creature {
 		floatUp.tick();
 		floatRight.tick();
 		floatLeft.tick();
+		flickerDecay();
 		if(!stunned) {
 			getInput();
 		}
@@ -138,12 +139,14 @@ public class Wizard extends Creature {
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
+		if (damageFlicker%20<15) {
 		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-		
+		}
+		/*
 		//Code to show wizard hitboxes
 		g.setColor(Color.BLACK);
 		g.drawRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),(int)(y+bounds.y-handler.getGameCamera().getyOffset()),bounds.width,bounds.height);
-		
+		*/
 	}
 	public void aggression() {
 		//square detection

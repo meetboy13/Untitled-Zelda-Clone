@@ -16,7 +16,7 @@ public abstract class Creature extends Entity {
 	protected float xMove,yMove;
 	protected enum Facing {UP,DOWN,LEFT,RIGHT;}
 	protected boolean stunned = false;
-	protected int stunnedDuration=0;
+	protected int stunnedDuration=0,damageFlicker=0;
 	//constructor
 	public Creature(Handler handler, float x, float y,int width, int height) {
 		super( handler, x, y, width, height);
@@ -72,6 +72,7 @@ public abstract class Creature extends Entity {
 		//knockback
 		xMove=0;
 		yMove=0;
+		damageFlicker=60;
 		if (deltaX<0) {
 			xMove=(speed*4);
 		}else {
@@ -99,6 +100,11 @@ public abstract class Creature extends Entity {
 			stunnedDuration--;
 		}else if(stunned) {
 			stunned=false;
+		}
+	}
+	public void flickerDecay() {
+		if (damageFlicker>0) {
+			damageFlicker--;
 		}
 	}
 	//just checks if tile at coords is solid or not

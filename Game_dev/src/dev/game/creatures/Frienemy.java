@@ -41,6 +41,7 @@ public class Frienemy extends Creature {
 		animRight.tick();
 		animLeft.tick();
 		stunDecay();
+		flickerDecay();
 		if(!stunned) {
 			getInput();
 		}
@@ -51,8 +52,9 @@ public class Frienemy extends Creature {
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-		
+		if (damageFlicker%20<15) {
+			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+		}
 	}
 	private void getInput() {
 		if(handler.getWorld().getEntityManager().getPlayer().getX()>(x+5)) {
