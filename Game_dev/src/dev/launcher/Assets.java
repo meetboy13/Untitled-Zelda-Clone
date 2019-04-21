@@ -11,11 +11,12 @@ public class Assets {
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
 	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp,
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
-	stone_wall_crown,stone_wall_eagle,
+	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
 	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
 	friend_right,friend_left,friend_down;
-	public static BufferedImage[] btn_start,wizard_beam,healthSpriteSheet,wizard_down,wizard_left,wizard_right,wizard_up;
+	public static BufferedImage[] btn_start,wizard_beam,healthSpriteSheet,wizard_down,wizard_left,wizard_right,wizard_up,
+	wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/gem.png"));
@@ -172,56 +173,80 @@ public class Assets {
 		stone_wall_eagle = sheet49.crop(0, 0, 99, 99);
 		stone_wall_crown = sheet50.crop(0, 0, 99, 99);
 		
-		wizard_down=new BufferedImage[11];
+		wizard_down=new BufferedImage[3];
 		wizard_down[0] = sheet51.crop(0, 0, width, height);
 		wizard_down[1] = sheet51.crop(0, height, width, height);
 		wizard_down[2] = sheet51.crop(0, 2*height, width, height);
-		wizard_down[3] = sheet51.crop(0, 3*height, width, height);
-		wizard_down[4] = sheet51.crop(0, 4*height, width, height);
-		wizard_down[5] = sheet51.crop(0, 5*height, width, height);
-		wizard_down[6] = sheet51.crop(0, 6*height, width, height);
-		wizard_down[7] = sheet51.crop(0, 7*height, width, height);
-		wizard_down[8] = sheet51.crop(0, 8*height, width, height);
-		wizard_down[9] = sheet51.crop(0, 9*height, width, height);
-		wizard_down[10] = sheet51.crop(0, 10*height, width, height);
 		
-		wizard_left=new BufferedImage[11];
+		wizard_float_down=new BufferedImage[3];
+		wizard_float_down[0] = sheet51.crop(0, 3*height, width, height);
+		wizard_float_down[1] = sheet51.crop(0, 4*height, width, height);
+		wizard_float_down[2] = sheet51.crop(0, 5*height, width, height);
+		
+		wizard_attack_down=new BufferedImage[4];
+		wizard_attack_down[0] = sheet51.crop(0, 6*height, width, height);
+		wizard_attack_down[1] = sheet51.crop(0, 7*height, width, height);
+		wizard_attack_down[2] = sheet51.crop(0, 8*height, width, height);
+		wizard_attack_down[3] = sheet51.crop(0, 9*height, width, height);
+		
+		wizard_stunned_down = sheet51.crop(0, 10*height, width, height);
+		
+		wizard_left=new BufferedImage[4];
 		wizard_left[0] = sheet51.crop(width, 0, width, height);
 		wizard_left[1] = sheet51.crop(width, height, width, height);
 		wizard_left[2] = sheet51.crop(width, 2*height, width, height);
-		wizard_left[3] = sheet51.crop(width, 3*height, width, height);
-		wizard_left[4] = sheet51.crop(width, 4*height, width, height);
-		wizard_left[5] = sheet51.crop(width, 5*height, width, height);
-		wizard_left[6] = sheet51.crop(width, 6*height, width, height);
-		wizard_left[7] = sheet51.crop(width, 7*height, width, height);
-		wizard_left[8] = sheet51.crop(width, 8*height, width, height);
-		wizard_left[9] = sheet51.crop(width, 9*height, width, height);
-		wizard_left[10] = sheet51.crop(width, 10*height, width, height);
+		wizard_left[3] = sheet51.crop(width, height, width, height);
+		
+		wizard_float_left=new BufferedImage[4];
+		wizard_float_left[0] = sheet51.crop(width, 3*height, width, height);
+		wizard_float_left[1] = sheet51.crop(width, 4*height, width, height);
+		wizard_float_left[2] = sheet51.crop(width, 5*height, width, height);
+		wizard_float_left[3] = sheet51.crop(width, 4*height, width, height);
+		
+		wizard_attack_left=new BufferedImage[4];
+		wizard_attack_left[0] = sheet51.crop(width, 6*height, width, height);
+		wizard_attack_left[1] = sheet51.crop(width, 7*height, width, height);
+		wizard_attack_left[2] = sheet51.crop(width, 8*height, width, height);
+		wizard_attack_left[3] = sheet51.crop(width, 9*height, width, height);
+		
+		wizard_stunned_left = sheet51.crop(width, 10*height, width, height);
 		
 		wizard_right=new BufferedImage[11];
 		wizard_right[0] = sheet51.crop(width*2, 0, width, height);
 		wizard_right[1] = sheet51.crop(width*2, height, width, height);
 		wizard_right[2] = sheet51.crop(width*2, 2*height, width, height);
-		wizard_right[3] = sheet51.crop(width*2, 3*height, width, height);
-		wizard_right[4] = sheet51.crop(width*2, 4*height, width, height);
-		wizard_right[5] = sheet51.crop(width*2, 5*height, width, height);
-		wizard_right[6] = sheet51.crop(width*2, 6*height, width, height);
-		wizard_right[7] = sheet51.crop(width*2, 7*height, width, height);
-		wizard_right[8] = sheet51.crop(width*2, 8*height, width, height);
-		wizard_right[9] = sheet51.crop(width*2, 9*height, width, height);
-		wizard_right[10] = sheet51.crop(width*2, 10*height, width, height);
+		wizard_right[3] = sheet51.crop(width*2, height, width, height);
 		
-		wizard_up=new BufferedImage[11];
+		wizard_float_right = new BufferedImage[4];
+		wizard_float_right[0] = sheet51.crop(width*2, 3*height, width, height);
+		wizard_float_right[1] = sheet51.crop(width*2, 4*height, width, height);
+		wizard_float_right[2] = sheet51.crop(width*2, 5*height, width, height);
+		wizard_float_right[3] = sheet51.crop(width*2, 4*height, width, height);
+
+		wizard_attack_right = new BufferedImage[4];
+		wizard_attack_right[0] = sheet51.crop(width*2, 6*height, width, height);
+		wizard_attack_right[1] = sheet51.crop(width*2, 7*height, width, height);
+		wizard_attack_right[2] = sheet51.crop(width*2, 8*height, width, height);
+		wizard_attack_right[3] = sheet51.crop(width*2, 9*height, width, height);
+		
+		wizard_stunned_right = sheet51.crop(width*2, 10*height, width, height);
+		
+		wizard_up=new BufferedImage[3];
 		wizard_up[0] = sheet51.crop(width*3, 0, width, height);
 		wizard_up[1] = sheet51.crop(width*3, height, width, height);
 		wizard_up[2] = sheet51.crop(width*3, 2*height, width, height);
-		wizard_up[3] = sheet51.crop(width*3, 3*height, width, height);
-		wizard_up[4] = sheet51.crop(width*3, 4*height, width, height);
-		wizard_up[5] = sheet51.crop(width*3, 5*height, width, height);
-		wizard_up[6] = sheet51.crop(width*3, 6*height, width, height);
-		wizard_up[7] = sheet51.crop(width*3, 7*height, width, height);
-		wizard_up[8] = sheet51.crop(width*3, 8*height, width, height);
-		wizard_up[9] = sheet51.crop(width*3, 9*height, width, height);
-		wizard_up[10] = sheet51.crop(width*3, 0, width, height);
+		
+		wizard_float_up = new BufferedImage[3];
+		wizard_float_up[0] = sheet51.crop(width*3, 3*height, width, height);
+		wizard_float_up[1] = sheet51.crop(width*3, 4*height, width, height);
+		wizard_float_up[2] = sheet51.crop(width*3, 5*height, width, height);
+		
+		wizard_attack_up = new BufferedImage[4];
+		wizard_attack_up[0] = sheet51.crop(width*3, 6*height, width, height);
+		wizard_attack_up[1] = sheet51.crop(width*3, 7*height, width, height);
+		wizard_attack_up[2] = sheet51.crop(width*3, 8*height, width, height);
+		wizard_attack_up[3] = sheet51.crop(width*3, 9*height, width, height);
+		
+		wizard_stunned_up = sheet51.crop(width*3, 0, width, height);
 	}
 }

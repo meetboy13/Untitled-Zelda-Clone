@@ -85,22 +85,22 @@ public class Bull extends Creature {
 		xMove=0;
 		yMove=0;
 		if(lastDirection==Facing.UP) {
-			yMove = -6;
+			yMove = -4;
 			ar.x=cb.x+cb.width/2-arSize/2;
 			ar.y=cb.y-arSize;
 		}
 		else if(lastDirection==Facing.DOWN) {
-			yMove = 6;
+			yMove = 4;
 			ar.x=cb.x+cb.width/2-arSize/2;
 			ar.y=cb.y+cb.height;
 		}
 		else if(lastDirection==Facing.LEFT) {
-			xMove = -6;
+			xMove = -4;
 			ar.x=cb.x-arSize;
 			ar.y=cb.y+cb.height/2-arSize/2;
 		}
 		else if(lastDirection==Facing.RIGHT) {
-			xMove = 6;
+			xMove = 4;
 			ar.x=cb.x+cb.width;
 			ar.y=cb.y+cb.height/2-arSize/2;
 		}
