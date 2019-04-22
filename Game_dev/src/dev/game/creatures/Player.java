@@ -105,7 +105,7 @@ public class Player extends Creature{
 			if(e.getCollisionBounds(0, 0).intersects(ar)) {
 				int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
 				int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
-				e.hurt(damage*baseDamage,deltaX,deltaY);
+				e.hurt(damage,deltaX,deltaY);
 			}
 		}
 	}

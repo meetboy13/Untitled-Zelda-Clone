@@ -6,16 +6,19 @@ import java.awt.image.BufferedImage;
 
 import dev.game.Handler;
 import dev.game.entity.statics.StaticEntity;
+import dev.game.worlds.World;
 import dev.launcher.Assets;
 
 public class TransitionSpace extends StaticEntity{
 	private String pathEntity,pathWorld;
-	public TransitionSpace(Handler handler,float x ,float y, int width, int height, int id,String pathWorld,String pathEntity) {
+	boolean arena=false;
+	public TransitionSpace(Handler handler,float x ,float y, int width, int height, int id,String pathWorld,String pathEntity,boolean arena) {
 		super(handler, x, y, 64, 64);
 		this.id=id;
 		this.pathEntity=pathEntity;
 		this.pathWorld=pathWorld;
 		this.solid=false;
+		this.arena=arena;
 		// TODO Auto-generated constructor stub
 	}
 	@Override
@@ -32,6 +35,7 @@ public class TransitionSpace extends StaticEntity{
 			handler.getWorld().getEntityManager().clear1();
 			handler.getWorld().getProjectileManager().clear2();
 			handler.getWorld().getItemManager().clear();
+			handler.getWorld().setArena(arena);
 			handler.getWorld().loadNewWorld(pathWorld, pathEntity);
 		}
 	}

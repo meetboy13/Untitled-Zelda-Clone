@@ -15,7 +15,7 @@ public class Weapons {
 	public enum Sword{training,mirror,OP};
 	private Sword primary;
 	
-	private int damagePrimary=1,damageSecondary=1
+	private int damagePrimary=10,damageSecondary=1
 			,primaryCooldown=500,secondaryCooldown=0;
 	public Weapons(Handler handler) {
 		primary= Sword.training;

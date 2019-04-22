@@ -36,15 +36,75 @@ public class World {
 	private TransitionSpace world2,world1;
 	private String currentWorldPath="Resources/worlds/world1.txt"
 			,currentEntityPath="Resources/entities/world1.txt";
+	private int deathCounter=0;
+	boolean arena=false,trigger1=true,trigger2=true;
 	//constructor
-	public World(Handler handler, String worldPath,String entityPath) {
+	public World(Handler handler, String worldPath,String entityPath,boolean arena) {
 		this.handler = handler;
+		this.arena=arena;
 		projectileManager=new EntityManager(handler,new Sheep(handler,0,0,0,0));
 		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));		
 		itemManager= new ItemManager(handler);
 		loadNewWorld(worldPath,entityPath);		
 	}
 
+	private void updateSpawns() {
+		//do creature spawning stuff here
+		if(deathCounter>20) {
+			
+		}
+		else if(deathCounter>15) {
+			
+		}
+		else if(deathCounter>=10&& trigger2) {
+			Sheep sheep= new Sheep(handler,0,0, 100, 100);
+			sheep.setX(128);
+			sheep.setY(128);
+			entityManager.addEntity(sheep);
+			Wizard wizard= new Wizard(handler,0,0,100,100,false);
+			wizard.setX(300);
+			wizard.setY(128);
+			entityManager.addEntity(wizard);
+			wizard.setX(450);
+			wizard.setY(128);
+			entityManager.addEntity(wizard);
+			Bull bull= new Bull(handler,0,0,100,100,false);
+			bull.setX(600);
+			bull.setY(128);
+			entityManager.addEntity(bull);
+			bull= new Bull(handler,0,0,100,100,false);
+			bull.setY(128);
+			bull.setX(800);
+			entityManager.addEntity(bull);
+			trigger2=false;
+		}
+		else if(deathCounter>5&&trigger1) {
+			Sheep sheep= new Sheep(handler,0,0, 100, 100);
+			sheep.setX(128);
+			sheep.setY(128);
+			entityManager.addEntity(sheep);
+			Wizard wizard= new Wizard(handler,0,0,100,100,false);
+			wizard.setX(300);
+			wizard.setY(128);
+			entityManager.addEntity(wizard);
+			wizard.setX(450);
+			wizard.setY(128);
+			entityManager.addEntity(wizard);
+			Bull bull= new Bull(handler,0,0,100,100,false);
+			bull.setX(600);
+			bull.setY(128);
+			entityManager.addEntity(bull);
+			bull= new Bull(handler,0,0,100,100,false);
+			bull.setY(128);
+			bull.setX(800);
+			entityManager.addEntity(bull);
+			trigger1=false;
+		}
+	}
+	
+	private void deathCounterUpdate() {
+		deathCounter=entityManager.getDeathCount();
+	}
 	public void tick() {
 		ticking=true;
 		itemManager.tick();
@@ -56,6 +116,10 @@ public class World {
 			pathWorldTemp="";
 			pathEntityTemp="";
 			flagToLoad=false;
+		}
+		if (arena) {
+			deathCounterUpdate();
+			updateSpawns();
 		}
 	}
 	
@@ -204,15 +268,21 @@ public class World {
 				bull.setY(entitySpawnY);
 				entityManager.addEntity(bull);
 			}
-			
+
+			else if(entityType==93) {
+				TransitionSpace world3= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world3.txt","Resources/entities/world3.txt",true);
+				world3.setX(entitySpawnX);
+				world3.setY(entitySpawnY);
+				entityManager.addEntity(world3);
+			}
 			else if(entityType==92) {
-				world2= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt");
+				world2= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt",false);
 				world2.setX(entitySpawnX);
 				world2.setY(entitySpawnY);
 				entityManager.addEntity(world2);
 			}
 			else if(entityType==91) {
-				world1= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt");
+				world1= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt",false);
 				world1.setX(entitySpawnX);
 				world1.setY(entitySpawnY);
 				entityManager.addEntity(world1);
@@ -269,4 +339,13 @@ public class World {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+
+	public boolean isArena() {
+		return arena;
+	}
+
+	public void setArena(boolean arena) {
+		this.arena = arena;
+	}
+	
 }

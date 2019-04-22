@@ -17,7 +17,7 @@ public class GameState extends State{
 	public GameState(Handler handler) {
 		super(handler);
 		stateName="GameState";
-		world = new World(handler , "Resources/worlds/world1.txt","Resources/entities/world1.txt");
+		world = new World(handler , "Resources/worlds/world1.txt","Resources/entities/world1.txt",false);
 		handler.setWorld(world);
 		hud=new HUD(handler);
 		handler.setHUD(hud);

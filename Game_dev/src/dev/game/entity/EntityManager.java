@@ -79,6 +79,7 @@ public class EntityManager {
 		this.entities = entities;
 	}
 	public void clear1() {
+		deathCount=0;
 		ArrayList<Entity> temp=new ArrayList<Entity>();
 		temp.add(player);
 		setEntities(temp);
