@@ -8,9 +8,9 @@ import dev.game.Handler;
 import dev.game.entity.statics.StaticEntity;
 import dev.launcher.Assets;
 
-public class TransitionItem extends StaticEntity{
+public class TransitionSpace extends StaticEntity{
 	private String pathEntity,pathWorld;
-	public TransitionItem(Handler handler,float x ,float y, int width, int height, int id,String pathWorld,String pathEntity) {
+	public TransitionSpace(Handler handler,float x ,float y, int width, int height, int id,String pathWorld,String pathEntity) {
 		super(handler, x, y, 64, 64);
 		this.id=id;
 		this.pathEntity=pathEntity;
