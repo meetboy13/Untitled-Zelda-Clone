@@ -17,6 +17,7 @@ public abstract class Entity {
 	protected boolean solid=true;
 	public static final int DEFAULT_HEALTH=2;
 	protected Handler handler;
+	protected int id;
 
 	public String name="Default";
 	//constructor
@@ -107,5 +108,13 @@ public abstract class Entity {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract void die();
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }

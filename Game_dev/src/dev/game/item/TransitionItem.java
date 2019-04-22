@@ -4,22 +4,31 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import dev.game.Handler;
+import dev.game.entity.statics.StaticEntity;
 import dev.launcher.Assets;
 
-public class TransitionItem extends Item{
+public class TransitionItem extends StaticEntity{
 	private String pathEntity,pathWorld;
-	public TransitionItem(String name, int id,String pathWorld,String pathEntity) {
-		super(Assets.drop,name, 3);
-		width=64;
-		height=64;
+	public TransitionItem(Handler handler,float x ,float y, int width, int height, int id,String pathWorld,String pathEntity) {
+		super(handler, x, y, 64, 64);
+		this.id=id;
 		this.pathEntity=pathEntity;
 		this.pathWorld=pathWorld;
+		this.solid=false;
 		// TODO Auto-generated constructor stub
 	}
 	@Override
+	public void die() {
+		//add random location variability
+		health=10;
+		active=true;
+	}
+	@Override
 	public void tick() {
-		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)) {
-			pickedUp=true;
+		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))) {
+			active=false;
+			handler.getWorld().saveWorld();
 			handler.getWorld().getEntityManager().clear1();
 			handler.getWorld().getProjectileManager().clear2();
 			handler.getWorld().getItemManager().clear();
@@ -27,10 +36,11 @@ public class TransitionItem extends Item{
 		}
 	}
 	@Override
-	public void render(Graphics g,int x, int y) {
-		g.drawImage(texture, x, y, ITEMWIDTH, ITEMHEIGHT, null);
+	public void render(Graphics g) {
+		g.drawImage(Assets.drop,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		g.setColor(Color.BLUE);
-		g.drawRect(x, y, ITEMWIDTH, ITEMHEIGHT);
+		g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
+		
 	}
 
 }

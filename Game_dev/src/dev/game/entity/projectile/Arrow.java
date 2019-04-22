@@ -11,6 +11,7 @@ public class Arrow extends Projectile{
 	public Arrow(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
 		// TODO Auto-generated constructor stub
+		id=2;
 		bounds.x+=23;
 		bounds.y+=5;
 		bounds.height-=10;

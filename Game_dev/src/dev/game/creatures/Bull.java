@@ -28,6 +28,7 @@ public class Bull extends Creature {
 	public Bull(Handler handler, float x, float y, int width, int height, boolean fixedAggre) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
+		id=6;
 		bounds.x=16;
 		bounds.y=32;
 		bounds.width=32;

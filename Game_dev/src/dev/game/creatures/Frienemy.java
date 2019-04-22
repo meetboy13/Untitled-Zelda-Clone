@@ -20,6 +20,7 @@ public class Frienemy extends Creature {
 	public Frienemy(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, (int)(Creature.DEFAULT_CREATURE_WIDTH*1.3),(int)(Creature.DEFAULT_CREATURE_HEIGHT*1.3));
 		// TODO Auto-generated constructor stub
+		id=4;
 		bounds.x=16;
 		bounds.y=32;
 		bounds.width=36;

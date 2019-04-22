@@ -1,6 +1,9 @@
 package dev.launcher;
 
+import java.io.IOException;
+
 import dev.game.Game;
+import dev.game.utils.Utils;
 
 public class Launcher {
 	private static int width,height;

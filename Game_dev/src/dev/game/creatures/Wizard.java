@@ -28,6 +28,7 @@ public class Wizard extends Creature {
 	public Wizard(Handler handler, float x, float y, int width, int height, boolean fixedAggre) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
+		id=3;
 		bounds.x=16;
 		bounds.y=18;
 		bounds.width=28;

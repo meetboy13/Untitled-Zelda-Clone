@@ -18,6 +18,7 @@ public class Sheep extends Creature {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
 		name="sheep";
+		id=1;
 		bounds.x=16;
 		bounds.y=32;
 		bounds.width=32;

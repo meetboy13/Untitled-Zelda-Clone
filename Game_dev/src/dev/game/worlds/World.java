@@ -1,6 +1,7 @@
 package dev.game.worlds;
 
 import java.awt.Graphics;
+import java.io.IOException;
 
 import dev.game.Handler;
 import dev.game.creatures.Bull;
@@ -30,6 +31,8 @@ public class World {
 	private String pathWorldTemp,pathEntityTemp;
 	private boolean flagToLoad=true,ticking=false;
 	private TransitionItem world2,world1;
+	private String currentWorldPath="Resources/worlds/world1.txt"
+			,currentEntityPath="Resources/entities/world1.txt";
 	//constructor
 	public World(Handler handler, String worldPath,String entityPath) {
 		this.handler = handler;
@@ -85,6 +88,8 @@ public class World {
 		return t;
 	}
 	public void loadNewWorld(String pathWorld,String pathEntity) {
+		this.currentWorldPath=pathWorld;
+		this.currentEntityPath=pathEntity;
 		if (!ticking&&flagToLoad) {
 			loadWorld(pathWorld);
 			loadEntities(pathEntity);
@@ -112,7 +117,34 @@ public class World {
 			}
 		}
 	}
-
+	
+	public void saveWorld() {
+		//save tile data may be useful later
+		String data=width+" "+height+"\n"+spawnX+" "+spawnY+"\n";
+		for (int y=0;y<height;y++) {
+			for (int x=0;x<width;x++) {
+				data=data+tiles[x][y]+" ";
+			}
+			data=data+"\n";
+		}
+		try {
+			Utils.saveFileAsString(this.currentWorldPath,data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		data=""+(entityManager.getEntities().size()-1)+"\n";
+		for(int y=0;y<entityManager.getEntities().size();y++) {
+			data=data+((int)entityManager.getEntities().get(y).getId())+" "+((int)entityManager.getEntities().get(y).getX())+" "+((int)entityManager.getEntities().get(y).getY())+" 0\n";
+		}
+		try {
+			Utils.saveFileAsString(this.currentEntityPath,data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	private void loadEntities(String path) {
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
@@ -171,16 +203,16 @@ public class World {
 			}
 			
 			else if(entityType==92) {
-				world2= new TransitionItem("gate",3,"Resources/worlds/world2.txt","Resources/entities/world2.txt");
+				world2= new TransitionItem(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt");
 				world2.setX(entitySpawnX);
 				world2.setY(entitySpawnY);
-				itemManager.addItem(world2);
+				entityManager.addEntity(world2);
 			}
 			else if(entityType==91) {
-				world1= new TransitionItem("gate",3,"Resources/worlds/world1.txt","Resources/entities/world1.txt");
+				world1= new TransitionItem(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt");
 				world1.setX(entitySpawnX);
 				world1.setY(entitySpawnY);
-				itemManager.addItem(world1);
+				entityManager.addEntity(world1);
 			}
 		}
 	}
