@@ -240,8 +240,8 @@ public class Wizard extends Creature {
 	public void die() {
 		// TODO Auto-generated method stub
 		active=false;
-		int xVar=rand.nextInt(128)-64;
-		int yVar=rand.nextInt(128)-64;
+		int xVar=(int) (rand.nextInt((int) this.getBounds().getWidth())-this.getBounds().getWidth()/2);
+		int yVar=(int) (rand.nextInt((int) this.getBounds().getHeight())-this.getBounds().getHeight()/2);
 		handler.getWorld().getItemManager().addItem(Item.drop.createNew((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
 
 	}
