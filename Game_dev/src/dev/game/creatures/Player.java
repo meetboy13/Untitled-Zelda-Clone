@@ -26,7 +26,7 @@ public class Player extends Creature{
 
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Inventory inventory;
-	private boolean dead = false, shielding=false, transformed=false, transformable = true, justTransformed = false;
+	private boolean dead = false, shielding=false, transformed=false, transformable = true, justTransformed = false, temp = false;
 	private int deathLoop=0,corruption=0,corruptionMax=2000, baseDamage = 1;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
@@ -110,6 +110,11 @@ public class Player extends Creature{
 			}
 		}
 	}
+	
+	//@Override
+	//private void hurt(int damage,int deltaX,int deltaY) {
+		
+	//}
 
 	private void attack2() {
 		//ranged javelin attack
@@ -165,9 +170,9 @@ public class Player extends Creature{
 		}else {
 			speed = Creature.DEFAULT_SPEED*0.7f;
 			baseDamage = 2;
-			bounds.x=12;
+			bounds.x=16;
 			bounds.y=16;
-			bounds.width=38;
+			bounds.width=44;
 			bounds.height=48;
 			//int tx= ((int)(x+bounds.x)/Tile.TILEWIDTH);
 			//if(collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,tx) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,tx)) {
@@ -190,6 +195,9 @@ public class Player extends Creature{
 		//}else if(temp) {
 			//xMove = 1;
 			//yMove = -1;
+		}else if(temp) {
+			xMove= -1;
+			return;
 		}
 		else if(handler.getKeyManager().attack1) {//keyJustPressed(KeyEvent.VK_SPACE)) {
 			attack1();
@@ -241,11 +249,18 @@ public class Player extends Creature{
 		g.drawRect((int)(ar.x-handler.getGameCamera().getxOffset()),(int)(ar.y-handler.getGameCamera().getyOffset()),ar.width,ar.height);
 		
 	}
+	
+	
 
 	private BufferedImage getCurrentAnimationFrame() {
 		if(transformed) {
 			if(justTransformed) {
 				justTransformed = false;
+				temp = true;
+				//return Assets.nothing;
+			}else if(temp) {
+				temp = false;
+				//return Assets.nothing;
 			}else if(dead) {
 				return animDie.getCurrentFrame();
 			}
@@ -329,12 +344,13 @@ public class Player extends Creature{
 
 	private void corruptionTick() {
 		if (transformed &&(corruption<corruptionMax)) {
-			corruption++;
-		}else if((corruption>0)) {
+			corruption+=2;
+		}else if((corruption>100)) {
 			corruption--;
 		}
 		if(corruption == corruptionMax) {
 			setTransformable(false);
+			weapons.setPrimary(Weapons.Sword.OP);
 		}
 
 	}

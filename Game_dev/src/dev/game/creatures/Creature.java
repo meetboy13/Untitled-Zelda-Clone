@@ -72,8 +72,6 @@ public abstract class Creature extends Entity {
 			die();
 		}
 		//knockback
-		xMove=0;
-		yMove=0;
 		damageFlicker=60;
 		if (deltaX<0) {
 			xMove=(speed*4);
