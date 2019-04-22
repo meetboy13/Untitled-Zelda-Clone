@@ -26,7 +26,7 @@ public class Player extends Creature{
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Inventory inventory;
 	private boolean dead = false,temp=false, shielding=false, transformed=false, transformable = true;
-	private int deathLoop=0,corruption=0,corruptionMax=2000, baseDamage = 0;
+	private int deathLoop=0,corruption=0,corruptionMax=2000, baseDamage = 1;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 	private Weapons weapons;
