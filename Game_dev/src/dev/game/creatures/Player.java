@@ -3,6 +3,7 @@ package dev.game.creatures;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import dev.game.Handler;
@@ -174,7 +175,7 @@ public class Player extends Creature{
 	private void getInput() {
 		xMove=0;
 		yMove=0;
-		if(transformable&&handler.getKeyManager().transform) {
+		if(transformable&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
 			transformed=!transformed;
 		}else if(handler.getKeyManager().up && handler.getKeyManager().right) {
 			yMove= (float) (-speed/Math.sqrt(2));
