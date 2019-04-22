@@ -20,16 +20,18 @@ import dev.game.tile.Tile;
 import dev.game.utils.Utils;
 
 public class World {
-	private Handler handler;
+	protected Handler handler;
 	private int width, height;
 	private int entityNum;
 	private int spawnX,spawnY;
-	private EntityManager entityManager,projectileManager;
-	private ItemManager itemManager;
+	protected EntityManager entityManager,projectileManager;
+	protected ItemManager itemManager;
 	private int[][] tiles;
 	public enum Direction{UP,DOWN,LEFT,RIGHT};
-	private String pathWorldTemp,pathEntityTemp;
-	private boolean flagToLoad=true,ticking=false;
+	protected String pathWorldTemp;
+	protected String pathEntityTemp;
+	protected boolean flagToLoad=true;
+	protected boolean ticking=false;
 	private TransitionSpace world2,world1;
 	private String currentWorldPath="Resources/worlds/world1.txt"
 			,currentEntityPath="Resources/entities/world1.txt";
