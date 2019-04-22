@@ -16,6 +16,7 @@ import dev.game.inventory.Inventory.Sword;
 import dev.game.inventory.Weapons;
 import dev.game.states.GameOverState;
 import dev.game.states.State;
+import dev.game.tile.Tile;
 import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -25,7 +26,7 @@ public class Player extends Creature{
 
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Inventory inventory;
-	private boolean dead = false,temp=false, shielding=false, transformed=false, transformable = true;
+	private boolean dead = false, shielding=false, transformed=false, transformable = true, justTransformed = false;
 	private int deathLoop=0,corruption=0,corruptionMax=2000, baseDamage = 1;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
@@ -105,7 +106,7 @@ public class Player extends Creature{
 			if(e.getCollisionBounds(0, 0).intersects(ar)) {
 				int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
 				int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
-				e.hurt(damage,deltaX,deltaY);
+				e.hurt(damage*baseDamage,deltaX,deltaY);
 			}
 		}
 	}
@@ -147,22 +148,50 @@ public class Player extends Creature{
 			inventory.setSecondary(Equipment.none);
 		} else if (inventory.getSecondary()==Equipment.shield) {
 			shielding = !shielding;
+		} else if (inventory.getSecondary()==Equipment.wand) {
+			//Make stun projectile
 		}
 	}
 
+	private void transform() {
+		if(transformed) {
+			speed = Creature.DEFAULT_SPEED;
+			baseDamage = 1;
+			bounds.x=16;
+			bounds.y=32;
+			bounds.width=32;
+			bounds.height=32;
+
+		}else {
+			speed = Creature.DEFAULT_SPEED*0.7f;
+			baseDamage = 2;
+			bounds.x=12;
+			bounds.y=16;
+			bounds.width=38;
+			bounds.height=48;
+			//int tx= ((int)(x+bounds.x)/Tile.TILEWIDTH);
+			//if(collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,tx) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,tx)) {
+			//xMove = -3;
+			//yMove = 3;
+			//}
+			justTransformed=true;
+			xMove=1;
+			yMove=-1;
+		}
+		lastDirection=Facing.DOWN;
+		transformed = !transformed;
+	}
+	
 	private void getInput() {
 		xMove=0;
 		yMove=0;
 		if(transformable&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
-			if(transformed) {
-				speed = Creature.DEFAULT_SPEED;
-				baseDamage = 1;
-			}else {
-				speed = Creature.DEFAULT_SPEED*0.7f;
-				baseDamage = 2;
-			}
-			transformed = !transformed;
-		}else if(handler.getKeyManager().attack1) {//keyJustPressed(KeyEvent.VK_SPACE)) {
+			transform();
+		//}else if(temp) {
+			//xMove = 1;
+			//yMove = -1;
+		}
+		else if(handler.getKeyManager().attack1) {//keyJustPressed(KeyEvent.VK_SPACE)) {
 			attack1();
 		}else if (handler.getKeyManager().attack2) {
 			attack2();
@@ -206,17 +235,18 @@ public class Player extends Creature{
 		inventory.render(g);
 		//draw hitboxes for attacks and for the player
 		//this code should be generic except the ar rect which may require some temporary reworking
-		/*
+		
 		g.setColor(Color.blue);
 		g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
 		g.drawRect((int)(ar.x-handler.getGameCamera().getxOffset()),(int)(ar.y-handler.getGameCamera().getyOffset()),ar.width,ar.height);
-		 */
+		
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {
 		if(transformed) {
-
-			if(dead) {
+			if(justTransformed) {
+				justTransformed = false;
+			}else if(dead) {
 				return animDie.getCurrentFrame();
 			}
 			else if(xMove<0) {
@@ -255,12 +285,10 @@ public class Player extends Creature{
 			}
 			//default animation to display if not condition is met.
 			return Assets.friend_down[1];
-
 		}else {
 			if(dead) {
 				return animDie.getCurrentFrame();
-			}
-			else if(xMove<0) {
+			}else if(xMove<0) {
 				if((yMove<0) && (lastDirection==Facing.UP)) {
 					return animUp.getCurrentFrame();
 				} else if ((yMove>0) && (lastDirection==Facing.DOWN)) {

@@ -116,7 +116,7 @@ public class Game implements Runnable{
 	private void tick() {
 		KeyManager.tick();
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-			System.exit(1);
+			System.exit(0);
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
 			if(State.getState().getStateName()=="GameState") {
