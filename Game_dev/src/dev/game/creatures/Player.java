@@ -26,7 +26,7 @@ public class Player extends Creature{
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Inventory inventory;
 	private boolean dead = false,temp=false, shielding=false, transformed=false, transformable = true;
-	private int deathLoop=0,corruption=0,corruptionMax=2000;
+	private int deathLoop=0,corruption=0,corruptionMax=2000, baseDamage = 0;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 	private Weapons weapons;
@@ -77,75 +77,76 @@ public class Player extends Creature{
 			animDie.tick();
 		}
 		handler.getGameCamera().centeronEntity(this);
-		checkAttacks();
 		inventory.tick();
-		corruptionTick();
+		if(transformable) {
+			corruptionTick();
+		}
 
 	}
 
-	private void checkAttacks() {
+	private void attack1() {
 		attackTimer+=System.currentTimeMillis()-lastAttackTimer;
 		lastAttackTimer=System.currentTimeMillis();
 		if(attackTimer<weapons.getPrimaryCooldown()) {
 			return;
 		}
 		// TODO Auto-generated method stub
-		
+
 		cb =getCollisionBounds(0,0);
 		ar= new Rectangle();
 		int arSize=20;
 		ar.width=arSize;
 		ar.height=arSize;
-		if(handler.getKeyManager().attack1){
-			ar=weapons.getHitBox(lastDirection, cb);
+		ar=weapons.getHitBox(lastDirection, cb);
+		attackTimer=0;
+		damage=weapons.getDamagePrimary();
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+			if(e.equals(this)) {continue;}
+			if(e.getCollisionBounds(0, 0).intersects(ar)) {
+				int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
+				int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
+				e.hurt(damage*baseDamage,deltaX,deltaY);
+			}
+		}
+	}
+
+	private void attack2() {
+		//ranged javelin attack
+
+		if (inventory.getSecondary()==Equipment.spear) {
+			Arrow attack;
+
+			if(lastDirection==Facing.UP) {
+				attack=new Arrow(handler,0,0);
+				attack.setX((float) (x+width/2-attack.getWidth()/2));
+				attack.setY(this.getCollisionBounds(0, 0).y-attack.getHeight()/2-attack.getCollisionBounds(0, 0).height/2);
+				attack.setDirection(Direction.UP);
+			}
+			else if(lastDirection==Facing.DOWN) {
+				attack=new Arrow(handler,0,0);
+				attack.setX((float) (x+width/2-attack.getWidth()/2));
+				attack.setY((float) (this.getCollisionBounds(0, 0).y+this.bounds.height-attack.getBounds().getY()));
+				attack.setDirection(Direction.DOWN);
+			}
+			else if(lastDirection==Facing.LEFT) {
+				attack=new Arrow(handler,0, 0);
+				attack.setDirection(Direction.LEFT);
+				attack.setX(x-attack.getCollisionBounds(0, 0).width+10);
+				attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
+			}
+			else if(lastDirection==Facing.RIGHT) {
+				attack=new Arrow(handler,0,0);
+				attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX())+10);
+				attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
+				attack.setDirection(Direction.RIGHT);
+			}else {
+				return;
+			}
 			attackTimer=0;
-			damage=weapons.getDamagePrimary();
-			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
-				if(e.equals(this)) {continue;}
-				if(e.getCollisionBounds(0, 0).intersects(ar)) {
-					int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
-					int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
-					e.hurt(damage,deltaX,deltaY);
-				}
-			}
-		}else if (handler.getKeyManager().attack2) {
-			//ranged javelin attack
-
-			if (inventory.getSecondary()==Equipment.spear) {
-				Arrow attack;
-
-				if(lastDirection==Facing.UP) {
-					attack=new Arrow(handler,0,0);
-					attack.setX((float) (x+width/2-attack.getWidth()/2));
-					attack.setY(this.getCollisionBounds(0, 0).y-attack.getHeight()/2-attack.getCollisionBounds(0, 0).height/2);
-					attack.setDirection(Direction.UP);
-				}
-				else if(lastDirection==Facing.DOWN) {
-					attack=new Arrow(handler,0,0);
-					attack.setX((float) (x+width/2-attack.getWidth()/2));
-					attack.setY((float) (this.getCollisionBounds(0, 0).y+this.bounds.height-attack.getBounds().getY()));
-					attack.setDirection(Direction.DOWN);
-				}
-				else if(lastDirection==Facing.LEFT) {
-					attack=new Arrow(handler,0, 0);
-					attack.setDirection(Direction.LEFT);
-					attack.setX(x-attack.getCollisionBounds(0, 0).width+10);
-					attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
-				}
-				else if(lastDirection==Facing.RIGHT) {
-					attack=new Arrow(handler,0,0);
-					attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX())+10);
-					attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
-					attack.setDirection(Direction.RIGHT);
-				}else {
-					return;
-				}
-				attackTimer=0;
-				handler.getWorld().getProjectileManager().addEntity(attack);
-				inventory.setSecondary(Equipment.none);
-			} else if (inventory.getSecondary()==Equipment.shield) {
-				shielding = !shielding;
-			}
+			handler.getWorld().getProjectileManager().addEntity(attack);
+			inventory.setSecondary(Equipment.none);
+		} else if (inventory.getSecondary()==Equipment.shield) {
+			shielding = !shielding;
 		}
 	}
 
@@ -153,7 +154,18 @@ public class Player extends Creature{
 		xMove=0;
 		yMove=0;
 		if(transformable&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
-			transformed=!transformed;
+			if(transformed) {
+				speed = Creature.DEFAULT_SPEED;
+				baseDamage = 1;
+			}else {
+				speed = Creature.DEFAULT_SPEED*0.7f;
+				baseDamage = 2;
+			}
+			transformed = !transformed;
+		}else if(handler.getKeyManager().attack1) {//keyJustPressed(KeyEvent.VK_SPACE)) {
+			attack1();
+		}else if (handler.getKeyManager().attack2) {
+			attack2();
 		}else if(handler.getKeyManager().up && handler.getKeyManager().right) {
 			yMove= (float) (-speed/Math.sqrt(2));
 			xMove= (float) (speed/Math.sqrt(2));
@@ -203,6 +215,7 @@ public class Player extends Creature{
 
 	private BufferedImage getCurrentAnimationFrame() {
 		if(transformed) {
+
 			if(dead) {
 				return animDie.getCurrentFrame();
 			}
@@ -289,7 +302,7 @@ public class Player extends Creature{
 	private void corruptionTick() {
 		if (transformed &&(corruption<corruptionMax)) {
 			corruption++;
-		}else if(corruption>0) {
+		}else if((corruption>0)) {
 			corruption--;
 		}
 		if(corruption == corruptionMax) {
@@ -342,6 +355,6 @@ public class Player extends Creature{
 	public void setWeapons(Weapons weapons) {
 		this.weapons = weapons;
 	}
-	
+
 
 }

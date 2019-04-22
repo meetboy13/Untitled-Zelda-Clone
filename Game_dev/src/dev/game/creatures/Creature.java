@@ -7,8 +7,8 @@ import dev.game.creatures.Creature.Facing;
 
 public abstract class Creature extends Entity {
 	public static final float DEFAULT_SPEED=3.0f;
-	public static final int DEFAULT_CREATURE_WIDTH=64;
-	public static final int DEFAULT_CREATURE_HEIGHT=64;
+	public static final int DEFAULT_CREATURE_WIDTH=100;
+	public static final int DEFAULT_CREATURE_HEIGHT=100;
 	public static final int DEFAULT_CREATURE_DAMAGE=1;
 	public static final int DEFAULT_CREATURE_MAX_HEALTH=10;
 
@@ -97,7 +97,7 @@ public abstract class Creature extends Entity {
 		moveY();
 		}
 	}
-	public void stunDecay() {
+	protected void stunDecay() {
 		if (stunnedDuration>0) {
 			stunnedDuration--;
 		}else if(stunned) {
