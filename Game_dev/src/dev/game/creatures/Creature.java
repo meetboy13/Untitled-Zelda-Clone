@@ -90,17 +90,14 @@ public abstract class Creature extends Entity {
 		stunned=true;
 		stunnedDuration=2;
 	}
+	
 	//just calls the movement methods
 	public void move() {
 		if(!checkEntityCollisions(xMove,0f)) {
 			moveX();
-		}else {
-			xMove=0;
 		}
 		if(!checkEntityCollisions(0f,yMove)) {	
 			moveY();
-		}else {
-			yMove=0;
 		}
 	}
 	protected void stunDecay() {

@@ -48,7 +48,40 @@ public class World {
 		projectileManager=new EntityManager(handler,new Sheep(handler,0,0,0,0));
 		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));		
 		itemManager= new ItemManager(handler);
+		initSaveData();
 		loadNewWorld(worldPath,entityPath);		
+	}
+
+	private void initSaveData() {
+		// TODO Auto-generated method stub
+		loadNewWorld("Resources/Reserve_Data/worlds/world1.txt","Resources/Reserve_Data/entities/world1.txt");
+		currentWorldPath="Resources/worlds/world1.txt";
+		currentEntityPath="Resources/entities/world1.txt";
+		saveWorld();
+		entityManager.clear1();
+		projectileManager.clear2();
+		itemManager.clear();
+		loadNewWorld("Resources/Reserve_Data/worlds/world2.txt","Resources/Reserve_Data/entities/world2.txt");
+		currentWorldPath="Resources/worlds/world2.txt";
+		currentEntityPath="Resources/entities/world2.txt";
+		saveWorld();
+		entityManager.clear1();
+		projectileManager.clear2();
+		itemManager.clear();
+		loadNewWorld("Resources/Reserve_Data/worlds/world1.txt","Resources/Reserve_Data/entities/world3.txt");
+		currentWorldPath="Resources/worlds/world3.txt";
+		currentEntityPath="Resources/entities/world3.txt";
+		saveWorld();
+		entityManager.clear1();
+		projectileManager.clear2();
+		itemManager.clear();
+		loadNewWorld("Resources/Reserve_Data/worlds/world1.txt","Resources/Reserve_Data/entities/world4.txt");
+		currentWorldPath="Resources/worlds/world4.txt";
+		currentEntityPath="Resources/entities/world4.txt";
+		saveWorld();
+		entityManager.clear1();
+		projectileManager.clear2();
+		itemManager.clear();
 	}
 
 	private void updateSpawns() {
@@ -194,6 +227,7 @@ public class World {
 	
 	public void saveWorld() {
 		//save tile data may be useful later
+		if(worldType==WorldType.MIRROR) {return;}
 		String data=width+" "+height+"\n"+spawnX+" "+spawnY+"\n";
 		for (int y=0;y<height;y++) {
 			for (int x=0;x<width;x++) {
@@ -278,6 +312,12 @@ public class World {
 				entityManager.addEntity(bull);
 			}
 
+			else if(entityType==94) {
+				TransitionSpace world4= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world4.txt","Resources/entities/world4.txt",WorldType.MIRROR);
+				world4.setX(entitySpawnX);
+				world4.setY(entitySpawnY);
+				entityManager.addEntity(world4);
+			}
 			else if(entityType==93) {
 				TransitionSpace world3= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world3.txt","Resources/entities/world3.txt",WorldType.ARENA);
 				world3.setX(entitySpawnX);
@@ -291,7 +331,7 @@ public class World {
 				entityManager.addEntity(world2);
 			}
 			else if(entityType==91) {
-				world1= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt",WorldType.MIRROR);
+				world1= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt",WorldType.NORMAL);
 				world1.setX(entitySpawnX);
 				world1.setY(entitySpawnY);
 				entityManager.addEntity(world1);

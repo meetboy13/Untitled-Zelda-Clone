@@ -55,7 +55,29 @@ public class Player extends Creature{
 		inventory = new Inventory(handler);
 		weapons = new Weapons(handler);
 	}
-
+	@Override
+	public void move() {
+		if(!checkEntityCollisions(xMove,0f)) {
+			moveX();
+		}else {
+			if(xMove<0) {
+				lastDirection=Facing.LEFT;
+			}else if(xMove>0) {
+				lastDirection=Facing.RIGHT;
+			}
+			xMove=0;
+		}
+		if(!checkEntityCollisions(0f,yMove)) {	
+			moveY();
+		}else {
+			if (yMove<0) {
+				lastDirection=Facing.UP;
+			}else if (yMove>0) {
+				lastDirection=Facing.DOWN;
+			}
+			yMove=0;
+		}
+	}
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
