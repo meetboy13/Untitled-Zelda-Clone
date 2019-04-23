@@ -26,7 +26,7 @@ public class Player extends Creature{
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Inventory inventory;
 	private boolean dead = false,temp=false, shielding=false, transformed=false, transformable = true;
-	private int deathLoop=0,corruption=0,corruptionMax=2000, baseDamage = 0;
+	private int deathLoop=0,corruption=0,corruptionMax=2000, baseDamage = 1;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 	private Weapons weapons;
@@ -105,7 +105,7 @@ public class Player extends Creature{
 			if(e.getCollisionBounds(0, 0).intersects(ar)) {
 				int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
 				int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
-				e.hurt(damage,deltaX,deltaY);
+				e.hurt(damage*baseDamage,deltaX,deltaY);
 			}
 		}
 	}
