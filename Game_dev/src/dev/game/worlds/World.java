@@ -208,7 +208,9 @@ public class World {
 		}
 		data=""+(entityManager.getEntities().size()-1)+"\n";
 		for(int y=0;y<entityManager.getEntities().size();y++) {
-			data=data+((int)entityManager.getEntities().get(y).getId())+" "+((int)entityManager.getEntities().get(y).getX())+" "+((int)entityManager.getEntities().get(y).getY())+" 0\n";
+			if(entityManager.getEntities().get(y)!=entityManager.getPlayer()) {
+				data=data+((int)entityManager.getEntities().get(y).getId())+" "+((int)entityManager.getEntities().get(y).getX())+" "+((int)entityManager.getEntities().get(y).getY())+" 0\n";
+			}
 		}
 		try {
 			Utils.saveFileAsString(this.currentEntityPath,data);

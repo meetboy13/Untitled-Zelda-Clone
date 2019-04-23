@@ -38,6 +38,7 @@ public class EntityManager {
 		addEntity(sheep);
 	}
 	public void tick() {
+		System.out.println(entities.size());
 		Iterator<Entity> it = entities.iterator();
 		while(it.hasNext()) {
 			Entity e=it.next();
