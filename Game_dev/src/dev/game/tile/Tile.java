@@ -48,8 +48,8 @@ public class Tile {
 	//class
 	protected BufferedImage texture;
 	protected final int id;
-	public final static int TILEWIDTH=64;
-	public final static int TILEHEIGHT=64;
+	public final static int TILEWIDTH=100;
+	public final static int TILEHEIGHT=100;
 	
 	
 	public Tile(BufferedImage texture, int id) {

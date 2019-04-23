@@ -20,7 +20,7 @@ public class Wizard2 extends Creature {
 	private boolean aggressive = false;
 	private boolean face=false;
 	private boolean alwaysAggressive;
-	private Animation animDown,animUp,animLeft,animRight;
+	private Animation animDown,animUp,animLeft,animRight, floatDown, floatUp, floatRight, floatLeft;
 	private Facing lastDirection=Facing.DOWN;
 	private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	private Random rand = new Random();
@@ -36,10 +36,14 @@ public class Wizard2 extends Creature {
 		name="Wizard";
 		health=10;
 		//animations
-		animDown = new Animation(200,Assets.player_down);
-		animLeft = new Animation(200,Assets.player_left);
-		animUp = new Animation(200,Assets.player_up);
-		animRight = new Animation(200,Assets.player_right);
+		animDown = new Animation(200,Assets.wizard_down);
+		animLeft = new Animation(200,Assets.wizard_left);
+		animUp = new Animation(200,Assets.wizard_up);
+		animRight = new Animation(200,Assets.wizard_right);
+		floatDown = new Animation(200,Assets.wizard_float_down);
+		floatLeft = new Animation(200,Assets.wizard_float_left);
+		floatUp = new Animation(200,Assets.wizard_float_up);
+		floatRight = new Animation(200,Assets.wizard_float_right);
 		
 	}
 
@@ -206,29 +210,29 @@ public class Wizard2 extends Creature {
 	private BufferedImage getCurrentAnimationFrame() {
 		if(xMove<0) {
 			lastDirection=Facing.LEFT;
-			return animLeft.getCurrentFrame();
+			return floatLeft.getCurrentFrame();
 		}else if(xMove>0) {
 			lastDirection=Facing.RIGHT;
-			return animRight.getCurrentFrame();
+			return floatRight.getCurrentFrame();
 		}else if (yMove<0) {
 			lastDirection=Facing.UP;
-			return animUp.getCurrentFrame();
+			return floatUp.getCurrentFrame();
 		}else if (yMove>0) {
 			lastDirection=Facing.DOWN;
-			return animDown.getCurrentFrame();
-		}else if (lastDirection==Facing.LEFT) {;
-			return Assets.player_left[1];
+			return floatDown.getCurrentFrame();
+		}else if (lastDirection==Facing.LEFT) {
+			return animLeft.getCurrentFrame();	
 		}
 		else if (lastDirection==Facing.RIGHT) {
-			return Assets.player_right[1];
+			return animRight.getCurrentFrame();
 		}
 		else if (lastDirection==Facing.UP) {
-			return Assets.player_up[1];
+			return animUp.getCurrentFrame();
 		}
 		else if (lastDirection==Facing.DOWN) {
-			return Assets.player_down[1];
+			return animDown.getCurrentFrame();
 		}
 		//default animation to display if not condition is met.
-		return Assets.player_down[1];
+		return Assets.wizard_down[1];
 	}
 }

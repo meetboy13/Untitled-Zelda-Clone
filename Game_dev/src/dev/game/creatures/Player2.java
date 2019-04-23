@@ -72,7 +72,6 @@ public class Player2 extends Creature{
 		}else {
 			animDie.tick();
 		}
-		handler.getGameCamera().centeronEntity(this);
 		checkAttacks();
 		inventory.tick();
 

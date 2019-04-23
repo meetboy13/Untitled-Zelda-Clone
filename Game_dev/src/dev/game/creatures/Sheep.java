@@ -3,7 +3,7 @@ package dev.game.creatures;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-	
+
 import dev.game.Handler;
 import dev.game.item.Item;
 import dev.launcher.Animation;
@@ -14,9 +14,11 @@ public class Sheep extends Creature {
 	private Animation animDown,animUp,animLeft,animRight;
 	private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	private Random rand = new Random();
+	private boolean fleeing=false;
 	public Sheep(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
+		health=10;
 		name="sheep";
 		id=1;
 		bounds.x=16;
@@ -29,7 +31,7 @@ public class Sheep extends Creature {
 		animLeft = new Animation(200,Assets.player_left);
 		animUp = new Animation(200,Assets.player_up);
 		animRight = new Animation(200,Assets.player_right);
-		
+
 	}
 
 	@Override
@@ -45,7 +47,7 @@ public class Sheep extends Creature {
 			getInput();
 		}
 		move();
-		
+
 	}
 
 	@Override
@@ -56,38 +58,79 @@ public class Sheep extends Creature {
 		}
 	}
 	private void getInput() {
-		moveTimer+=System.currentTimeMillis()-lastMoveTimer;
-		lastMoveTimer=System.currentTimeMillis();
-		if(moveTimer>=moveCooldown) {
-			moveTimer=0;
-			switch (rand.nextInt(5)) {
-			//up
-			case 0:
-				xMove=0;
-				yMove=speed;
-				break;
-			//down
-			case 1:
-				xMove=0;
-				yMove=-speed;
-				break;
-			//left
-			case 2:
-				xMove=-speed;
-				yMove=0;
-				break;
-			//right
-			case 3:
-				xMove=speed;
-				yMove=0;
-				break;
-			//stop
-			case 4:
-				xMove=0;
-				yMove=0;
-				break;
+		if(fleeing && (Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(150, 2)){
+				if(handler.getWorld().getEntityManager().getPlayer().getX()>(x+5)) {
+					xMove = -speed;
+				}else if(handler.getWorld().getEntityManager().getPlayer().getX()<(x-5)) {
+					xMove = speed;
+				}else {
+					xMove = 0;
+				}
+				if(handler.getWorld().getEntityManager().getPlayer().getY()>(y+5)) {
+					yMove = -speed;
+				}else if(handler.getWorld().getEntityManager().getPlayer().getY()<(y-5)) {
+					yMove = speed;
+				}else {
+					yMove = 0;
+				}
+			
+		}else {
+			moveTimer+=System.currentTimeMillis()-lastMoveTimer;
+			lastMoveTimer=System.currentTimeMillis();
+			if(moveTimer>=moveCooldown) {
+				moveTimer=0;
+				switch (rand.nextInt(5)) {
+				//up
+				case 0:
+					xMove=0;
+					yMove=speed;
+					break;
+					//down
+				case 1:
+					xMove=0;
+					yMove=-speed;
+					break;
+					//left
+				case 2:
+					xMove=-speed;
+					yMove=0;
+					break;
+					//right
+				case 3:
+					xMove=speed;
+					yMove=0;
+					break;
+					//stop
+				case 4:
+					xMove=0;
+					yMove=0;
+					break;
+				}
 			}
 		}
+
+	}
+	@Override
+	public void hurt(int damage,int deltaX,int deltaY) {
+		fleeing=true;
+		health-=damage;
+		if (health<=0) {
+			die();
+		}
+		//knockback
+		damageFlicker=60;
+		if (deltaX<0) {
+			xMove=(speed*4);
+		}else {
+			xMove=-(4*speed);
+		}
+		if(deltaY<0) {
+			yMove=(speed*4);
+		}else {
+			yMove=-(4*speed);
+		}
+		stunned=true;
+		stunnedDuration=2;
 	}
 	@Override
 	public void die() {
@@ -111,7 +154,7 @@ public class Sheep extends Creature {
 			lastDirection=Facing.DOWN;
 			return animDown.getCurrentFrame();
 		}else if (lastDirection==Facing.LEFT) {;
-			return Assets.player_left[1];
+		return Assets.player_left[1];
 		}
 		else if (lastDirection==Facing.RIGHT) {
 			return Assets.player_right[1];

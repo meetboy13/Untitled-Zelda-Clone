@@ -40,20 +40,11 @@ public class ItemManager {
 		items.add(i);
 	}
 	public void clear() {
-		/*
 		if (!ticking) {
-			int j=0;
-			for(int i=0;i<items.size()-j;i++) {
-				if(!(items.get(i).id==3)) {
-					items.get(i).remove();
-					i--;
-					j++;
-				}
-			}
+			items=new ArrayList<Item>();
 		}else {
 			flagToClear=true;
 		}
-		*/
 	}
 	
 	public Handler getHandler() {

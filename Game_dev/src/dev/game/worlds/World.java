@@ -110,16 +110,16 @@ public class World {
 		itemManager.tick();
 		entityManager.tick();
 		projectileManager.tick();
+		if (arena) {
+			deathCounterUpdate();
+			updateSpawns();
+		}
 		ticking=false;
 		if(flagToLoad) {
 			loadNewWorld(pathWorldTemp,pathEntityTemp);
 			pathWorldTemp="";
 			pathEntityTemp="";
 			flagToLoad=false;
-		}
-		if (arena) {
-			deathCounterUpdate();
-			updateSpawns();
 		}
 	}
 	
@@ -255,7 +255,7 @@ public class World {
 				wizard.setY(entitySpawnY);
 				entityManager.addEntity(wizard);
 			}else if(entityType==4) {
-				Player2 frienemy= new Player2(handler,0,0,100,100);
+				Frienemy frienemy= new Frienemy(handler,0,0,100,100);
 				frienemy.setX(entitySpawnX);
 				frienemy.setY(entitySpawnY);
 				entityManager.addEntity(frienemy);
