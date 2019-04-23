@@ -115,7 +115,29 @@ public class Player extends Creature{
 	//private void hurt(int damage,int deltaX,int deltaY) {
 		
 	//}
-
+	@Override
+	public void hurt(int damage,int deltaX,int deltaY) {
+		if(!shielding) {
+			health-=damage;
+			if (health<=0) {
+				die();
+			}
+			//knockback
+			damageFlicker=60;
+			if (deltaX<0) {
+				xMove=(speed*4);
+			}else {
+				xMove=-(4*speed);
+			}
+				if(deltaY<0) {
+			yMove=(speed*4);
+			}else {
+				yMove=-(4*speed);
+			}
+			stunned=true;
+			stunnedDuration=2;
+		}
+	}
 	private void attack2() {
 		//ranged javelin attack
 
@@ -201,7 +223,7 @@ public class Player extends Creature{
 		}
 		else if(handler.getKeyManager().attack1) {//keyJustPressed(KeyEvent.VK_SPACE)) {
 			attack1();
-		}else if (handler.getKeyManager().attack2) {
+		}else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_C)) {
 			attack2();
 		}else if(handler.getKeyManager().up && handler.getKeyManager().right) {
 			yMove= (float) (-speed/Math.sqrt(2));
@@ -223,6 +245,9 @@ public class Player extends Creature{
 			xMove= -speed;
 		}else if(handler.getKeyManager().right) {
 			xMove= speed;
+		}if(shielding) {
+			xMove=0;
+			yMove=0;
 		}
 	}
 

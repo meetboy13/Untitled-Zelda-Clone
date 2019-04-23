@@ -37,11 +37,13 @@ public class World {
 	private String currentWorldPath="Resources/worlds/world1.txt"
 			,currentEntityPath="Resources/entities/world1.txt";
 	private int deathCounter=0;
-	boolean arena=false,trigger1=true,trigger2=true;
+	public enum WorldType{ARENA,NORMAL,MIRROR};
+	private WorldType worldType=WorldType.NORMAL;
+	boolean trigger1=true,trigger2=true;
 	//constructor
-	public World(Handler handler, String worldPath,String entityPath,boolean arena) {
+	public World(Handler handler, String worldPath,String entityPath,WorldType arena) {
 		this.handler = handler;
-		this.arena=arena;
+		this.worldType=arena;
 		projectileManager=new EntityManager(handler,new Sheep(handler,0,0,0,0));
 		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));		
 		itemManager= new ItemManager(handler);
@@ -110,7 +112,7 @@ public class World {
 		itemManager.tick();
 		entityManager.tick();
 		projectileManager.tick();
-		if (arena) {
+		if (worldType==WorldType.ARENA) {
 			deathCounterUpdate();
 			updateSpawns();
 		}
@@ -162,6 +164,10 @@ public class World {
 			loadEntities(pathEntity);
 			entityManager.getPlayer().setX(spawnX);
 			entityManager.getPlayer().setY(spawnY);
+			if(worldType==WorldType.MIRROR) {
+				Player mirrorPlayer=new Player(handler, spawnX+300, spawnY, 64, 64);
+				entityManager.addEntity(mirrorPlayer);
+			}
 			flagToLoad=false;
 		}else {
 			flagToLoad=true;
@@ -270,19 +276,19 @@ public class World {
 			}
 
 			else if(entityType==93) {
-				TransitionSpace world3= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world3.txt","Resources/entities/world3.txt",true);
+				TransitionSpace world3= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world3.txt","Resources/entities/world3.txt",WorldType.ARENA);
 				world3.setX(entitySpawnX);
 				world3.setY(entitySpawnY);
 				entityManager.addEntity(world3);
 			}
 			else if(entityType==92) {
-				world2= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt",false);
+				world2= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
 				world2.setX(entitySpawnX);
 				world2.setY(entitySpawnY);
 				entityManager.addEntity(world2);
 			}
 			else if(entityType==91) {
-				world1= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt",false);
+				world1= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world1.txt","Resources/entities/world1.txt",WorldType.MIRROR);
 				world1.setX(entitySpawnX);
 				world1.setY(entitySpawnY);
 				entityManager.addEntity(world1);
@@ -340,12 +346,11 @@ public class World {
 		this.entityManager = entityManager;
 	}
 
-	public boolean isArena() {
-		return arena;
+	public WorldType getWorldType() {
+		return worldType;
 	}
 
-	public void setArena(boolean arena) {
-		this.arena = arena;
-	}
-	
+	public void setWorldType(WorldType worldType) {
+		this.worldType = worldType;
+	}	
 }

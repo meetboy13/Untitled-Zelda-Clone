@@ -19,7 +19,7 @@ public class Weapons {
 			,primaryCooldown=500,secondaryCooldown=0;
 	public Weapons(Handler handler) {
 		primary= Sword.training;
-		secondary = Equipment.none;
+		secondary = Equipment.shield;
 	}
 	
 	public Rectangle getHitBox(Facing direction,Rectangle cb) {
