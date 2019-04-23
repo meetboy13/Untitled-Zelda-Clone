@@ -37,6 +37,7 @@ public abstract class Creature extends Entity {
 				x+=xMove;
 			}else {
 				x=tx*Tile.TILEWIDTH-bounds.x-bounds.width-1;
+				xMove=0;
 			}
 		}else if (xMove<0) {//left
 			int tx= ((int)(x+xMove+bounds.x)/Tile.TILEWIDTH);
@@ -44,6 +45,7 @@ public abstract class Creature extends Entity {
 				x+=xMove;
 			}else {
 				x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-bounds.x;
+				xMove=0;
 			}
 		}
 	}
@@ -54,6 +56,7 @@ public abstract class Creature extends Entity {
 				y+=yMove;
 			}else {
 				y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-bounds.y;
+				yMove=0;
 			}
 		}else if (yMove>0) {//down
 			int ty= ((int)(y+yMove+bounds.y+bounds.height)/Tile.TILEHEIGHT);
@@ -61,6 +64,7 @@ public abstract class Creature extends Entity {
 				y+=yMove;
 			}else {
 				y=ty*Tile.TILEHEIGHT-bounds.height-bounds.y-1;
+				yMove=0;
 				}
 		}
 	}
@@ -89,10 +93,14 @@ public abstract class Creature extends Entity {
 	//just calls the movement methods
 	public void move() {
 		if(!checkEntityCollisions(xMove,0f)) {
-		moveX();
+			moveX();
+		}else {
+			xMove=0;
 		}
 		if(!checkEntityCollisions(0f,yMove)) {	
-		moveY();
+			moveY();
+		}else {
+			yMove=0;
 		}
 	}
 	protected void stunDecay() {

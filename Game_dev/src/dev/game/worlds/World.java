@@ -8,6 +8,7 @@ import dev.game.creatures.Bull;
 import dev.game.creatures.Frienemy;
 import dev.game.creatures.Player;
 import dev.game.creatures.Player2;
+import dev.game.creatures.PlayerMirror;
 import dev.game.creatures.Sheep;
 import dev.game.creatures.Wizard;
 import dev.game.entity.EntityManager;
@@ -165,7 +166,7 @@ public class World {
 			entityManager.getPlayer().setX(spawnX);
 			entityManager.getPlayer().setY(spawnY);
 			if(worldType==WorldType.MIRROR) {
-				Player mirrorPlayer=new Player(handler, spawnX+300, spawnY, 64, 64);
+				PlayerMirror mirrorPlayer=new PlayerMirror(handler, spawnX+200, spawnY, 64, 64,entityManager.getPlayer());
 				entityManager.addEntity(mirrorPlayer);
 			}
 			flagToLoad=false;
