@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import dev.game.Handler;
 import dev.game.creatures.Boss;
+import dev.game.creatures.BossHand;
 import dev.game.creatures.Bull;
 import dev.game.creatures.Frienemy;
 import dev.game.creatures.Player;
@@ -334,7 +335,12 @@ public class World {
 				Boss boss= new Boss(handler,0,0,200,150);
 				boss.setX(entitySpawnX);
 				boss.setY(entitySpawnY);
+				BossHand leftHand=new BossHand(handler,300,400, 50, 50,boss);
+				BossHand rightHand=new BossHand(handler,400,400, 50, 50,boss);
 				entityManager.addEntity(boss);
+				entityManager.addEntity(rightHand);
+				entityManager.addEntity(leftHand);
+				
 			
 			
 			}

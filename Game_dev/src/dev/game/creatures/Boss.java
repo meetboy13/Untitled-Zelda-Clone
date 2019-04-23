@@ -6,7 +6,8 @@ import dev.game.Handler;
 import dev.launcher.Assets;
 
 public class Boss extends Creature{
-	private BossHand leftHand,rightHand;
+	//private BossHand leftHand,rightHand;
+	boolean handsCreated = false;
 	private int delay=0;
 	public Boss(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
@@ -14,13 +15,20 @@ public class Boss extends Creature{
 		this.maxHealth=20;
 		this.health=20;
 		this.id=7;
-		leftHand=new BossHand(handler,300,400, 50, 50,this);
-		rightHand=new BossHand(handler,400,400, 50, 50,this);
+		//leftHand=new BossHand(handler,300,400, 50, 50,this);
+		//rightHand=new BossHand(handler,400,400, 50, 50,this);
 	}
 
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
+		/*if (!handsCreated){
+			leftHand=new BossHand(handler,300,400, 50, 50,this);
+			rightHand=new BossHand(handler,400,400, 50, 50,this);
+			handler.getWorld().getEntityManager().addEntity(leftHand);
+			handler.getWorld().getEntityManager().addEntity(rightHand);
+			handsCreated = true;
+		}*/
 		if (delay>600){
 			System.out.println("Ticking");
 		}else if(delay==600) {
@@ -32,8 +40,10 @@ public class Boss extends Creature{
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.drawImage(Assets.magic,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-		leftHand.render(g);
-		rightHand.render(g);
+		//if (handsCreated) {
+		//leftHand.render(g);
+		//rightHand.render(g);
+		//}
 	}
 
 	@Override
