@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.io.IOException;
 
 import dev.game.Handler;
+import dev.game.creatures.Boss;
 import dev.game.creatures.Bull;
 import dev.game.creatures.Frienemy;
 import dev.game.creatures.Player;
@@ -88,6 +89,15 @@ public class World {
 		saveWorld();
 		entityManager.clear1();
 		projectileManager.clear2();
+		itemManager.clear();		
+		
+		flagToLoad=true;
+		loadNewWorld("Resources/Reserve_Data/worlds/world5.txt","Resources/Reserve_Data/entities/world5.txt");
+		currentWorldPath="Resources/worlds/world5.txt";
+		currentEntityPath="Resources/entities/world5.txt";
+		saveWorld();
+		entityManager.clear1();
+		projectileManager.clear2();
 		itemManager.clear();
 		
 	}
@@ -122,7 +132,7 @@ public class World {
 			entityManager.addEntity(bull);
 			trigger2=false;
 		}
-		else if(deathCounter>5&&trigger1) {
+		else if(deathCounter>=5&&trigger1) {
 			Sheep sheep= new Sheep(handler,0,0, 100, 100);
 			sheep.setX(128);
 			sheep.setY(128);
@@ -251,7 +261,7 @@ public class World {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		data=""+(entityManager.getEntities().size()-1)+"\n";
+		data=(entityManager.getEntities().size()-1)+"\n";
 		for(int y=0;y<entityManager.getEntities().size();y++) {
 			if(entityManager.getEntities().get(y)!=entityManager.getPlayer()) {
 				data=data+((int)entityManager.getEntities().get(y).getId())+" "+((int)entityManager.getEntities().get(y).getX())+" "+((int)entityManager.getEntities().get(y).getY())+" 0\n";
@@ -320,8 +330,20 @@ public class World {
 				bull.setX(entitySpawnX);
 				bull.setY(entitySpawnY);
 				entityManager.addEntity(bull);
+			}else if(entityType==7) {
+				Boss boss= new Boss(handler,0,0,200,150);
+				boss.setX(entitySpawnX);
+				boss.setY(entitySpawnY);
+				entityManager.addEntity(boss);
+			
+			
 			}
-
+			else if(entityType==95) {
+				TransitionSpace world5= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world5.txt","Resources/entities/world5.txt",WorldType.NORMAL);
+				world5.setX(entitySpawnX);
+				world5.setY(entitySpawnY);
+				entityManager.addEntity(world5);
+			}
 			else if(entityType==94) {
 				TransitionSpace world4= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world4.txt","Resources/entities/world4.txt",WorldType.MIRROR);
 				world4.setX(entitySpawnX);
