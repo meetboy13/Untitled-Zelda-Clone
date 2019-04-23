@@ -85,8 +85,10 @@ public class HUD {
 			healthtemp-=4;
 		}
 		
-		g.drawImage(Assets.healthSpriteSheet[healthtemp], xOffset, 20, Assets.healthSpriteSheet[healthtemp].getWidth(), Assets.healthSpriteSheet[healthtemp].getHeight(),null);
-		xOffset+=Assets.healthSpriteSheet[healthtemp].getWidth();
+		if (healthtemp != 0) {
+			g.drawImage(Assets.healthSpriteSheet[healthtemp], xOffset, 20, Assets.healthSpriteSheet[healthtemp].getWidth(), Assets.healthSpriteSheet[healthtemp].getHeight(),null);
+			xOffset+=Assets.healthSpriteSheet[healthtemp].getWidth();
+		}
 		
 		int emptyslots=((handler.getWorld().getEntityManager().getPlayer().getMaxHealth()-health)/4);
 		while(emptyslots>0) {

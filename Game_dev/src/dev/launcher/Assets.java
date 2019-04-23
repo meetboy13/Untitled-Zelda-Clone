@@ -9,7 +9,7 @@ public class Assets {
 	tree,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,key,health,shield,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
-	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp,
+	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp, nothing,
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
 	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
 	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down;
@@ -91,6 +91,7 @@ public class Assets {
 		healthSpriteSheet[2] = sheet42.crop(50*2,0, 50, 50);
 		healthSpriteSheet[3] = sheet42.crop(50*3,0, 50, 50);
 		healthSpriteSheet[4] = sheet42.crop(50*4,0, 50, 50);
+		nothing = sheet26.crop(3*width, 3*height, width, height);
 		
 		player_down = new BufferedImage[4];
 		player_up = new BufferedImage[4];

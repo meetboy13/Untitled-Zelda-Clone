@@ -69,11 +69,11 @@ public class Weapons {
 			primaryCooldown=500;
 		}
 		else if(this.primary==Sword.mirror) {
-			damagePrimary=0;
+			damagePrimary=1;
 			primaryCooldown=500;
 		}
 		else if(this.primary==Sword.OP) {
-			damagePrimary=0;
+			damagePrimary=3;
 			primaryCooldown=500;
 		}
 	}

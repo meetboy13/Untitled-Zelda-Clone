@@ -1,11 +1,10 @@
-package dev.game.item;
+package dev.game.entity.statics;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import dev.game.Handler;
-import dev.game.entity.statics.StaticEntity;
 import dev.game.worlds.World;
 import dev.launcher.Assets;
 

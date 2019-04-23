@@ -115,6 +115,9 @@ public class Game implements Runnable{
 		//as long as we are in a state
 	private void tick() {
 		KeyManager.tick();
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+			System.exit(0);
+		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
 			if(State.getState().getStateName()=="GameState") {
 				paused=!paused;

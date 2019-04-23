@@ -14,9 +14,9 @@ import dev.game.entity.EntityManager;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.Projectile;
 import dev.game.entity.statics.Rock;
+import dev.game.entity.statics.TransitionSpace;
 import dev.game.entity.statics.Tree;
 import dev.game.item.ItemManager;
-import dev.game.item.TransitionSpace;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
 
