@@ -54,6 +54,7 @@ public class World {
 
 	private void initSaveData() {
 		// TODO Auto-generated method stub
+		flagToLoad=true;
 		loadNewWorld("Resources/Reserve_Data/worlds/world1.txt","Resources/Reserve_Data/entities/world1.txt");
 		currentWorldPath="Resources/worlds/world1.txt";
 		currentEntityPath="Resources/entities/world1.txt";
@@ -61,6 +62,8 @@ public class World {
 		entityManager.clear1();
 		projectileManager.clear2();
 		itemManager.clear();
+
+		flagToLoad=true;
 		loadNewWorld("Resources/Reserve_Data/worlds/world2.txt","Resources/Reserve_Data/entities/world2.txt");
 		currentWorldPath="Resources/worlds/world2.txt";
 		currentEntityPath="Resources/entities/world2.txt";
@@ -68,20 +71,25 @@ public class World {
 		entityManager.clear1();
 		projectileManager.clear2();
 		itemManager.clear();
-		loadNewWorld("Resources/Reserve_Data/worlds/world1.txt","Resources/Reserve_Data/entities/world3.txt");
+
+		flagToLoad=true;
+		loadNewWorld("Resources/Reserve_Data/worlds/world3.txt","Resources/Reserve_Data/entities/world3.txt");
 		currentWorldPath="Resources/worlds/world3.txt";
 		currentEntityPath="Resources/entities/world3.txt";
 		saveWorld();
 		entityManager.clear1();
 		projectileManager.clear2();
 		itemManager.clear();
-		loadNewWorld("Resources/Reserve_Data/worlds/world1.txt","Resources/Reserve_Data/entities/world4.txt");
+
+		flagToLoad=true;
+		loadNewWorld("Resources/Reserve_Data/worlds/world4.txt","Resources/Reserve_Data/entities/world4.txt");
 		currentWorldPath="Resources/worlds/world4.txt";
 		currentEntityPath="Resources/entities/world4.txt";
 		saveWorld();
 		entityManager.clear1();
 		projectileManager.clear2();
 		itemManager.clear();
+		
 	}
 
 	private void updateSpawns() {
@@ -199,7 +207,7 @@ public class World {
 			entityManager.getPlayer().setX(spawnX);
 			entityManager.getPlayer().setY(spawnY);
 			if(worldType==WorldType.MIRROR) {
-				PlayerMirror mirrorPlayer=new PlayerMirror(handler, spawnX+200, spawnY, 64, 64,entityManager.getPlayer());
+				PlayerMirror mirrorPlayer=new PlayerMirror(handler, spawnX+100, spawnY, 64, 64,entityManager.getPlayer());
 				entityManager.addEntity(mirrorPlayer);
 			}
 			flagToLoad=false;
@@ -228,7 +236,9 @@ public class World {
 	public void saveWorld() {
 		//save tile data may be useful later
 		if(worldType==WorldType.MIRROR) {return;}
-		String data=width+" "+height+"\n"+spawnX+" "+spawnY+"\n";
+		int xSpawn=(int) entityManager.getPlayer().getX();
+		int ySpawn=(int) entityManager.getPlayer().getY();
+		String data=width+" "+height+"\n"+xSpawn+" "+ySpawn+"\n";
 		for (int y=0;y<height;y++) {
 			for (int x=0;x<width;x++) {
 				data=data+tiles[x][y]+" ";
