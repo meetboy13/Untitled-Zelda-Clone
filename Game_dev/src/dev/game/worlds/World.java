@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import dev.game.Handler;
 import dev.game.creatures.Boss;
-import dev.game.creatures.BossHand;
+import dev.game.creatures.BossHandLeft;
+import dev.game.creatures.BossHandRight;
 import dev.game.creatures.Bull;
 import dev.game.creatures.Frienemy;
 import dev.game.creatures.Player;
@@ -332,21 +333,16 @@ public class World {
 				bull.setY(entitySpawnY);
 				entityManager.addEntity(bull);
 			}else if(entityType==7) {
-				Boss boss= new Boss(handler,0,0,200,150);
-				boss.setX(entitySpawnX);
-				boss.setY(entitySpawnY);
-				BossHand leftHand=new BossHand(handler,300,400, 50, 50,boss);
-				leftHand.setX(entitySpawnX+300);
-				leftHand.setY(entitySpawnY);
-				BossHand rightHand=new BossHand(handler,400,400, 50, 50,boss);
-				rightHand.setX(entitySpawnX-50);
-				rightHand.setY(entitySpawnY);
-				entityManager.addEntity(boss);
+				BossHandLeft leftHand=new BossHandLeft(handler,300,400, 50, 50);
+				BossHandRight rightHand=new BossHandRight(handler,400,400, 50, 50);
 				entityManager.addEntity(rightHand);
 				entityManager.addEntity(leftHand);
+				Boss boss= new Boss(handler,0,0,200,150,leftHand,rightHand);
+				boss.setX(entitySpawnX);
+				boss.setY(entitySpawnY);
+				entityManager.addEntity(boss);
+				entityManager.setBoss(boss);
 				
-			
-			
 			}
 			else if(entityType==95) {
 				TransitionSpace world5= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world5.txt","Resources/entities/world5.txt",WorldType.NORMAL);

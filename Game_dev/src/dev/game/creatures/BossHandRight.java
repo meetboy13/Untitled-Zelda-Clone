@@ -10,21 +10,46 @@ import dev.game.entity.Entity;
 import dev.game.entity.projectile.WizardBeam;
 import dev.launcher.Assets;
 
-public class BossHand extends Creature{
+public class BossHandRight extends Creature{
 	Boss pairedBoss;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 
-	public BossHand(Handler handler, float x, float y, int width, int height,Boss boss) {
+	public BossHandRight(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
-		pairedBoss=boss;
+		id=9999999;
 		// TODO Auto-generated constructor stub
 	}
+	public void targetAttack() {
+		float xDelta = x-handler.getWorld().getEntityManager().getPlayer().getX();
+		float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
 
+		float xRatio = Math.abs(xDelta)/(Math.abs(xDelta)+Math.abs(yDelta));
+		float yRatio = Math.abs(yDelta)/(Math.abs(xDelta)+Math.abs(yDelta));
+
+		WizardBeam attack;
+		attack=new WizardBeam(handler,0,0);
+		attack.setX((float) (x+width/2-attack.getWidth()/2));
+		attack.setY((float) (this.getCollisionBounds(0, 0).y+this.bounds.height-attack.getBounds().getY()));
+		if(xDelta>0) {
+			attack.setXSpeed(-xRatio);
+		}else {
+			attack.setXSpeed(xRatio);
+		}
+
+		if(yDelta>0) {
+			attack.setYSpeed(-yRatio);
+		}else {
+			attack.setYSpeed(yRatio);
+		}
+
+		handler.getWorld().getProjectileManager().addEntity(attack);
+
+	}
+	
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		System.out.println("hand Exist");
 	}
 
 	@Override

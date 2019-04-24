@@ -11,7 +11,7 @@ import dev.launcher.Assets;
 
 public class Rock extends StaticEntity{
 	public Rock(Handler handler,float x, float y) {
-	super(handler,x,y,(int)(1.5*Tile.TILEWIDTH/1.2), (int) (1.5*Tile.TILEHEIGHT));
+	super(handler,x,y,(int)(1.5*64/1.2), (int) (1.5*64));
 	this.health=1;
 	id=5;
 	name="Rock";

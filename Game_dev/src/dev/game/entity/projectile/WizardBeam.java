@@ -21,8 +21,8 @@ public class WizardBeam extends Projectile{
 		bounds.height=20;
 		bounds.width=20;
 		speed=2;
-		int rate=rand.nextInt(20);
-		beam= new Animation(rate+20, Assets.wizard_beam);
+		int rate=rand.nextInt(40);
+		beam= new Animation(rate+100, Assets.wizard_beam);
 	}
 
 	/*@Override
