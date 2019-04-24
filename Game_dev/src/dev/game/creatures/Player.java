@@ -26,8 +26,8 @@ public class Player extends Creature{
 
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Inventory inventory;
-	private boolean dead = false, shielding=false, transformed=false, transformable = true, justTransformed = false, temp = false;
-	private int deathLoop=0,corruption=0,corruptionMax=2000, baseDamage = 1;
+	private boolean dead = false, shielding=false, transformed=false, transformable = true, justTransformed = false, neverDamaged = true;//temp = false;
+	private int deathLoop=0,corruption=0,corruptionMax=4000, baseDamage = 1;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 	private Weapons weapons;
@@ -35,9 +35,9 @@ public class Player extends Creature{
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
 		damage=1;
-		bounds.x=16;
+		bounds.x=14;
 		bounds.y=32;
-		bounds.width=32;
+		bounds.width=36;
 		bounds.height=32;
 		speed=Creature.DEFAULT_SPEED;
 		maxHealth=16;
@@ -140,12 +140,14 @@ public class Player extends Creature{
 	@Override
 	public void hurt(int damage,int deltaX,int deltaY) {
 		if(!shielding) {
+			neverDamaged = false;
 			health-=damage;
 			if (health<=0) {
 				die();
 			}
 			//knockback
 			damageFlicker=60;
+		}
 			if (deltaX<0) {
 				xMove=(speed*4);
 			}else {
@@ -158,7 +160,7 @@ public class Player extends Creature{
 			}
 			stunned=true;
 			stunnedDuration=2;
-		}
+		
 	}
 	private void attack2() {
 		//ranged javelin attack
@@ -206,17 +208,17 @@ public class Player extends Creature{
 		if(transformed) {
 			speed = Creature.DEFAULT_SPEED;
 			baseDamage = 1;
-			bounds.x=16;
+			bounds.x=14;
 			bounds.y=32;
-			bounds.width=32;
+			bounds.width=36;
 			bounds.height=32;
 
 		}else {
 			speed = Creature.DEFAULT_SPEED*0.7f;
 			baseDamage = 2;
-			bounds.x=16;
+			bounds.x=14;
 			bounds.y=16;
-			bounds.width=44;
+			bounds.width=36;
 			bounds.height=48;
 			//int tx= ((int)(x+bounds.x)/Tile.TILEWIDTH);
 			//if(collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,tx) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,tx)) {
@@ -224,7 +226,7 @@ public class Player extends Creature{
 			//yMove = 3;
 			//}
 			justTransformed=true;
-			xMove=1;
+			//xMove=1;
 			yMove=-1;
 		}
 		lastDirection=Facing.DOWN;
@@ -239,9 +241,9 @@ public class Player extends Creature{
 		//}else if(temp) {
 			//xMove = 1;
 			//yMove = -1;
-		}else if(temp) {
-			xMove= -1;
-			return;
+		//}else if(temp) {
+			//xMove= -1;
+			//return;
 		}
 		else if(handler.getKeyManager().attack1) {//keyJustPressed(KeyEvent.VK_SPACE)) {
 			attack1();
@@ -268,8 +270,8 @@ public class Player extends Creature{
 		}else if(handler.getKeyManager().right) {
 			xMove= speed;
 		}if(shielding) {
-			xMove=0;
-			yMove=0;
+			xMove=xMove*0.2f;
+			yMove=yMove*0.2f;
 		}
 	}
 
@@ -303,10 +305,10 @@ public class Player extends Creature{
 		if(transformed) {
 			if(justTransformed) {
 				justTransformed = false;
-				temp = true;
+				//temp = true;
 				//return Assets.nothing;
-			}else if(temp) {
-				temp = false;
+			//}else if(temp) {
+				//temp = false;
 				//return Assets.nothing;
 			}else if(dead) {
 				return animDie.getCurrentFrame();

@@ -336,7 +336,11 @@ public class World {
 				boss.setX(entitySpawnX);
 				boss.setY(entitySpawnY);
 				BossHand leftHand=new BossHand(handler,300,400, 50, 50,boss);
+				leftHand.setX(entitySpawnX+300);
+				leftHand.setY(entitySpawnY);
 				BossHand rightHand=new BossHand(handler,400,400, 50, 50,boss);
+				rightHand.setX(entitySpawnX-50);
+				rightHand.setY(entitySpawnY);
 				entityManager.addEntity(boss);
 				entityManager.addEntity(rightHand);
 				entityManager.addEntity(leftHand);

@@ -20,13 +20,13 @@ public class TransitionSpace extends StaticEntity{
 		this.solid=false;
 		this.worldType=worldType;
 		// TODO Auto-generated constructor stub
-	}
+	}	
+	
 	@Override
-	public void die() {
-		//add random location variability
-		health=10;
-		active=true;
+	public void hurt(int damage, int deltaX, int deltaY) {
+		// TODO Auto-generated method stub	
 	}
+	
 	@Override
 	public void tick() {
 		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))) {
@@ -45,6 +45,11 @@ public class TransitionSpace extends StaticEntity{
 		g.setColor(Color.BLUE);
 		g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
 		
+	}
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub	
 	}
 
 }
