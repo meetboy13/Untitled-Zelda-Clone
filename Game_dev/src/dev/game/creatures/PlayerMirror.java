@@ -11,8 +11,8 @@ import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
 import dev.game.entity.projectile.Arrow;
 import dev.game.inventory.Inventory;
-import dev.game.inventory.Inventory.Equipment;
-import dev.game.inventory.Inventory.Sword;
+import dev.game.inventory.Weapons.Equipment;
+import dev.game.inventory.Weapons.Sword;
 import dev.game.inventory.Weapons;
 import dev.game.states.GameOverState;
 import dev.game.states.State;
@@ -197,7 +197,7 @@ public class PlayerMirror extends Creature{
 	private void attack2() {
 		//ranged javelin attack
 
-		if (inventory.getSecondary()==Equipment.spear) {
+		if (weapons.getSecondary()==Equipment.javelin) {
 			Arrow attack;
 
 			if(lastDirection==Facing.UP) {
@@ -228,10 +228,10 @@ public class PlayerMirror extends Creature{
 			}
 			attackTimer=0;
 			handler.getWorld().getProjectileManager().addEntity(attack);
-			inventory.setSecondary(Equipment.none);
-		} else if (inventory.getSecondary()==Equipment.shield) {
+			weapons.setSecondary(Equipment.none);
+		} else if (weapons.getSecondary()==Equipment.shield) {
 			shielding = !shielding;
-		} else if (inventory.getSecondary()==Equipment.wand) {
+		} else if (weapons.getSecondary()==Equipment.wand) {
 			//Make stun projectile
 		}
 	}

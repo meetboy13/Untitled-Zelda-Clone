@@ -5,6 +5,9 @@ import java.awt.Rectangle;
 
 import dev.game.Handler;
 import dev.game.entity.Entity;
+import dev.game.states.Credits;
+import dev.game.states.GameOverState;
+import dev.game.states.State;
 import dev.launcher.Assets;
 
 public class Boss extends Creature{
@@ -24,6 +27,10 @@ public class Boss extends Creature{
 	public Boss(Handler handler, float x, float y, int width, int height,BossHandLeft leftHand,BossHandRight rightHand) {
 		super(handler, x, y, width, height);
 		// TODO Auto-generated constructor stub
+		bounds.x=(int) x;
+		bounds.y=(int) y;
+		bounds.width=width;
+		bounds.height=height;
 		this.maxHealth=20;
 		this.health=20;
 		this.id=7;
@@ -130,7 +137,11 @@ public class Boss extends Creature{
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
-		
+		active=false;
+		if(leftHand!=null) {leftHand.die();}
+		if(rightHand!=null) {rightHand.die();}
+		Credits credits = new Credits(handler);
+		State.setState(credits);
 	}
 
 }

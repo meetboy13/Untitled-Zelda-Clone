@@ -4,24 +4,23 @@ import java.awt.Rectangle;
 
 import dev.game.Handler;
 import dev.game.creatures.Creature.Facing;
-import dev.game.inventory.Inventory.Equipment;
-import dev.game.inventory.Inventory.Sword;
+import dev.game.item.Item;
 import dev.game.worlds.World.Direction;
 
 public class Weapons {
-	public enum Equipment{shield,spear,wand,none};
+	public enum Equipment{shield,javelin,wand,none};
 	private Equipment secondary;
 
 	public enum Sword{training,mirror,OP};
 	private Sword primary;
-	
+	private Handler handler;
 	private int damagePrimary=5,damageSecondary=1
 			,primaryCooldown=500,secondaryCooldown=0;
 	public Weapons(Handler handler) {
+		this.handler=handler;
 		primary= Sword.training;
 		secondary = Equipment.shield;
 	}
-	
 	public Rectangle getHitBox(Facing direction,Rectangle cb) {
 		Rectangle ar = null;
 		ar= new Rectangle();
@@ -101,6 +100,7 @@ public class Weapons {
 	public void setSecondaryCooldown(int secondaryCooldown) {
 		this.secondaryCooldown = secondaryCooldown;
 	}
+
 	
 	
 }

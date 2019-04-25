@@ -9,22 +9,21 @@ import dev.game.ui.UIImageButton;
 import dev.game.ui.UIManager;
 import dev.launcher.Assets;
 
-public class MenuState  extends State{
-	//constructor
+public class Credits extends State{
+
 	private UIManager uiManager;
-	
-	public MenuState(Handler handler) {
+	public Credits(Handler handler) {
 		super(handler);
-		stateName="MenuState";
+		stateName="Credits";
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUiManager(uiManager);
 		uiManager.addObject(new UIImageButton(200,200,550,70,Assets.btn_start,new ClickListener() {
 			@Override
 			public void onClick() {
 				// TODO Auto-generated method stub
-				handler.getMouseManager().setUiManager(null);
-				GameState gameState=new GameState(handler);
-				State.setState(gameState);
+				handler.getMouseManager().setUiManager(null);				
+				State menuState = new MenuState(handler);
+				State.setState(menuState);
 			}
 		}));
 	}
