@@ -1,8 +1,10 @@
 package dev.game.creatures;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import dev.game.Handler;
+import dev.game.entity.Entity;
 import dev.launcher.Assets;
 
 public class Boss extends Creature{
@@ -13,7 +15,7 @@ public class Boss extends Creature{
 	private float rightXDelta;
 	private float rightYDelta;
 	private float leftXDelta;
-	private int leftCooldown=40,leftAttackCount=0;
+	private int leftCooldown=30,leftAttackCount=0,leftAttackLoop=600,leftAttackLoopCount=0;
 	private boolean up;
 	private boolean right;
 	private int rightAttackCount=0;
@@ -26,6 +28,7 @@ public class Boss extends Creature{
 		this.id=7;
 		this.leftHand=leftHand;
 		this.rightHand=rightHand;
+		this.damage=1;
 	}
 
 	@Override
@@ -38,17 +41,45 @@ public class Boss extends Creature{
 
 	private void checkAttacks() {
 		// TODO Auto-generated method stub
-		if(leftAttackCount>leftCooldown) {
-			leftAttackCount=0;
-			leftHand.spreadAttack();
+		float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
+		if(!(yDelta>-(this.getHeight()+leftHand.getHeight()+100+leftYDelta))) {
+			if(leftAttackLoopCount>=leftAttackLoop) {
+				leftAttackLoopCount=0;
+			}
+			if (leftAttackLoopCount<=150) {
+				if(leftAttackCount>leftCooldown) {
+					leftAttackCount=0;
+					leftHand.spreadAttack();
+				}else {
+					leftAttackCount++;
+				}
+				leftAttackLoopCount++;
+			}else {
+				leftAttackLoopCount++;
+			}
+			if(rightAttackCount>rightCooldown) {
+				rightAttackCount=0;
+				rightHand.targetAttack();
+			}else {
+				rightAttackCount++;
+			}
 		}else {
-			leftAttackCount++;
-		}
-		if(rightAttackCount>rightCooldown) {
-			rightAttackCount=0;
-			rightHand.targetAttack();
-		}else {
-			rightAttackCount++;
+			Rectangle cb = this.getCollisionBounds(0, 0);
+			Rectangle ar = null;
+			ar= new Rectangle();
+			int arSize=20;
+			ar.height=arSize;
+			ar.x=cb.x;
+			ar.y=cb.y+cb.height;
+			ar.width=cb.width;
+			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+				if(e.equals(this)) {continue;}
+				if(e.getCollisionBounds(0, 0).intersects(ar)) {
+					int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
+					int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
+					e.hurt(damage,deltaX,deltaY);
+				}
+			}
 		}
 	}
 

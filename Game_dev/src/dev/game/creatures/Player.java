@@ -79,6 +79,49 @@ public class Player extends Creature{
 			yMove=0;
 		}
 	}
+	
+	public void expandCheck() {
+		//does not work ill do later
+		if(!checkEntityCollisions(xMove,0f)) {
+			if(xMove>0) {//right
+				int tx= ((int)(x+xMove+bounds.x + bounds.width)/Tile.TILEWIDTH);
+				if(!collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT) && !collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
+					x+=xMove;
+				}else {
+					x=tx*Tile.TILEWIDTH-bounds.x-bounds.width-1;
+					xMove=0;
+				}
+			}else if (xMove<0) {//left
+				int tx= ((int)(x+xMove+bounds.x)/Tile.TILEWIDTH);
+				if(!collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT) && !collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
+					x+=xMove;
+				}else {
+					x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-bounds.x;
+					xMove=0;
+				}
+			}
+		}if(!checkEntityCollisions(0f,yMove)) {	
+			if(yMove<0) {//up
+				int ty= ((int)(y+yMove+bounds.y)/Tile.TILEHEIGHT);
+				if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty)) {
+					y+=yMove;
+				}else {
+					y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-bounds.y;
+					yMove=0;
+				}
+			}else if (yMove>0) {//down
+				int ty= ((int)(y+yMove+bounds.y+bounds.height)/Tile.TILEHEIGHT);
+				if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty)) {
+					y+=yMove;
+				}else {
+					y=ty*Tile.TILEHEIGHT-bounds.height-bounds.y-1;
+					yMove=0;
+					}
+			}
+		}
+	}
+	
+	
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
