@@ -16,6 +16,7 @@ public class Boss extends Creature{
 	private float rightYDelta;
 	private float leftXDelta;
 	private int leftCooldown=30,leftAttackCount=0,leftAttackLoop=600,leftAttackLoopCount=0;
+	private int meleeAttackCount=0,meleeAttackDelay=240;
 	private boolean up;
 	private boolean right;
 	private int rightAttackCount=0;
@@ -42,7 +43,8 @@ public class Boss extends Creature{
 	private void checkAttacks() {
 		// TODO Auto-generated method stub
 		float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
-		if(!(yDelta>-(this.getHeight()+leftHand.getHeight()+100+leftYDelta))) {
+		if(!(yDelta>-(this.getHeight()+20))) {
+			meleeAttackCount=0;
 			if(leftAttackLoopCount>=leftAttackLoop) {
 				leftAttackLoopCount=0;
 			}
@@ -64,21 +66,26 @@ public class Boss extends Creature{
 				rightAttackCount++;
 			}
 		}else {
-			Rectangle cb = this.getCollisionBounds(0, 0);
-			Rectangle ar = null;
-			ar= new Rectangle();
-			int arSize=20;
-			ar.height=arSize;
-			ar.x=cb.x;
-			ar.y=cb.y+cb.height;
-			ar.width=cb.width;
-			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
-				if(e.equals(this)) {continue;}
-				if(e.getCollisionBounds(0, 0).intersects(ar)) {
-					int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
-					int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
-					e.hurt(damage,deltaX,deltaY);
+			if(meleeAttackCount>=meleeAttackDelay) {
+				meleeAttackCount=0;
+				Rectangle cb = this.getCollisionBounds(0, 0);
+				Rectangle ar = null;
+				ar= new Rectangle();
+				int arSize=50;
+				ar.height=arSize;
+				ar.x=cb.x;
+				ar.y=cb.y+cb.height;
+				ar.width=cb.width;
+				for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+					if(e.equals(this)) {continue;}
+					if(e.getCollisionBounds(0, 0).intersects(ar)) {
+						int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
+						int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
+						e.hurt(damage,deltaX,deltaY);
+					}
 				}
+			}else {
+				meleeAttackCount++;
 			}
 		}
 	}
@@ -116,7 +123,7 @@ public class Boss extends Creature{
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(Assets.magic,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+		g.drawImage(Assets.magic,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/meleeAttackDelay),width,height,null);
 
 	}
 
