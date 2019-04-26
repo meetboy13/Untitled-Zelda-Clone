@@ -392,6 +392,8 @@ public class Player extends Creature{
 		}else {
 			if(dead) {
 				return animDie.getCurrentFrame();
+			}else if(shielding) {
+				//
 			}else if(xMove<0) {
 				if((yMove<0) && (lastDirection==Facing.UP)) {
 					return animUp.getCurrentFrame();

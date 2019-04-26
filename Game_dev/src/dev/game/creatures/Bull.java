@@ -38,10 +38,10 @@ public class Bull extends Creature {
 		name="Bull";
 		health=10;
 		//animations
-		animDown = new Animation(200,Assets.player_down);
-		animLeft = new Animation(200,Assets.player_left);
-		animUp = new Animation(200,Assets.player_up);
-		animRight = new Animation(200,Assets.player_right);
+		animDown = new Animation(200,Assets.bull_down);
+		animLeft = new Animation(200,Assets.bull_left);
+		animUp = new Animation(200,Assets.bull_up);
+		animRight = new Animation(200,Assets.bull_right);
 
 	}
 
@@ -130,7 +130,7 @@ public class Bull extends Creature {
 	}
 	public void aggression() {
 		//square detection
-		//if(((x-200) < handler.getWorld().getEntityManager().getPlayer().getX()) && (handler.getWorld().getEntityManager().getPlayer().getX() <(x+200))&&(((y-200) < handler.getWorld().getEntityManager().getPlayer().getY()) && (handler.getWorld().getEntityManager().getPlayer().getY() <(y+200)))) {
+		//if(((x-200) < handler.getWorld().getEntityManager().getPlayer().getX()) && (handler.getWorld().getEntityManager().getPlayer().getX() <(x+200))&&(((y-200) < handler.getWorld().getEntityManagerbullPlayer().getY()) && (handler.getWorld().getEntityManager().getPlayer().getY() <(y+200)))) {
 		//circle detection of radius 400
 		if ((Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(200, 2)){
 			setAggressive(true);
@@ -228,7 +228,17 @@ public class Bull extends Creature {
 		aggressive = aggro;
 	}
 	private BufferedImage getCurrentAnimationFrame() {
-			if(xMove<0) {
+			if (stunned) {
+				if(lastDirection==Facing.LEFT) {
+					return Assets.bull_stunned[1];
+				}else if(lastDirection==Facing.RIGHT) {
+					return Assets.bull_stunned[2];
+				}else if(lastDirection==Facing.DOWN) {
+					return Assets.bull_stunned[0];
+				}else {
+					return Assets.bull_stunned[3];
+				}
+			}else if(xMove<0) {
 				lastDirection=Facing.LEFT;
 				return animLeft.getCurrentFrame();
 			}else if(xMove>0) {
@@ -241,18 +251,18 @@ public class Bull extends Creature {
 				lastDirection=Facing.DOWN;
 				return animDown.getCurrentFrame();
 			}else if (lastDirection==Facing.LEFT) {;
-				return Assets.player_left[1];
+				return Assets.bull_left[1];
 			}
 			else if (lastDirection==Facing.RIGHT) {
-				return Assets.player_right[1];
+				return Assets.bull_right[1];
 			}
 			else if (lastDirection==Facing.UP) {
-				return Assets.player_up[1];
+				return Assets.bull_up[1];
 			}
 			else if (lastDirection==Facing.DOWN) {
-				return Assets.player_down[1];
+				return Assets.bull_down[1];
 			}
 			//default animation to display if not condition is met.
-			return Assets.player_down[1];
+			return Assets.bull_down[1];
 	}
 }

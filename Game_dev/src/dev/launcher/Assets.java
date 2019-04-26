@@ -20,7 +20,9 @@ public class Assets {
 	wizard_down,wizard_left,wizard_right,wizard_up,	player_throw_left,player_throw_right,player_throw_back,player_shield_up,player_shield_down,
 	player_shield_right,player_shield_left,player_training_up,player_training_down,	player_training_left,
 	player_training_right,player_mirror_up,player_mirror_down,player_mirror_right,player_mirror_left,
-	player_op_up,player_op_down,player_op_left,player_op_right,player_wand,wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right;
+	player_op_up,player_op_down,player_op_left,player_op_right,player_wand,wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,
+	wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right, sheep_walk_down,sheep_walk_right,sheep_walk_left,sheep_walk_up,
+	bull_down,bull_up,bull_left,bull_right,bull_stunned;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		hurt = new soundEffect();
@@ -80,6 +82,9 @@ public class Assets {
 		SpriteSheet sheet52= new SpriteSheet(Loader.loadImage("/Sprite/health pickup.png"));
 		SpriteSheet sheet53= new SpriteSheet(Loader.loadImage("/Sprite/righthand.png"));
 		SpriteSheet sheet54= new SpriteSheet(Loader.loadImage("/Sprite/lefthand.png"));
+		SpriteSheet sheet55= new SpriteSheet(Loader.loadImage("/Sprite/SheepSpriteSheet.png"));
+		SpriteSheet sheet56= new SpriteSheet(Loader.loadImage("/Sprite/BullSpriteSheet.png"));
+		
 		
 		BossHead = new BufferedImage[3];
 		BossHead[0]=sheet0.crop(0, 0, 300, 200);
@@ -121,6 +126,7 @@ public class Assets {
 		healthSpriteSheet[4] = sheet42.crop(50*4,0, 50, 50);
 		nothing = sheet26.crop(3*width, 3*height, width, height);
 		
+		//player
 		player_down = new BufferedImage[4];
 		player_up = new BufferedImage[4];
 		player_right = new BufferedImage[4];
@@ -149,7 +155,6 @@ public class Assets {
 		player_op_right = new BufferedImage[3];
 		player_wand = new BufferedImage[4];
 
-		
 		player_down[1] = sheet26.crop(0,0, width, height);
 		player_down[3] = sheet26.crop(0,0, width, height);
 		player_right[1] = sheet26.crop(width,0, width, height);
@@ -241,7 +246,7 @@ public class Assets {
 		player_wand[2] = sheet26.crop(width*3,height*22, width, height);
 		player_wand[3] = sheet26.crop(width*2,height*22, width, height);
 
-		
+		//friend
 		friend_down = new BufferedImage[4];
 		friend_up = new BufferedImage[4];
 		friend_left = new BufferedImage[4];
@@ -264,11 +269,13 @@ public class Assets {
 		friend_right[3] = sheet11.crop(260, 0, 130, 130);
 		friend_right[0] = sheet11.crop(260, 260, 130, 130);
 		
+		//projectiles
 		spear = new BufferedImage[4];
 		spear[0] = sheet27.crop(0, 0, width, height);
 		spear[1] = sheet27.crop(width, 0, width, height);
 		spear[2] = sheet27.crop(width*2, 0, width, height);
 		spear[3] = sheet27.crop(width*3, 0, width, height);
+		
 		magic = sheet8.crop(0,0,width,height);
 		water = sheet3.crop(0, 0, 1000, 1000);
 		grass = sheet4.crop(0, 0, 1000, 1000);
@@ -309,6 +316,7 @@ public class Assets {
 		stone_wall_eagle = sheet49.crop(0, 0, 99, 99);
 		stone_wall_crown = sheet50.crop(0, 0, 99, 99);
 		
+		//wizard
 		wizard_down=new BufferedImage[3];
 		wizard_down[0] = sheet51.crop(0, 0, width, height);
 		wizard_down[1] = sheet51.crop(0, height, width, height);
@@ -384,5 +392,57 @@ public class Assets {
 		wizard_attack_up[3] = sheet51.crop(width*3, 9*height, width, height);
 		
 		wizard_stunned_up = sheet51.crop(width*3, 0, width, height);
+		
+		//sheep
+		sheep_walk_down = new BufferedImage[4];
+		sheep_walk_left = new BufferedImage[4];
+		sheep_walk_right = new BufferedImage[4];
+		sheep_walk_up = new BufferedImage[4];
+
+		sheep_walk_down[0] = sheet55.crop(0, height, width, height);
+		sheep_walk_down[1] = sheet55.crop(0, 0, width, height);
+		sheep_walk_down[2] = sheet55.crop(0, height*2, width, height);
+		sheep_walk_down[3] = sheet55.crop(0, 0, width, height);
+		sheep_walk_left[0] = sheet55.crop(width, height, width, height);
+		sheep_walk_left[1] = sheet55.crop(width, 0, width, height);
+		sheep_walk_left[2] = sheet55.crop(width, height*2, width, height);
+		sheep_walk_left[3] = sheet55.crop(width, 0, width, height);	
+		sheep_walk_right[0] = sheet55.crop(width*2, height, width, height);
+		sheep_walk_right[1] = sheet55.crop(width*2, 0, width, height);
+		sheep_walk_right[2] = sheet55.crop(width*2, height*2, width, height);
+		sheep_walk_right[3] = sheet55.crop(width*2, 0, width, height);		
+		sheep_walk_up[0] = sheet55.crop(width*3, height, width, height);
+		sheep_walk_up[1] = sheet55.crop(width*3, 0, width, height);
+		sheep_walk_up[2] = sheet55.crop(width*3, height*2, width, height);
+		sheep_walk_up[3] = sheet55.crop(width*3, 0, width, height);
+		
+		//bull
+		bull_down = new BufferedImage[4];
+		bull_left = new BufferedImage[4];
+		bull_right = new BufferedImage[4];
+		bull_up = new BufferedImage[4];
+		bull_stunned = new BufferedImage[4];
+
+		bull_down[0] = sheet56.crop(0, height, width, height);
+		bull_down[1] = sheet56.crop(0, 0, width, height);
+		bull_down[2] = sheet56.crop(0, height*2, width, height);
+		bull_down[3] = sheet56.crop(0, 0, width, height);
+		bull_left[0] = sheet56.crop(width, height, width, height);
+		bull_left[1] = sheet56.crop(width, 0, width, height);
+		bull_left[2] = sheet56.crop(width, height*2, width, height);
+		bull_left[3] = sheet56.crop(width, 0, width, height);	
+		bull_right[0] = sheet56.crop(width*2, height, width, height);
+		bull_right[1] = sheet56.crop(width*2, 0, width, height);
+		bull_right[2] = sheet56.crop(width*2, height*2, width, height);
+		bull_right[3] = sheet56.crop(width*2, 0, width, height);		
+		bull_up[0] = sheet56.crop(width*3, height, width, height);
+		bull_up[1] = sheet56.crop(width*3, 0, width, height);
+		bull_up[2] = sheet56.crop(width*3, height*2, width, height);
+		bull_up[3] = sheet56.crop(width*3, 0, width, height);
+		bull_stunned[0] = sheet56.crop(0, height*3, width, height);
+		bull_stunned[1] = sheet56.crop(width, height*3, width, height);
+		bull_stunned[2] = sheet56.crop(width*2, height*3, width, height);
+		bull_stunned[3] = sheet56.crop(width*3, 0, width, height);
+		
 	}
 }

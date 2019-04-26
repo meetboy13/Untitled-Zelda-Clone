@@ -27,10 +27,10 @@ public class Sheep extends Creature {
 		bounds.height=32;
 		speed=Creature.DEFAULT_SPEED/4;
 		//animations
-		animDown = new Animation(200,Assets.player_down);
-		animLeft = new Animation(200,Assets.player_left);
-		animUp = new Animation(200,Assets.player_up);
-		animRight = new Animation(200,Assets.player_right);
+		animDown = new Animation(200,Assets.sheep_walk_down);
+		animLeft = new Animation(200,Assets.sheep_walk_left);
+		animUp = new Animation(200,Assets.sheep_walk_up);
+		animRight = new Animation(200,Assets.sheep_walk_right);
 
 	}
 
@@ -154,18 +154,18 @@ public class Sheep extends Creature {
 			lastDirection=Facing.DOWN;
 			return animDown.getCurrentFrame();
 		}else if (lastDirection==Facing.LEFT) {;
-		return Assets.player_left[1];
+		return Assets.sheep_walk_left[1];
 		}
 		else if (lastDirection==Facing.RIGHT) {
-			return Assets.player_right[1];
+			return Assets.sheep_walk_right[1];
 		}
 		else if (lastDirection==Facing.UP) {
-			return Assets.player_up[1];
+			return Assets.sheep_walk_up[1];
 		}
 		else if (lastDirection==Facing.DOWN) {
-			return Assets.player_down[1];
+			return Assets.sheep_walk_down[1];
 		}
 		//default animation to display if not condition is met.
-		return Assets.player_down[1];
+		return Assets.sheep_walk_down[1];
 	}
 }
