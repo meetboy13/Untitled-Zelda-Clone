@@ -12,6 +12,7 @@ import dev.launcher.Assets;
 public class TransitionSpace extends StaticEntity{
 	private String pathEntity,pathWorld;
 	private WorldType worldType=WorldType.NORMAL;
+	private int PlayerSpawnX,PlayerSpawnY;
 	public TransitionSpace(Handler handler,float x ,float y, int width, int height, int id,String pathWorld,String pathEntity,WorldType worldType) {
 		super(handler, x, y, 64, 64);
 		this.id=id;
@@ -37,6 +38,9 @@ public class TransitionSpace extends StaticEntity{
 			handler.getWorld().getItemManager().clear();
 			handler.getWorld().setWorldType(worldType);
 			handler.getWorld().loadNewWorld(pathWorld, pathEntity);
+			//Set player spawn
+			//handler.getWorld().getEntityManager().getPlayer().setX(PlayerSpawnX);
+			//handler.getWorld().getEntityManager().getPlayer().setY(PlayerSpawnY);
 		}
 	}
 	@Override

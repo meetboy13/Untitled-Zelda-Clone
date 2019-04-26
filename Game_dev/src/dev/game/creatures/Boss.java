@@ -123,8 +123,13 @@ public class Boss extends Creature{
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(Assets.magic,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/meleeAttackDelay),width,height,null);
-
+		if(handler.getWorld().getEntityManager().getPlayer().getX()<x) {
+			g.drawImage(Assets.BossHead[2],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/meleeAttackDelay),width,height,null);
+		}else if(handler.getWorld().getEntityManager().getPlayer().getX()>(x+width)){
+			g.drawImage(Assets.BossHead[1],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/meleeAttackDelay),width,height,null);
+		}else {
+			g.drawImage(Assets.BossHead[0],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/meleeAttackDelay),width,height,null);
+		}
 	}
 
 	@Override
