@@ -314,7 +314,7 @@ public class World {
 				arrow.setDirection(entitySpawnDirection);
 				arrow.setX(entitySpawnX);
 				arrow.setY(entitySpawnY);
-				projectileManager.addEntity(arrow);
+				entityManager.addEntity(arrow);
 			}else if(entityType==3) {
 				Wizard wizard= new Wizard(handler,0,0,100,100,false);
 				wizard.setX(entitySpawnX);
@@ -338,7 +338,7 @@ public class World {
 				BossHandRight rightHand=new BossHandRight(handler,400,400, 50, 50);
 				entityManager.addEntity(rightHand);
 				entityManager.addEntity(leftHand);
-				Boss boss= new Boss(handler,0,0,200,150,leftHand,rightHand);
+				Boss boss= new Boss(handler,0,0,300,200,leftHand,rightHand);
 				boss.setX(entitySpawnX);
 				boss.setY(entitySpawnY);
 				entityManager.addEntity(boss);

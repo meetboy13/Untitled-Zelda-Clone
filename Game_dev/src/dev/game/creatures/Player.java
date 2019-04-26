@@ -11,8 +11,8 @@ import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
 import dev.game.entity.projectile.Arrow;
 import dev.game.inventory.Inventory;
-import dev.game.inventory.Inventory.Equipment;
-import dev.game.inventory.Inventory.Sword;
+import dev.game.inventory.Weapons.Equipment;
+import dev.game.inventory.Weapons.Sword;
 import dev.game.inventory.Weapons;
 import dev.game.states.GameOverState;
 import dev.game.states.State;
@@ -26,7 +26,11 @@ public class Player extends Creature{
 
 	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Inventory inventory;
-	private boolean dead = false, shielding=false, transformed=false, transformable = true, justTransformed = false, neverDamaged = true;//temp = false;
+	private boolean dead = false, shielding=false, transformed=false;//temp = false;
+
+	protected boolean transformable = true;
+
+	private boolean neverDamaged = true;
 	private int deathLoop=0,corruption=0,corruptionMax=4000, baseDamage = 1;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
@@ -81,43 +85,39 @@ public class Player extends Creature{
 	}
 	
 	public void expandCheck() {
-		//does not work ill do later
+		int xMove=0;
+		int yMove=-16;
 		if(!checkEntityCollisions(xMove,0f)) {
 			if(xMove>0) {//right
 				int tx= ((int)(x+xMove+bounds.x + bounds.width)/Tile.TILEWIDTH);
-				if(!collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT) && !collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
-					x+=xMove;
-				}else {
-					x=tx*Tile.TILEWIDTH-bounds.x-bounds.width-1;
-					xMove=0;
+				if(collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT) && collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
+					x=tx*Tile.TILEWIDTH-bounds.x-bounds.width-1-xMove;
 				}
 			}else if (xMove<0) {//left
 				int tx= ((int)(x+xMove+bounds.x)/Tile.TILEWIDTH);
-				if(!collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT) && !collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
-					x+=xMove;
-				}else {
-					x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-bounds.x;
-					xMove=0;
+				if(collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT) && collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
+					x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-bounds.x+xMove;
 				}
 			}
-		}if(!checkEntityCollisions(0f,yMove)) {	
+		}else {
+			x-=xMove;
+		}
+		if(!checkEntityCollisions(0f,yMove)) {	
 			if(yMove<0) {//up
 				int ty= ((int)(y+yMove+bounds.y)/Tile.TILEHEIGHT);
-				if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty)) {
-					y+=yMove;
-				}else {
-					y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-bounds.y;
+				if(collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty) && collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty)) {
+					y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-bounds.y-yMove;
 					yMove=0;
 				}
 			}else if (yMove>0) {//down
 				int ty= ((int)(y+yMove+bounds.y+bounds.height)/Tile.TILEHEIGHT);
-				if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty)) {
-					y+=yMove;
-				}else {
-					y=ty*Tile.TILEHEIGHT-bounds.height-bounds.y-1;
+				if(collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty) && collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty)) {
+					y=ty*Tile.TILEHEIGHT-bounds.height-bounds.y-1+yMove;
 					yMove=0;
-					}
+				}
 			}
+		}else {
+			y-=yMove;
 		}
 	}
 	
@@ -176,7 +176,7 @@ public class Player extends Creature{
 			}
 		}
 	}
-		
+
 	@Override
 	public void hurt(int damage,int deltaX,int deltaY) {
 		if(dead) {
@@ -213,9 +213,8 @@ public class Player extends Creature{
 	private void attack2() {
 		//ranged javelin attack
 
-		if (inventory.getSecondary()==Equipment.spear) {
+		if (weapons.getSecondary()==Equipment.javelin) {
 			Arrow attack;
-
 			if(lastDirection==Facing.UP) {
 				attack=new Arrow(handler,0,0);
 				attack.setX((float) (x+width/2-attack.getWidth()/2));
@@ -236,7 +235,7 @@ public class Player extends Creature{
 			}
 			else if(lastDirection==Facing.RIGHT) {
 				attack=new Arrow(handler,0,0);
-				attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX())+10);
+				attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-attack.getBounds().getX()));
 				attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
 				attack.setDirection(Direction.RIGHT);
 			}else {
@@ -244,10 +243,10 @@ public class Player extends Creature{
 			}
 			attackTimer=0;
 			handler.getWorld().getProjectileManager().addEntity(attack);
-			inventory.setSecondary(Equipment.none);
-		} else if (inventory.getSecondary()==Equipment.shield) {
+			//weapons.setSecondary(Equipment.none);
+		} else if (weapons.getSecondary()==Equipment.shield) {
 			shielding = !shielding;
-		} else if (inventory.getSecondary()==Equipment.wand) {
+		} else if (weapons.getSecondary()==Equipment.wand) {
 			//Make stun projectile
 		}
 	}
@@ -262,6 +261,7 @@ public class Player extends Creature{
 			bounds.height=32;
 
 		}else {
+			expandCheck();
 			speed = Creature.DEFAULT_SPEED*0.7f;
 			baseDamage = 2;
 			bounds.x=14;
@@ -273,7 +273,6 @@ public class Player extends Creature{
 			//xMove = -3;
 			//yMove = 3;
 			//}
-			justTransformed=true;
 			//xMove=1;
 			//yMove=-1;
 		}
@@ -351,14 +350,7 @@ public class Player extends Creature{
 
 	private BufferedImage getCurrentAnimationFrame() {
 		if(transformed) {
-			if(justTransformed) {
-				justTransformed = false;
-				//temp = true;
-				//return Assets.nothing;
-			//}else if(temp) {
-				//temp = false;
-				//return Assets.nothing;
-			}else if(dead) {
+			if(dead) {
 				return animDie.getCurrentFrame();
 			}
 			else if(xMove<0) {
@@ -439,7 +431,7 @@ public class Player extends Creature{
 		}
 	}
 
-	private void corruptionTick() {
+	public void corruptionTick() {
 		if (transformed &&(corruption<corruptionMax)) {
 			corruption+=2;
 		}else if((corruption>100)) {
