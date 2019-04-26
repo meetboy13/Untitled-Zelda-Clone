@@ -24,20 +24,29 @@ public class HUD {
 		getHealth();
 		getCorruption();
 		getGems();
+		timer();
+		
+	}
+	
+	private void timer() {
+		if (timeLimit == 0) {
+			return;
+		}
 		now = System.nanoTime();
 		timer += now-lastTime;
 		lastTime=now;
 		if (timer >= 1000000000){
 			timer=0;
 			timeLimit--;
-			if (timeLimit<0) {
+			/*if (timeLimit<0) {
 				timeLimit=0;
-			}
+			}*/
 		}
 		mins=timeLimit/60;
 		secs=timeLimit%60;
-				
+		
 	}
+	
 	private void getGems() {
 		// TODO Auto-generated method stub
 		this.gems=handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(0);

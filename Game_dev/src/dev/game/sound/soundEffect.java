@@ -9,6 +9,10 @@ import javax.sound.sampled.Clip;
 public class soundEffect {
 	private Clip clip;
 	
+	public soundEffect(){
+		
+	}
+	
 	public void setFile(String soundFileName) {
 		try {
 			File file = new File(soundFileName);
@@ -17,6 +21,7 @@ public class soundEffect {
 			clip.open(sound);
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

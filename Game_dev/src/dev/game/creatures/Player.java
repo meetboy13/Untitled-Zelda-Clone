@@ -176,16 +176,20 @@ public class Player extends Creature{
 			}
 		}
 	}
-	
-	//@Override
-	//private void hurt(int damage,int deltaX,int deltaY) {
 		
-	//}
 	@Override
 	public void hurt(int damage,int deltaX,int deltaY) {
+		if(dead) {
+			return;
+		}
 		if(!shielding) {
 			neverDamaged = false;
-			health-=damage;
+			Assets.hurt.play();
+			if (transformed && transformable) {
+				corruption += damage*10;
+			}else {
+				health-=damage;
+			}
 			if (health<=0) {
 				die();
 			}
@@ -271,7 +275,7 @@ public class Player extends Creature{
 			//}
 			justTransformed=true;
 			//xMove=1;
-			yMove=-1;
+			//yMove=-1;
 		}
 		lastDirection=Facing.DOWN;
 		transformed = !transformed;

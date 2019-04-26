@@ -8,8 +8,11 @@ import dev.game.worlds.World;
 import dev.launcher.GameCamera;
 import dev.game.input.MouseManager;
 import dev.game.inventory.Inventory;
+import dev.game.sound.Music;
+
 
 public class Handler {
+	private Music music;
 	private Game game;
 	private World world;
 	private HUD hud;

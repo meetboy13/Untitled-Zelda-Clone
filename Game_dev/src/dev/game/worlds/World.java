@@ -23,6 +23,7 @@ import dev.game.entity.statics.Tree;
 import dev.game.item.ItemManager;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
+import dev.launcher.Assets;
 
 public class World {
 	protected Handler handler;
@@ -52,7 +53,7 @@ public class World {
 		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));		
 		itemManager= new ItemManager(handler);
 		initSaveData();
-		loadNewWorld(worldPath,entityPath);		
+		loadNewWorld(worldPath,entityPath);	
 	}
 
 	private void initSaveData() {

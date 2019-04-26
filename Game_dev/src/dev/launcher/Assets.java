@@ -3,8 +3,10 @@ package dev.launcher;
 import java.awt.image.BufferedImage;
 
 import dev.ImageLoader.Loader;
+import dev.game.sound.soundEffect;
 
 public class Assets {
+	public static soundEffect hurt;
 	public static BufferedImage 
 	tree,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,key,health,shield,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
@@ -14,11 +16,16 @@ public class Assets {
 	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
 	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
-	friend_right,friend_left,friend_down,player_throw_front, player_hurt;
-	public static BufferedImage[] btn_start,wizard_beam,healthSpriteSheet,wizard_down,wizard_left,wizard_right,wizard_up,
-	wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right;
+	friend_right,friend_left,friend_down,player_throw_front, player_hurt, BossHead,BossHandLeft, BossHandRight, btn_start,wizard_beam,healthSpriteSheet,
+	wizard_down,wizard_left,wizard_right,wizard_up,	player_throw_left,player_throw_right,player_throw_back,player_shield_up,player_shield_down,
+	player_shield_right,player_shield_left,player_training_up,player_training_down,	player_training_left,
+	player_training_right,player_mirror_up,player_mirror_down,player_mirror_right,player_mirror_left,
+	player_op_up,player_op_down,player_op_left,player_op_right,player_wand,wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
+		hurt = new soundEffect();
+		hurt.setFile("Resources/Sound/hitsound.wav");
+		SpriteSheet sheet0= new SpriteSheet(Loader.loadImage("/Sprite/BossHeadSpriteSheet.png"));
 		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/gem.png"));
 		SpriteSheet sheet2= new SpriteSheet(Loader.loadImage("/Textures/GameOver1.png")); 
 		SpriteSheet sheet3= new SpriteSheet(Loader.loadImage("/Textures/water.png"));
@@ -71,6 +78,27 @@ public class Assets {
 		SpriteSheet sheet50= new SpriteSheet(Loader.loadImage("/Textures/stone_crown_banner.png"));
 		SpriteSheet sheet51= new SpriteSheet(Loader.loadImage("/Sprite/WizardSpriteSheet.png"));
 		SpriteSheet sheet52= new SpriteSheet(Loader.loadImage("/Sprite/health pickup.png"));
+		SpriteSheet sheet53= new SpriteSheet(Loader.loadImage("/Sprite/righthand.png"));
+		SpriteSheet sheet54= new SpriteSheet(Loader.loadImage("/Sprite/lefthand.png"));
+		
+		BossHead = new BufferedImage[3];
+		BossHead[0]=sheet0.crop(0, 0, 300, 200);
+		BossHead[1]=sheet0.crop(0, 200, 300, 200);
+		BossHead[2]=sheet0.crop(0, 400, 300, 200);
+		
+		BossHandLeft = new BufferedImage[5];
+		BossHandRight= new BufferedImage[5];
+		BossHandRight[0]= sheet53.crop(0, 0, width, height);
+		BossHandRight[1]= sheet53.crop(0, height, width, height);
+		BossHandRight[2]= sheet53.crop(0, height*2, width, height);
+		BossHandRight[3]= sheet53.crop(0, height*3, width, height);
+		BossHandRight[4]= sheet53.crop(0, height*4, width, height);
+		BossHandLeft[0]= sheet54.crop(0, 0, width, height);
+		BossHandLeft[1]= sheet54.crop(0, height, width, height);
+		BossHandLeft[2]= sheet54.crop(0, height*2, width, height);
+		BossHandLeft[3]= sheet54.crop(0, height*3, width, height);
+		BossHandLeft[4]= sheet54.crop(0, height*4, width, height);
+		
 		
 		drop=sheet1.crop(0,0,width,height);
 		key=sheet16.crop(0, 0, width, height);
@@ -97,9 +125,31 @@ public class Assets {
 		player_up = new BufferedImage[4];
 		player_right = new BufferedImage[4];
 		player_left = new BufferedImage[4];
-		player_die = new BufferedImage[4];
 		player_hurt = new BufferedImage[4];
+		player_die = new BufferedImage[4];
 		player_throw_front = new BufferedImage[4];
+		player_throw_left = new BufferedImage[4];
+		player_throw_right = new BufferedImage[4];
+		player_throw_back = new BufferedImage[4];
+		player_shield_up = new BufferedImage[3];
+		player_shield_down = new BufferedImage[3];
+		player_shield_right = new BufferedImage[2];
+		player_shield_left = new BufferedImage[2];
+		player_training_up = new BufferedImage[3];
+		player_training_down = new BufferedImage[3];
+		player_training_left = new BufferedImage[3];
+		player_training_right = new BufferedImage[3];
+		player_mirror_up = new BufferedImage[3];
+		player_mirror_down = new BufferedImage[3];
+		player_mirror_right = new BufferedImage[3];
+		player_mirror_left = new BufferedImage[3];
+		player_op_up = new BufferedImage[3];
+		player_op_down = new BufferedImage[3];
+		player_op_left = new BufferedImage[3];
+		player_op_right = new BufferedImage[3];
+		player_wand = new BufferedImage[4];
+
+		
 		player_down[1] = sheet26.crop(0,0, width, height);
 		player_down[3] = sheet26.crop(0,0, width, height);
 		player_right[1] = sheet26.crop(width,0, width, height);
@@ -128,12 +178,75 @@ public class Assets {
 		player_throw_front[1] = sheet26.crop(width*1,height*7, width, height);
 		player_throw_front[2] = sheet26.crop(width*2,height*7, width, height);
 		player_throw_front[3] = sheet26.crop(width*3,height*7, width, height);
+		player_throw_right[0] = sheet26.crop(0,height*8, width, height);
+		player_throw_right[1] = sheet26.crop(width*1,height*8, width, height);
+		player_throw_right[2] = sheet26.crop(width*2,height*8, width, height);
+		player_throw_right[3] = sheet26.crop(width*3,height*8, width, height);
+		player_throw_left[0] = sheet26.crop(0,height*9, width, height);
+		player_throw_left[1] = sheet26.crop(width*1,height*9, width, height);
+		player_throw_left[2] = sheet26.crop(width*2,height*9, width, height);
+		player_throw_left[3] = sheet26.crop(width*3,height*9, width, height);
+		player_throw_back[0] = sheet26.crop(0,height*10, width, height);
+		player_throw_back[1] = sheet26.crop(width*1,height*10, width, height);
+		player_throw_back[2] = sheet26.crop(width*2,height*10, width, height);
+		player_throw_back[3] = sheet26.crop(width*3,height*10, width, height);
+		player_shield_down[0] = sheet26.crop(0,height*11, width, height);
+		player_shield_down[1] = sheet26.crop(0,height*12, width, height);
+		player_shield_down[2] = sheet26.crop(0,height*13, width, height);
+		player_shield_up[0] = sheet26.crop(width*3,height*11, width, height);
+		player_shield_up[1] = sheet26.crop(width*3,height*12, width, height);
+		player_shield_up[2] = sheet26.crop(width*3,height*13, width, height);
+		player_shield_right[0] = sheet26.crop(width,height*11, width, height);
+		player_shield_right[1] = sheet26.crop(width,height*12, width, height);
+		player_shield_left[0] = sheet26.crop(width*2,height*11, width, height);
+		player_shield_left[1] = sheet26.crop(width*2,height*12, width, height);
+		player_training_down[0] = sheet26.crop(0,height*14, width, height);
+		player_training_down[1] = sheet26.crop(0,height*15, width, height);
+		player_training_down[2] = sheet26.crop(0,height*16, width, height);
+		player_training_left[0] = sheet26.crop(width,height*14, width, height);
+		player_training_left[1] = sheet26.crop(width,height*15, width, height);
+		player_training_left[2] = sheet26.crop(width,height*16, width, height);
+		player_training_right[0] = sheet26.crop(width*2,height*14, width, height);
+		player_training_right[1] = sheet26.crop(width*2,height*15, width, height);
+		player_training_right[2] = sheet26.crop(width*2,height*16, width, height);
+		player_training_up[0] = sheet26.crop(width*3,height*14, width, height);
+		player_training_up[1] = sheet26.crop(width*3,height*15, width, height);
+		player_training_up[2] = sheet26.crop(width*3,height*16, width, height);
+		player_mirror_down[0] = sheet26.crop(0,height*17, width, height);
+		player_mirror_down[1] = sheet26.crop(0,height*18, width, height);
+		player_mirror_down[2] = sheet26.crop(0,height*19, width, height);
+		player_mirror_left[0] = sheet26.crop(width,height*17, width, height);
+		player_mirror_left[1] = sheet26.crop(width,height*18, width, height);
+		player_mirror_left[2] = sheet26.crop(width,height*19, width, height);
+		player_mirror_right[0] = sheet26.crop(width*2,height*17, width, height);
+		player_mirror_right[1] = sheet26.crop(width*2,height*18, width, height);
+		player_mirror_right[2] = sheet26.crop(width*2,height*19, width, height);
+		player_mirror_up[0] = sheet26.crop(width*3,height*17, width, height);
+		player_mirror_up[1] = sheet26.crop(width*3,height*18, width, height);
+		player_mirror_up[2] = sheet26.crop(width*3,height*19, width, height);
+		player_op_down[0] = sheet26.crop(0,height*20, width, height);
+		player_op_down[1] = sheet26.crop(0,height*21, width, height);
+		player_op_down[2] = sheet26.crop(0,height*22, width, height);
+		player_op_left[0] = sheet26.crop(width,height*20, width, height);
+		player_op_left[1] = sheet26.crop(width,height*21, width, height);
+		player_op_left[2] = sheet26.crop(width,height*22, width, height);
+		player_op_right[0] = sheet26.crop(width*3,height*20, width, height);
+		player_op_right[1] = sheet26.crop(width*3,height*21, width, height);
+		player_op_right[2] = sheet26.crop(width*3,height*22, width, height);
+		player_op_up[0] = sheet26.crop(width*2,height*20, width, height);
+		player_op_up[1] = sheet26.crop(width*2,height*21, width, height);
+		player_op_up[2] = sheet26.crop(width*2,height*22, width, height);
+		player_wand[0] = sheet26.crop(0,height*22, width, height);
+		player_wand[1] = sheet26.crop(width,height*22, width, height);
+		player_wand[2] = sheet26.crop(width*3,height*22, width, height);
+		player_wand[3] = sheet26.crop(width*2,height*22, width, height);
 
 		
 		friend_down = new BufferedImage[4];
 		friend_up = new BufferedImage[4];
 		friend_left = new BufferedImage[4];
 		friend_right = new BufferedImage[4];
+		
 		friend_down[1] = sheet11.crop(0, 0, 130, 130);
 		friend_down[2] = sheet11.crop(0, 130, 130, 130);
 		friend_down[3] = sheet11.crop(0, 0, 130, 130);
