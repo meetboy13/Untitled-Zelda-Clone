@@ -11,18 +11,18 @@ public class Assets {
 	tree,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,key,health,shield,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
 	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
-	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp, nothing,
+	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp, healthimproved,
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
 	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
 	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
 	friend_right,friend_left,friend_down,player_throw_front, player_hurt, BossHead,BossHandLeft, BossHandRight, btn_start,wizard_beam,healthSpriteSheet,
 	wizard_down,wizard_left,wizard_right,wizard_up,	player_throw_left,player_throw_right,player_throw_back,player_shield_up,player_shield_down,
-	player_shield_right,player_shield_left,player_training_up,player_training_down,	player_training_left,
-	player_training_right,player_mirror_up,player_mirror_down,player_mirror_right,player_mirror_left,
+	player_shield_right,player_shield_left,player_training_up,player_training_down,	player_training_left,stunbeamUp,stunbeamDown,
+	player_training_right,player_mirror_up,player_mirror_down,player_mirror_right,player_mirror_left,stunbeamLeft,stunbeamRight,
 	player_op_up,player_op_down,player_op_left,player_op_right,player_wand,wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,
 	wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right, sheep_walk_down,sheep_walk_right,sheep_walk_left,sheep_walk_up,
-	bull_down,bull_up,bull_left,bull_right,bull_stunned;
+	bull_down,bull_up,bull_left,bull_right,bull_stunned,stun_indicator,friend_shield_left,friend_shield_right,friend_shield_up,friend_shield_down;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		hurt = new soundEffect();
@@ -84,6 +84,9 @@ public class Assets {
 		SpriteSheet sheet54= new SpriteSheet(Loader.loadImage("/Sprite/lefthand.png"));
 		SpriteSheet sheet55= new SpriteSheet(Loader.loadImage("/Sprite/SheepSpriteSheet.png"));
 		SpriteSheet sheet56= new SpriteSheet(Loader.loadImage("/Sprite/BullSpriteSheet.png"));
+		SpriteSheet sheet57= new SpriteSheet(Loader.loadImage("/Sprite/stunSpritesheet.png"));
+		SpriteSheet sheet58= new SpriteSheet(Loader.loadImage("/Sprite/health 4 improved.png"));
+		SpriteSheet sheet59= new SpriteSheet(Loader.loadImage("/Sprite/stunBeamSheet.png"));
 		
 		
 		BossHead = new BufferedImage[3];
@@ -124,7 +127,7 @@ public class Assets {
 		healthSpriteSheet[2] = sheet42.crop(50*2,0, 50, 50);
 		healthSpriteSheet[3] = sheet42.crop(50*3,0, 50, 50);
 		healthSpriteSheet[4] = sheet42.crop(50*4,0, 50, 50);
-		nothing = sheet26.crop(3*width, 3*height, width, height);
+		healthimproved = sheet58.crop(25,25,50,50);
 		
 		//player
 		player_down = new BufferedImage[4];
@@ -137,8 +140,8 @@ public class Assets {
 		player_throw_left = new BufferedImage[4];
 		player_throw_right = new BufferedImage[4];
 		player_throw_back = new BufferedImage[4];
-		player_shield_up = new BufferedImage[3];
-		player_shield_down = new BufferedImage[3];
+		player_shield_up = new BufferedImage[4];
+		player_shield_down = new BufferedImage[4];
 		player_shield_right = new BufferedImage[2];
 		player_shield_left = new BufferedImage[2];
 		player_training_up = new BufferedImage[3];
@@ -195,12 +198,14 @@ public class Assets {
 		player_throw_back[1] = sheet26.crop(width*1,height*10, width, height);
 		player_throw_back[2] = sheet26.crop(width*2,height*10, width, height);
 		player_throw_back[3] = sheet26.crop(width*3,height*10, width, height);
-		player_shield_down[0] = sheet26.crop(0,height*11, width, height);
-		player_shield_down[1] = sheet26.crop(0,height*12, width, height);
+		player_shield_down[1] = sheet26.crop(0,height*11, width, height);
+		player_shield_down[0] = sheet26.crop(0,height*12, width, height);
 		player_shield_down[2] = sheet26.crop(0,height*13, width, height);
-		player_shield_up[0] = sheet26.crop(width*3,height*11, width, height);
-		player_shield_up[1] = sheet26.crop(width*3,height*12, width, height);
+		player_shield_down[3] = sheet26.crop(0,height*11, width, height);
+		player_shield_up[1] = sheet26.crop(width*3,height*11, width, height);
+		player_shield_up[0] = sheet26.crop(width*3,height*12, width, height);
 		player_shield_up[2] = sheet26.crop(width*3,height*13, width, height);
+		player_shield_up[3] = sheet26.crop(width*3,height*11, width, height);
 		player_shield_right[0] = sheet26.crop(width,height*11, width, height);
 		player_shield_right[1] = sheet26.crop(width,height*12, width, height);
 		player_shield_left[0] = sheet26.crop(width*2,height*11, width, height);
@@ -251,6 +256,11 @@ public class Assets {
 		friend_up = new BufferedImage[4];
 		friend_left = new BufferedImage[4];
 		friend_right = new BufferedImage[4];
+		friend_shield_left = new BufferedImage[2];
+		friend_shield_right = new BufferedImage[2];
+		friend_shield_up = new BufferedImage[4];
+		friend_shield_down = new BufferedImage[4];
+		
 		
 		friend_down[1] = sheet11.crop(0, 0, 130, 130);
 		friend_down[2] = sheet11.crop(0, 130, 130, 130);
@@ -264,10 +274,22 @@ public class Assets {
 		friend_left[2] = sheet11.crop(130, 130, 130, 130);
 		friend_left[3] = sheet11.crop(130, 0, 130, 130);
 		friend_left[0] = sheet11.crop(130, 260, 130, 130);
+		friend_right[0] = sheet11.crop(260, 260, 130, 130);
 		friend_right[1] = sheet11.crop(260, 0, 130, 130);
 		friend_right[2] = sheet11.crop(260, 130, 130, 130);
 		friend_right[3] = sheet11.crop(260, 0, 130, 130);
-		friend_right[0] = sheet11.crop(260, 260, 130, 130);
+		friend_shield_right[0] = sheet11.crop(260, 130*9, 130, 130);
+		friend_shield_right[1] = sheet11.crop(260, 130*10, 130, 130);
+		friend_shield_up[0] = sheet11.crop(390, 130*10, 130, 130);
+		friend_shield_up[1] = sheet11.crop(390, 130*9, 130, 130);
+		friend_shield_up[2] = sheet11.crop(390, 130*11, 130, 130);
+		friend_shield_up[3] = sheet11.crop(390, 130*9, 130, 130);
+		friend_shield_down[0] = sheet11.crop(0, 130*10, 130, 130);
+		friend_shield_down[1] = sheet11.crop(0, 130*9, 130, 130);
+		friend_shield_down[2] = sheet11.crop(0, 130*11, 130, 130);
+		friend_shield_down[3] = sheet11.crop(0, 130*9, 130, 130);
+		friend_shield_left[0] = sheet11.crop(130, 130*9, 130, 130);
+		friend_shield_left[1] = sheet11.crop(130, 1300, 130, 130);
 		
 		//projectiles
 		spear = new BufferedImage[4];
@@ -275,8 +297,26 @@ public class Assets {
 		spear[1] = sheet27.crop(width, 0, width, height);
 		spear[2] = sheet27.crop(width*2, 0, width, height);
 		spear[3] = sheet27.crop(width*3, 0, width, height);
+
+		stunbeamUp= new BufferedImage[3];
+		stunbeamLeft= new BufferedImage[3];
+		stunbeamRight= new BufferedImage[3];
+		stunbeamDown= new BufferedImage[3];
+		stunbeamUp[0] = sheet59.crop(0, 0, width, height);
+		stunbeamUp[1] = sheet59.crop(width, 0, width, height);
+		stunbeamUp[2] = sheet59.crop(width*2, 0, width, height);
+		stunbeamDown[0] = sheet59.crop(0, height, width, height);
+		stunbeamDown[1] = sheet59.crop(width, height, width, height);
+		stunbeamDown[2] = sheet59.crop(width*2, height, width, height);
+		stunbeamLeft[0] = sheet59.crop(0, height*2, width, height);
+		stunbeamLeft[1] = sheet59.crop(width, height*2, width, height);
+		stunbeamLeft[2] = sheet59.crop(width*2, height*2, width, height);
+		stunbeamRight[0] = sheet59.crop(0, height*3, width, height);
+		stunbeamRight[1] = sheet59.crop(width, height*3, width, height);
+		stunbeamRight[2] = sheet59.crop(width*2, height*3, width, height);
 		
 		magic = sheet8.crop(0,0,width,height);
+		
 		water = sheet3.crop(0, 0, 1000, 1000);
 		grass = sheet4.crop(0, 0, 1000, 1000);
 		dirt = sheet13.crop(0, 0, 1000, 1000);
@@ -444,5 +484,10 @@ public class Assets {
 		bull_stunned[2] = sheet56.crop(width*2, height*3, width, height);
 		bull_stunned[3] = sheet56.crop(width*3, 0, width, height);
 		
+		//stun
+		stun_indicator = new BufferedImage[3];
+		stun_indicator[0] = sheet57.crop(0, 0, width, height); 
+		stun_indicator[1] = sheet57.crop(width, 0, width, height); 
+		stun_indicator[2] = sheet57.crop(width*2, 0, width, height); 
 	}
 }

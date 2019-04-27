@@ -14,12 +14,16 @@ import dev.game.creatures.Player2;
 import dev.game.creatures.PlayerMirror;
 import dev.game.creatures.Sheep;
 import dev.game.creatures.Wizard;
+import dev.game.creatures.Wizard2;
 import dev.game.entity.EntityManager;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.Projectile;
 import dev.game.entity.statics.Rock;
+import dev.game.entity.statics.SecondaryWeapon;
+import dev.game.entity.statics.Statue;
 import dev.game.entity.statics.TransitionSpace;
 import dev.game.entity.statics.Tree;
+import dev.game.inventory.Weapons.Equipment;
 import dev.game.item.ItemManager;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
@@ -41,6 +45,7 @@ public class World {
 	private TransitionSpace world2,world1;
 	private String currentWorldPath="Resources/worlds/world1.txt"
 			,currentEntityPath="Resources/entities/world1.txt";
+	private Equipment World1Secondary = Equipment.javelin, World2Secondary = Equipment.wand;
 	private int deathCounter=0;
 	public enum WorldType{ARENA,NORMAL,MIRROR};
 	private WorldType worldType=WorldType.NORMAL;
@@ -93,7 +98,7 @@ public class World {
 		entityManager.clear1();
 		projectileManager.clear2();
 		itemManager.clear();		
-		
+
 		flagToLoad=true;
 		loadNewWorld("Resources/Reserve_Data/worlds/world5.txt","Resources/Reserve_Data/entities/world5.txt");
 		currentWorldPath="Resources/worlds/world5.txt";
@@ -102,16 +107,16 @@ public class World {
 		entityManager.clear1();
 		projectileManager.clear2();
 		itemManager.clear();
-		
+
 	}
 
 	private void updateSpawns() {
 		//do creature spawning stuff here
 		if(deathCounter>20) {
-			
+
 		}
 		else if(deathCounter>15) {
-			
+
 		}
 		else if(deathCounter>=10&& trigger2) {
 			Sheep sheep= new Sheep(handler,0,0, 100, 100);
@@ -158,7 +163,7 @@ public class World {
 			trigger1=false;
 		}
 	}
-	
+
 	private void deathCounterUpdate() {
 		deathCounter=entityManager.getDeathCount();
 	}
@@ -179,7 +184,7 @@ public class World {
 			flagToLoad=false;
 		}
 	}
-	
+
 	public void render (Graphics g) {
 		//only render what is currently shown on screen
 		int xStart=(int)Math.max(0, handler.getGameCamera().getxOffset()/Tile.TILEWIDTH);
@@ -195,7 +200,7 @@ public class World {
 		entityManager.render(g);
 		projectileManager.render(g);
 	}
-	
+
 	public Tile getTile(int x, int y) {
 		//check if coords is out of bounds to avoid throwing an error
 		if(x < 0 || y < 0 || x >= width || y >= height) {
@@ -204,11 +209,11 @@ public class World {
 		}
 		//get the specific tile from the tile array
 		Tile t = Tile.tiles[tiles[x][y]];
-		
+
 		//returns a grass tile if no tile in the tiles array
 		if(t==null) {return Tile.grassTile;}
-		
-		
+
+
 		return t;
 	}
 	public void loadNewWorld(String pathWorld,String pathEntity) {
@@ -245,7 +250,7 @@ public class World {
 			}
 		}
 	}
-	
+
 	public void saveWorld() {
 		//save tile data may be useful later
 		if(worldType==WorldType.MIRROR) {return;}
@@ -276,7 +281,7 @@ public class World {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 	private void loadEntities(String path) {
 		String file = Utils.loadFileAsString(path);
@@ -292,7 +297,7 @@ public class World {
 			entitySpawnX=Utils.parseInt(tokens[(y*4)+2]);
 			entitySpawnY=Utils.parseInt(tokens[(y*4)+3]);
 			entitySpawnDirectionInt=Utils.parseInt(tokens[(y*4)+3]);
-			
+
 			if (entitySpawnDirectionInt==0) {
 				entitySpawnDirection=Direction.UP;
 			}else if (entitySpawnDirectionInt==1) {
@@ -301,7 +306,7 @@ public class World {
 				entitySpawnDirection=Direction.DOWN;
 			}else if (entitySpawnDirectionInt==3) {
 				entitySpawnDirection=Direction.LEFT;}
-			
+
 			if (entityType==0) {
 				entityManager.addEntity(new Tree(handler,entitySpawnX,entitySpawnY));
 			}else if(entityType==1) {
@@ -310,8 +315,7 @@ public class World {
 				sheep.setY(entitySpawnY);
 				entityManager.addEntity(sheep);
 			}else if(entityType==2) {
-				Arrow arrow= new Arrow(handler,0,0);
-				arrow.setDirection(entitySpawnDirection);
+				SecondaryWeapon arrow= new SecondaryWeapon(handler,0,0,40,40,World1Secondary,1,2);
 				arrow.setX(entitySpawnX);
 				arrow.setY(entitySpawnY);
 				entityManager.addEntity(arrow);
@@ -321,11 +325,10 @@ public class World {
 				wizard.setY(entitySpawnY);
 				entityManager.addEntity(wizard);
 			}else if(entityType==4) {
-				Frienemy frienemy= new Frienemy(handler,0,0,100,100);
-				frienemy.setX(entitySpawnX);
-				frienemy.setY(entitySpawnY);
-				entityManager.addEntity(frienemy);
-
+				Wizard2 wizard= new Wizard2(handler,0,0,100,100,false);
+				wizard.setX(entitySpawnX);
+				wizard.setY(entitySpawnY);
+				entityManager.addEntity(wizard);
 			}else if(entityType==5) {
 				entityManager.addEntity(new Rock(handler,entitySpawnX,entitySpawnY));
 			}else if(entityType==6) {
@@ -343,9 +346,14 @@ public class World {
 				boss.setY(entitySpawnY);
 				entityManager.addEntity(boss);
 				entityManager.setBoss(boss);
-				
-			}
-			else if(entityType==95) {
+			}else if(entityType==8) {
+				SecondaryWeapon wand= new SecondaryWeapon(handler,0,0,40,40,World2Secondary,2,8);
+				wand.setX(entitySpawnX);
+				wand.setY(entitySpawnY);
+				entityManager.addEntity(wand);
+			}else if(entityType==9) {
+				entityManager.addEntity(new Statue(handler,entitySpawnX,entitySpawnY));
+			}else if(entityType==95) {
 				TransitionSpace world5= new TransitionSpace(handler,entitySpawnX,entitySpawnY,32,48,entityType,"Resources/worlds/world5.txt","Resources/entities/world5.txt",WorldType.NORMAL);
 				world5.setX(entitySpawnX);
 				world5.setY(entitySpawnY);
@@ -378,7 +386,7 @@ public class World {
 		}
 	}
 	//getters and setters
-	
+
 	public int getWidth() {
 		return width;
 	}
@@ -434,5 +442,21 @@ public class World {
 
 	public void setWorldType(WorldType worldType) {
 		this.worldType = worldType;
+	}
+
+	public Equipment getWorld1Secondary() {
+		return World1Secondary;
+	}
+
+	public void setWorld1Secondary(Equipment world1Secondary) {
+		World1Secondary = world1Secondary;
+	}
+
+	public Equipment getWorld2Secondary() {
+		return World2Secondary;
+	}
+
+	public void setWorld2Secondary(Equipment world2Secondary) {
+		World2Secondary = world2Secondary;
 	}	
 }

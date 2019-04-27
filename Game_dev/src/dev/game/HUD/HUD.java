@@ -19,15 +19,15 @@ public class HUD {
 	public HUD (Handler handler) {
 		this.handler=handler;
 	}
-	
+
 	public void tick(){
 		getHealth();
 		getCorruption();
 		getGems();
 		timer();
-		
+
 	}
-	
+
 	private void timer() {
 		if (timeLimit == 0) {
 			return;
@@ -44,9 +44,9 @@ public class HUD {
 		}
 		mins=timeLimit/60;
 		secs=timeLimit%60;
-		
+
 	}
-	
+
 	private void getGems() {
 		// TODO Auto-generated method stub
 		this.gems=handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(0);
@@ -68,7 +68,7 @@ public class HUD {
 	public void render(Graphics g) {
 		int xOffset=0;
 		int healthtemp=health;
-		
+
 		int x=100;
 		Font f = new Font("Courier", Font.PLAIN,20);
 		g.setColor(Color.BLACK);
@@ -87,29 +87,37 @@ public class HUD {
 			g.drawString(this.gems+"X", (int) (handler.getWidth()-x), 20);
 		}
 		g.drawImage(Assets.drop, handler.getWidth()-70, 0, 15,24,null);
-		
-		while(healthtemp>4) {
-			g.drawImage(Assets.healthSpriteSheet[4], xOffset, 20, Assets.healthSpriteSheet[4].getWidth(), Assets.healthSpriteSheet[4].getHeight(),null);
-			xOffset+=Assets.healthSpriteSheet[4].getWidth();
-			healthtemp-=4;
-		}
-		
-		if (healthtemp > 0) {
-			g.drawImage(Assets.healthSpriteSheet[healthtemp], xOffset, 20, Assets.healthSpriteSheet[healthtemp].getWidth(), Assets.healthSpriteSheet[healthtemp].getHeight(),null);
-			xOffset+=Assets.healthSpriteSheet[healthtemp].getWidth();
-		}
-		
-		int emptyslots=((handler.getWorld().getEntityManager().getPlayer().getMaxHealth()-health)/4);
-		while(emptyslots>0) {
-			g.drawImage(Assets.healthSpriteSheet[0], xOffset, 20, Assets.healthSpriteSheet[0].getWidth(), Assets.healthSpriteSheet[0].getHeight(),null);
-			xOffset+=Assets.healthSpriteSheet[0].getWidth();
-			emptyslots--;
+
+		if (handler.getWorld().getEntityManager().getPlayer().isNeverDamaged()) {
+			while(healthtemp>0) {
+				g.drawImage(Assets.healthimproved, xOffset, 20, Assets.healthimproved.getWidth(), Assets.healthimproved.getHeight(),null);
+				xOffset+=Assets.healthimproved.getWidth();
+				healthtemp-=4;
+			}
+		}else {
+			while(healthtemp>4) {
+				g.drawImage(Assets.healthSpriteSheet[4], xOffset, 20, Assets.healthSpriteSheet[4].getWidth(), Assets.healthSpriteSheet[4].getHeight(),null);
+				xOffset+=Assets.healthSpriteSheet[4].getWidth();
+				healthtemp-=4;
+			}
+
+			if (healthtemp > 0) {
+				g.drawImage(Assets.healthSpriteSheet[healthtemp], xOffset, 20, Assets.healthSpriteSheet[healthtemp].getWidth(), Assets.healthSpriteSheet[healthtemp].getHeight(),null);
+				xOffset+=Assets.healthSpriteSheet[healthtemp].getWidth();
+			}
+
+			int emptyslots=((handler.getWorld().getEntityManager().getPlayer().getMaxHealth()-health)/4);
+			while(emptyslots>0) {
+				g.drawImage(Assets.healthSpriteSheet[0], xOffset, 20, Assets.healthSpriteSheet[0].getWidth(), Assets.healthSpriteSheet[0].getHeight(),null);
+				xOffset+=Assets.healthSpriteSheet[0].getWidth();
+				emptyslots--;
+			}
 		}
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, 200, 20);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 5, (int) (200*(corruption/handler.getWorld().getEntityManager().getPlayer().getCorruptionMax())), 10);
-		
-		
+
+
 	}
 }

@@ -130,8 +130,12 @@ public abstract class Creature extends Entity {
 	public void setyMove(float ymove) {
 		yMove = ymove;
 	}
+
 	public void setStun(boolean stunned){
 		this.stunned = stunned;
+		if (stunned) {
+			stunnedDuration = 500;
+		}
 	}
 	
 	
@@ -163,4 +167,7 @@ public abstract class Creature extends Entity {
 		this.maxHealth = maxHealth;
 	}
 	
+	public Facing getFacing() {
+		return lastDirection;
+	}
 }
