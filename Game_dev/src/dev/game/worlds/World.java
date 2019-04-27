@@ -358,8 +358,8 @@ public class World {
 				bull.setY(entitySpawnY);
 				entityManager.addEntity(bull);
 			}else if(entityType==7) {
-				BossHandLeft leftHand=new BossHandLeft(handler,300,400, 50, 50);
-				BossHandRight rightHand=new BossHandRight(handler,400,400, 50, 50);
+				BossHandLeft leftHand=new BossHandLeft(handler,250,400, 100, 100);
+				BossHandRight rightHand=new BossHandRight(handler,350,400, 100, 100);
 				entityManager.addEntity(rightHand);
 				entityManager.addEntity(leftHand);
 				Boss boss= new Boss(handler,0,0,300,200,leftHand,rightHand);

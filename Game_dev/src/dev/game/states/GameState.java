@@ -47,6 +47,9 @@ public class GameState extends State{
 		}
 		if(!paused) {
 			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)) {
+				world.getEntityManager().clear1();
+				world.getProjectileManager().clear2();
+				world.getItemManager().clear();
 				world.loadNewWorld("Resources/Reserve_Data/worlds/world5.txt","Resources/Reserve_Data/entities/world5.txt");
 				world.getEntityManager().getPlayer().getWeapons().setPrimary(Sword.OP);
 				world.getEntityManager().getPlayer().setCorruption(0);
