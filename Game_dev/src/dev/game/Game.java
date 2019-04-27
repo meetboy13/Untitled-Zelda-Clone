@@ -1,23 +1,15 @@
 package dev.game;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import dev.display.*;
 import dev.game.input.KeyManager;
 import dev.game.input.MouseManager;
-import dev.game.item.Item;
-import dev.game.states.GameOverState;
-import dev.game.states.GameState;
 import dev.game.states.MenuState;
 import dev.game.states.StartState;
 import dev.game.states.State;
 import dev.launcher.Assets;
 import dev.launcher.GameCamera;
-import dev.launcher.SpriteSheet;
 
 public class Game implements Runnable{
 	private Display display;
@@ -27,14 +19,9 @@ public class Game implements Runnable{
 	private BufferStrategy bs;
 	private Graphics g;
 	private boolean running;
-	public State gameState;
 	public State menuState;
-	public State gameOverState;
 	public State startState;
 	private KeyManager KeyManager;
-	private BufferedImage testImage;
-	private SpriteSheet sheet;
-	private boolean paused=false,exit=false;
 	
 	private MouseManager mouseManager;
 	
@@ -48,7 +35,6 @@ public class Game implements Runnable{
 		this.height=height;
 		this.title=title;
 		KeyManager = new KeyManager();
-		
 		mouseManager=new MouseManager();
 	}
 	
@@ -116,27 +102,8 @@ public class Game implements Runnable{
 		//as long as we are in a state
 	private void tick() {
 		KeyManager.tick();
-		if(exit) {
-			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-				paused=false;
-				exit=false;
-			}else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
-				System.exit(0);	
-			}
-		}else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-			if(State.getState().getStateName()=="GameState") {
-				paused=true;
-				exit=true;
-			}
-		}else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
-			if(State.getState().getStateName()=="GameState") {
-				paused=!paused;
-			}
-		}
-		if(!paused) {
-			if(State.getState() != null) {
-				State.getState().tick();
-			}
+		if(State.getState() != null) {
+			State.getState().tick();
 		}
 	}
 		
@@ -157,22 +124,7 @@ public class Game implements Runnable{
 		if (State.getState() != null) {
 			State.getState().render(g);
 		}
-		if(paused) {
-			g.setColor(Color.WHITE);
-			g.fillRect((int) (handler.getWidth()/2-7*60), handler.getHeight()/2-50, 60*14, 90);
-			Font f = new Font("Courier", Font.PLAIN,100);
-			g.setColor(Color.BLACK);
-			g.setFont(f);
-			g.drawString("GAME IS PAUSED", (int) (handler.getWidth()/2-7*60), handler.getHeight()/2+30);
-			if(exit) {
-				g.setColor(Color.WHITE);
-				g.fillRect((int) (handler.getWidth()/2-5*60), handler.getHeight()/2+65, 60*10, 35);
-				f = new Font("Courier", Font.PLAIN,25);
-				g.setColor(Color.BLACK);
-				g.setFont(f);
-				g.drawString("Press Enter to exit, Press ESC to cancel", (int) (handler.getWidth()/2-5*60), handler.getHeight()/2+90);
-			}
-		}
+
 		//get rid of the excess variables to save memory
 		bs.show();
 		g.dispose();
