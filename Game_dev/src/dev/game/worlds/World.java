@@ -24,6 +24,7 @@ import dev.game.entity.statics.Statue;
 import dev.game.entity.statics.TransitionSpace;
 import dev.game.entity.statics.Tree;
 import dev.game.inventory.Weapons.Equipment;
+import dev.game.item.Item;
 import dev.game.item.ItemManager;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
@@ -49,7 +50,7 @@ public class World {
 	private int deathCounter=0;
 	public enum WorldType{ARENA,NORMAL,MIRROR};
 	private WorldType worldType=WorldType.NORMAL;
-	boolean trigger1=true,trigger2=true;
+	boolean trigger1=true,trigger2=true,trigger3=true,trigger4=true;
 	//constructor
 	public World(Handler handler, String worldPath,String entityPath,WorldType arena) {
 		this.handler = handler;
@@ -112,11 +113,31 @@ public class World {
 
 	private void updateSpawns() {
 		//do creature spawning stuff here
-		if(deathCounter>20) {
-
+		if(deathCounter>20 && trigger4) {
+			itemManager.addItem(Item.key.createNew(300, 300));
+			trigger4=false;
 		}
-		else if(deathCounter>15) {
-
+		else if(deathCounter>15 && trigger3) {
+			Sheep sheep= new Sheep(handler,0,0, 100, 100);
+			sheep.setX(128);
+			sheep.setY(128);
+			entityManager.addEntity(sheep);
+			Wizard wizard= new Wizard(handler,0,0,100,100,false);
+			wizard.setX(300);
+			wizard.setY(128);
+			entityManager.addEntity(wizard);
+			wizard.setX(450);
+			wizard.setY(128);
+			entityManager.addEntity(wizard);
+			Bull bull= new Bull(handler,0,0,100,100,false);
+			bull.setX(600);
+			bull.setY(128);
+			entityManager.addEntity(bull);
+			bull= new Bull(handler,0,0,100,100,false);
+			bull.setY(128);
+			bull.setX(800);
+			entityManager.addEntity(bull);
+			trigger3=false;
 		}
 		else if(deathCounter>=10&& trigger2) {
 			Sheep sheep= new Sheep(handler,0,0, 100, 100);

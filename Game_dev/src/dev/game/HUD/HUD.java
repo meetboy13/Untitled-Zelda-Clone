@@ -37,7 +37,7 @@ public class HUD {
 
 	private void getKeys() {
 		// TODO Auto-generated method stub
-		this.gems=handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1);
+		this.keys=handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1);
 	}
 
 	private void getSecondary() {

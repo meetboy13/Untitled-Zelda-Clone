@@ -11,7 +11,7 @@ public class Item {
 	
 	public static Item[] items = new Item[256];
 	public static Item drop = new Item(Assets.drop,"Gem",0);
-	public static Item key = new Item(Assets.drop,"Key",1);
+	public static Item key = new Item(Assets.key,"Key",1);
 	public static Javelin javelin = new Javelin(Assets.spear[0],"Javelin",2);
 	public static Shield shield = new Shield(Assets.shield,"Shield",3);
 	public static HealthPickup healthPickup = new HealthPickup("HealthPickup",3);
