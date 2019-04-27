@@ -14,7 +14,8 @@ public class Assets {
 	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp, healthimproved,
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
 	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
-	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down;
+	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down,
+	sword_training,sword_mirror,sword_op;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
 	friend_right,friend_left,friend_down,player_throw_front, player_hurt, BossHead,BossHandLeft, BossHandRight, btn_start,wizard_beam,healthSpriteSheet,
 	wizard_down,wizard_left,wizard_right,wizard_up,	player_throw_left,player_throw_right,player_throw_back,player_shield_up,player_shield_down,
@@ -87,6 +88,9 @@ public class Assets {
 		SpriteSheet sheet57= new SpriteSheet(Loader.loadImage("/Sprite/stunSpritesheet.png"));
 		SpriteSheet sheet58= new SpriteSheet(Loader.loadImage("/Sprite/health 4 improved.png"));
 		SpriteSheet sheet59= new SpriteSheet(Loader.loadImage("/Sprite/stunBeamSheet.png"));
+		SpriteSheet sheet60= new SpriteSheet(Loader.loadImage("/Sprite/Training Sword.png"));
+		SpriteSheet sheet61= new SpriteSheet(Loader.loadImage("/Sprite/Mirror Sword.png"));
+		SpriteSheet sheet62= new SpriteSheet(Loader.loadImage("/Sprite/OP Sword.png"));
 		
 		
 		BossHead = new BufferedImage[3];
@@ -489,5 +493,9 @@ public class Assets {
 		stun_indicator[0] = sheet57.crop(0, 0, width, height); 
 		stun_indicator[1] = sheet57.crop(width, 0, width, height); 
 		stun_indicator[2] = sheet57.crop(width*2, 0, width, height); 
+
+		sword_training = sheet60.crop(0, 0, width, height); 
+		sword_mirror = sheet61.crop(0, 0, width, height); 
+		sword_op = sheet62.crop(0, 0, width, height); 
 	}
 }

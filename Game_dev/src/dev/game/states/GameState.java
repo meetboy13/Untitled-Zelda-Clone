@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import dev.game.Handler;
 import dev.game.HUD.HUD;
 import dev.game.creatures.Player;
+import dev.game.inventory.Weapons.Sword;
 import dev.game.tile.Tile;
 import dev.game.worlds.World;
 import dev.game.worlds.World.WorldType;
@@ -47,6 +48,10 @@ public class GameState extends State{
 		if(!paused) {
 			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)) {
 				world.loadNewWorld("Resources/Reserve_Data/worlds/world5.txt","Resources/Reserve_Data/entities/world5.txt");
+				world.getEntityManager().getPlayer().getWeapons().setPrimary(Sword.OP);
+				world.getEntityManager().getPlayer().setCorruption(0);
+				world.getEntityManager().getPlayer().setTransformable(true);
+				world.getEntityManager().getPlayer().setHealth(world.getEntityManager().getPlayer().getMaxHealth());
 			}
 		world.tick();
 		hud.tick();
