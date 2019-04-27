@@ -16,7 +16,7 @@ import dev.launcher.Assets;
 
 public class Wizard2 extends Creature {
 
-	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
+	private long lastAttackTimer,attackCooldown=2500,attackTimer=attackCooldown;
 	private boolean aggressive = false;
 	private boolean face=false;
 	private boolean alwaysAggressive;
@@ -35,6 +35,7 @@ public class Wizard2 extends Creature {
 		alwaysAggressive = fixedAggre;
 		name="Wizard";
 		health=10;
+		id = 4;
 		//animations
 		animDown = new Animation(200,Assets.wizard_down);
 		animLeft = new Animation(200,Assets.wizard_left);
@@ -100,6 +101,7 @@ public class Wizard2 extends Creature {
 		}else {
 			return;
 		}
+		attackTimer = 0;
 		
 	}
 
@@ -201,7 +203,6 @@ public class Wizard2 extends Creature {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
-		System.out.println("The WIZARD DIED");
 		
 	}
 	public void setAggressive(boolean aggro) {

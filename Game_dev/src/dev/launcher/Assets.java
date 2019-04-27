@@ -10,7 +10,7 @@ public class Assets {
 	public static BufferedImage 
 	tree,water,grass,drop,dirt,gameOver,bridge_left,bridge_right,rock,magic,key,health,shield,
 	wall_left,wall_right,wall_right_down,wall_left_down,wall_down,wall_up,wall_right_up,wall_left_up,
-	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,
+	stone,stone_wall_left,stone_wall_right,stone_wall_up,stone_wall_down,stone_wall_right_down,statue,
 	stone_wall_left_down,stone_wall_left_up,stone_wall_right_up,stone_null, startUp, healthimproved,
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
 	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
@@ -87,6 +87,7 @@ public class Assets {
 		SpriteSheet sheet57= new SpriteSheet(Loader.loadImage("/Sprite/stunSpritesheet.png"));
 		SpriteSheet sheet58= new SpriteSheet(Loader.loadImage("/Sprite/health 4 improved.png"));
 		SpriteSheet sheet59= new SpriteSheet(Loader.loadImage("/Sprite/stunBeamSheet.png"));
+		SpriteSheet sheet60= new SpriteSheet(Loader.loadImage("/Sprite/statue.png"));
 		
 		
 		BossHead = new BufferedImage[3];
@@ -107,7 +108,7 @@ public class Assets {
 		BossHandLeft[3]= sheet54.crop(0, height*3, width, height);
 		BossHandLeft[4]= sheet54.crop(0, height*4, width, height);
 		
-		
+		statue=sheet60.crop(0, 0, width, height);
 		drop=sheet1.crop(0,0,width,height);
 		key=sheet16.crop(0, 0, width, height);
 		shield=sheet12.crop(0, 0, 34, 33);

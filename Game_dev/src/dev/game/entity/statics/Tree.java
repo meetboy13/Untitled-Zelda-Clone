@@ -62,7 +62,7 @@ public class Tree extends StaticEntity{
 	}
 	@Override
 	public void tick() {
-		checkAttacks();
+		//checkAttacks();
 	}
 	@Override
 	public void render(Graphics g) {
