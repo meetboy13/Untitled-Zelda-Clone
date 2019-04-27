@@ -37,8 +37,8 @@ public class Player extends Creature{
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 	private Weapons weapons;
-
 	private int invulnerable;
+	
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
@@ -133,10 +133,7 @@ public class Player extends Creature{
 		}
 	}
 
-
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
+	public void animationTick() {
 		animDown.tick();
 		animUp.tick();
 		animRight.tick();
@@ -145,7 +142,7 @@ public class Player extends Creature{
 		animUpT.tick();
 		animRightT.tick();
 		animLeftT.tick();
-
+		
 		shieldUp.tick();
 		shieldDown.tick();
 		shieldLeft.tick();
@@ -154,30 +151,35 @@ public class Player extends Creature{
 		shieldDownT.tick();
 		shieldLeftT.tick();
 		shieldRightT.tick();
-
+	}
+	
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		animationTick();
 		secondaryCheck();
 		stunDecay();
 		flickerDecay();
 		invulnerableDecay();
 		if (!dead) {
-			if(!stunned) {///change later so the player can still pause
+			if(!stunned) {
 				getInput();
 			}
 			move();
 		}else {
 			animDie.tick();
 		}
-		handler.getGameCamera().centeronEntity(this);
-		inventory.tick();
 		if(transformable) {
 			corruptionTick();
 		}
+		handler.getGameCamera().centeronEntity(this);
+		inventory.tick();
 
 	}
 	
 
 	private void invulnerableDecay(){
-		if (invulnerable<0) {
+		if (invulnerable>0) {
 			invulnerable--;
 		}
 	}

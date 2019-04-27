@@ -44,7 +44,6 @@ public class Inventory {
 		for(Item i: inventoryItems) {
 			if(i.getId()==id) {
 				return i.getCount();
-
 			}
 		}
 		return 0;

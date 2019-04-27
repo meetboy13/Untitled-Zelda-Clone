@@ -59,7 +59,8 @@ public class SecondaryWeapon extends StaticEntity{
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
-		
+		active=true;
+		this.health=10;
 	}
 
 }
