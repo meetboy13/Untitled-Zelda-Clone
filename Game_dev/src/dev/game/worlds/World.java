@@ -18,6 +18,7 @@ import dev.game.creatures.Wizard2;
 import dev.game.entity.EntityManager;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.Projectile;
+import dev.game.entity.statics.Key;
 import dev.game.entity.statics.Rock;
 import dev.game.entity.statics.SecondaryWeapon;
 import dev.game.entity.statics.Statue;
@@ -114,9 +115,9 @@ public class World {
 	private void updateSpawns() {
 		//do creature spawning stuff here
 		if(deathCounter>21 && trigger4) {
-			itemManager.addItem(Item.key.createNew(300, 300));
-			world2= new TransitionSpace(handler,100,100,32,48,Direction.UP,92,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
-			world2.setX(100);
+			entityManager.addEntity(new Key(handler,300,300));
+			world2= new TransitionSpace(handler,100,100,100,100,Direction.RIGHT,96,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
+			world2.setX(1);
 			world2.setY(100);
 			entityManager.addEntity(world2);
 			trigger4=false;
@@ -186,6 +187,8 @@ public class World {
 			bull.setY(128);
 			bull.setX(800);
 			entityManager.addEntity(bull);
+			//world2= new TransitionSpace(handler,100,100,100,100,Direction.UP,96,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
+			//entityManager.addEntity(world2);
 			trigger1=false;
 		}
 	}
@@ -253,6 +256,7 @@ public class World {
 			if(worldType==WorldType.MIRROR) {
 				PlayerMirror mirrorPlayer=new PlayerMirror(handler, spawnX+600, spawnY, 64, 64,entityManager.getPlayer());
 				entityManager.addEntity(mirrorPlayer);
+				entityManager.getPlayer().setTransformable(false);
 			}
 			flagToLoad=false;
 		}else {
@@ -379,6 +383,13 @@ public class World {
 				entityManager.addEntity(wand);
 			}else if(entityType==9) {
 				entityManager.addEntity(new Statue(handler,entitySpawnX,entitySpawnY));
+			}else if(entityType==10) {
+				entityManager.addEntity(new Key(handler, entitySpawnX, entitySpawnY));
+			}else if(entityType==96) {
+				TransitionSpace world2= new TransitionSpace(handler,entitySpawnX,entitySpawnY,100,100,Direction.UP,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
+				world2.setX(entitySpawnX);
+				world2.setY(entitySpawnY);
+				entityManager.addEntity(world2);
 			}else if(entityType==95) {
 				TransitionSpace world5= new TransitionSpace(handler,entitySpawnX,entitySpawnY,100,100,Direction.UP,entityType,"Resources/worlds/world5.txt","Resources/entities/world5.txt",WorldType.NORMAL);
 				world5.setX(entitySpawnX);

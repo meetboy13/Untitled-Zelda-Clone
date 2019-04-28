@@ -47,8 +47,8 @@ public class TransitionSpace extends StaticEntity{
 	public void tick() {
 		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))) {
 			active=false;
-			handler.getWorld().getEntityManager().getPlayer().setX((handler.getWorld().getEntityManager().getPlayer().getX())-(handler.getWorld().getEntityManager().getPlayer().getxMove()));
-			handler.getWorld().getEntityManager().getPlayer().setY((handler.getWorld().getEntityManager().getPlayer().getY())-(handler.getWorld().getEntityManager().getPlayer().getyMove()));
+			handler.getWorld().getEntityManager().getPlayer().setX((handler.getWorld().getEntityManager().getPlayer().getX())-2*(handler.getWorld().getEntityManager().getPlayer().getxMove()));
+			handler.getWorld().getEntityManager().getPlayer().setY((handler.getWorld().getEntityManager().getPlayer().getY())-2*(handler.getWorld().getEntityManager().getPlayer().getyMove()));
 			handler.getWorld().saveWorld();
 			handler.getWorld().getEntityManager().clear1();
 			handler.getWorld().getProjectileManager().clear2();

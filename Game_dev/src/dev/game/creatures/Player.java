@@ -37,7 +37,7 @@ public class Player extends Creature{
 	protected boolean transformable = true;
 
 	private boolean neverDamaged = true;
-	private int deathLoop=0,corruption=0,corruptionMax=4000, baseDamage = 1;
+	private int deathLoop=0,corruption=0,corruptionMax=4000, baseDamage = 5;
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 	private Weapons weapons;
@@ -160,6 +160,8 @@ public class Player extends Creature{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
+		System.out.println(x);
+		System.out.println(y);
 		animationTick();
 		secondaryCheck();
 		stunDecay();
