@@ -30,6 +30,7 @@ public class Assets {
 	public static BufferedImage[] btn_high_score;
 	public static BufferedImage[] btn_achieve;
 	public static BufferedImage[] btn_exit;
+	public static BufferedImage[] primary;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet0= new SpriteSheet(Loader.loadImage("/Sprite/BossHeadSpriteSheet.png"));
@@ -106,6 +107,7 @@ public class Assets {
 		SpriteSheet sheet71= new SpriteSheet(Loader.loadImage("/Textures/highbuttonselected.png"));
 		SpriteSheet sheet72= new SpriteSheet(Loader.loadImage("/Textures/TITLESCREENbutton.png"));
 		SpriteSheet sheet73= new SpriteSheet(Loader.loadImage("/Textures/TITLESCREENbuttonselected.png"));
+		SpriteSheet sheet74= new SpriteSheet(Loader.loadImage("/Textures/circle.png"));
 		
 		
 		BossHead = new BufferedImage[3];
@@ -561,5 +563,9 @@ public class Assets {
 		btn_title = new BufferedImage[2];
 		btn_title[0]=sheet72.crop(0,0,550,70);
 		btn_title[1]=sheet73.crop(0,0,550,70);
+		
+		primary = new BufferedImage[2];
+		primary[0]=sheet74.crop(0,0,width,height);
+		primary[1]=sheet74.crop(width,0,width,height);
 	}
 }

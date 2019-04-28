@@ -1,6 +1,5 @@
+Player_name 2858
 name1 500
 name2 500
 name3 500
 name4 500
-name5 500
-

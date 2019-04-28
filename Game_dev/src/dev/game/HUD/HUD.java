@@ -106,50 +106,52 @@ public class HUD {
 		int healthtemp=health;
 
 		//timer
-		int x=100;
-		Font f = new Font("Courier", Font.PLAIN,20);
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect((int) (handler.getWidth()-100), 0, 100, 40);
+		int x=150;
+		Font f = new Font("Courier", Font.PLAIN,40);
 		g.setColor(Color.BLACK);
 		g.setFont(f);
 		if(this.secs<=0) {
-			g.drawString(this.mins+":"+this.secs+ "0", (int) (handler.getWidth()-100), 40);
+			g.drawString(this.mins+":"+this.secs+ "0", (int) (handler.getWidth()-100), 35);
 		}else if(this.secs<10) {
-			g.drawString(this.mins+":"+ "0"+this.secs, (int) (handler.getWidth()-100), 40);
+			g.drawString(this.mins+":"+ "0"+this.secs, (int) (handler.getWidth()-100), 35);
 		}else {
-			g.drawString(this.mins+":"+this.secs, (int) (handler.getWidth()-100), 40);
+			g.drawString(this.mins+":"+this.secs, (int) (handler.getWidth()-100), 35);
 		}
 		
 		//weapons
+		f = new Font("Courier", Font.PLAIN,15);
 		g.setColor(Color.BLACK);
-		g.fillOval(handler.getWidth()/2-56, 0, 62, 62);
-		g.setColor(Color.green);
-		g.fillOval(handler.getWidth()/2-55, 1, 60, 60);
-		g.drawImage(primary, handler.getWidth()/2-55, 6, 60,60,null);
+		g.setFont(f);
+		g.drawImage(Assets.primary[0], handler.getWidth()/2-54-30, 0, 60, 60,null);
+		g.drawImage(primary, handler.getWidth()/2-55-30, 6, 60,60,null);
+		g.drawString("Primary", handler.getWidth()/2-54-30, 70);
 
-		g.setColor(Color.BLACK);
-		g.fillOval(handler.getWidth()/2+54, 0, 62, 62);
-		g.setColor(Color.white);
-		g.fillOval(handler.getWidth()/2+55, 1, 60, 60);
-		g.drawImage(secondary, handler.getWidth()/2+60, 11,50,50,null);
+		g.drawImage(Assets.primary[0], handler.getWidth()/2+54-30, 0, 60, 60,null);
+		g.drawImage(secondary, handler.getWidth()/2+64-30, 14,40,40,null);
+		g.drawString("Secondary", handler.getWidth()/2+45-30, 70);
 		
 		//keys
+		f = new Font("Courier", Font.PLAIN,20);
 		g.setColor(Color.BLACK);
-		g.drawImage(Assets.key, handler.getWidth()-15, 0, 15,24,null);
+		g.setFont(f);
+		g.setColor(Color.BLACK);
 		if(this.keys>0) {
-			g.drawString(this.keys+"X", (int) (handler.getWidth()-40-((int)(Math.log10(this.keys))*12)), 20);
+			g.drawString(this.keys+"X", (int) (handler.getWidth()-x-((int)(Math.log10(this.keys))*12)), 20);
 		}else {
-			g.drawString(this.keys+"X", (int) (handler.getWidth()-40), 20);
+			g.drawString(this.keys+"X", (int) (handler.getWidth()-x), 20);
 		}
-		g.drawImage(Assets.key, handler.getWidth()-15, 0, 15,24,null);
+		g.drawImage(Assets.key, handler.getWidth()-125, 0, 24,24,null);
 				
 		//gems
 		g.setColor(Color.BLACK);
-		g.drawImage(Assets.drop, handler.getWidth()-70, 0, 15,24,null);
 		if(this.gems>0) {
-			g.drawString(this.gems+"X", (int) (handler.getWidth()-x-((int)(Math.log10(this.gems))*12)), 20);
+			g.drawString(this.gems+"X", (int) (handler.getWidth()-x-((int)(Math.log10(this.gems))*12)), 40);
 		}else {
-			g.drawString(this.gems+"X", (int) (handler.getWidth()-x), 20);
+			g.drawString(this.gems+"X", (int) (handler.getWidth()-x), 40);
 		}
-		g.drawImage(Assets.drop, handler.getWidth()-70, 0, 15,24,null);
+		g.drawImage(Assets.drop, handler.getWidth()-120, 20, 15,24,null);
 		
 		//health
 		if (handler.getWorld().getEntityManager().getPlayer().isNeverDamaged()) {
