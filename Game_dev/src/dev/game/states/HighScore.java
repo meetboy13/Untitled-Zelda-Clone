@@ -1,26 +1,67 @@
 package dev.game.states;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import dev.game.Handler;
+import dev.game.entity.Entity;
+import dev.game.ui.ClickListener;
+import dev.game.ui.UIImageButton;
+import dev.game.ui.UIManager;
+import dev.game.utils.Utils;
+import dev.launcher.Assets;
 
 public class HighScore extends State{
 
+	private UIManager uiManager;
+	private String[] names;
+	private String[] scores;
 	public HighScore(Handler handler) {
 		super(handler);
 		// TODO Auto-generated constructor stub
+		stateName="HighScoreState";
+		uiManager = new UIManager(handler);
+		handler.getMouseManager().setUiManager(uiManager);
+		uiManager.addObject(new UIImageButton(226,500,550,70,Assets.btn_title,new ClickListener() {
+			@Override
+			public void onClick() {
+				// TODO Auto-generated method stub
+				handler.getMouseManager().setUiManager(null);
+				MenuState menuState=new MenuState(handler);
+				State.setState(menuState);
+			}
+		}));
+		names=new String[5];
+		scores=new String[5];
+		loadHighScores("Resources/HighScores/HighScores.txt");
 	}
 
+	private void loadHighScores(String path) {
+		String file = Utils.loadFileAsString(path);
+		String[] tokens = file.split("\\s+");
+		for (int y=0;y<5;y++) {
+			names[y]=(tokens[(y*2)]);
+			scores[y]=((tokens[(y*2+1)]));
+		}
+	}
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		
+		uiManager.tick();
 	}
 
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		Font f = new Font("Courier", Font.PLAIN,20);
+		g.setColor(Color.BLACK);
+		g.setFont(f);
+		for (int y=0;y<5;y++) {
+			g.drawString(names[y]+":      "+scores[y], (int) (handler.getWidth()/2-100), 200+y*45);
+		}
+		uiManager.render(g);
 	}
 
 }

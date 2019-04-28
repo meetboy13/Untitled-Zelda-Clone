@@ -15,7 +15,7 @@ public class Assets {
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
 	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
 	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down,
-	sword_training,sword_mirror,sword_op, wand;
+	sword_training,sword_mirror,sword_op, wand,title_screen;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
 	friend_right,friend_left,friend_down,player_throw_front, player_hurt, BossHead,BossHandLeft, BossHandRight, btn_start,wizard_beam,healthSpriteSheet,
 	wizard_down,wizard_left,wizard_right,wizard_up,	player_throw_left,player_throw_right,player_throw_back,player_shield_up,player_shield_down,
@@ -25,6 +25,11 @@ public class Assets {
 	wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right, sheep_walk_down,sheep_walk_right,sheep_walk_left,sheep_walk_up,
 	bull_down,bull_up,bull_left,bull_right,bull_stunned,stun_indicator,friend_shield_left,friend_shield_right,friend_shield_up,friend_shield_down,
 	friend_mirror_up,friend_mirror_down,friend_mirror_right,friend_mirror_left,friend_op_up,friend_op_down,friend_op_left,friend_op_right;
+	public static BufferedImage[] btn_menu;
+	public static BufferedImage[] btn_title;
+	public static BufferedImage[] btn_high_score;
+	public static BufferedImage[] btn_achieve;
+	public static BufferedImage[] btn_exit;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet0= new SpriteSheet(Loader.loadImage("/Sprite/BossHeadSpriteSheet.png"));
@@ -92,6 +97,15 @@ public class Assets {
 		SpriteSheet sheet62= new SpriteSheet(Loader.loadImage("/Sprite/OP Sword.png"));
 		SpriteSheet sheet63= new SpriteSheet(Loader.loadImage("/Sprite/statue.png"));
 		SpriteSheet sheet64= new SpriteSheet(Loader.loadImage("/Sprite/stun wand.png"));
+		SpriteSheet sheet65= new SpriteSheet(Loader.loadImage("/Textures/TitleScreen.png"));
+		SpriteSheet sheet66= new SpriteSheet(Loader.loadImage("/Textures/EXIT.png"));
+		SpriteSheet sheet67= new SpriteSheet(Loader.loadImage("/Textures/EXITSelected.png"));
+		SpriteSheet sheet68= new SpriteSheet(Loader.loadImage("/Textures/achievebutton.png"));
+		SpriteSheet sheet69= new SpriteSheet(Loader.loadImage("/Textures/achievebuttonselected.png"));
+		SpriteSheet sheet70= new SpriteSheet(Loader.loadImage("/Textures/highbutton.png"));
+		SpriteSheet sheet71= new SpriteSheet(Loader.loadImage("/Textures/highbuttonselected.png"));
+		SpriteSheet sheet72= new SpriteSheet(Loader.loadImage("/Textures/TITLESCREENbutton.png"));
+		SpriteSheet sheet73= new SpriteSheet(Loader.loadImage("/Textures/TITLESCREENbuttonselected.png"));
 		
 		
 		BossHead = new BufferedImage[3];
@@ -187,7 +201,7 @@ public class Assets {
 		player_hurt[0] = sheet26.crop(0,height*7, width, height);
 		player_hurt[1] = sheet26.crop(width*1,height*3, width, height);
 		player_hurt[2] = sheet26.crop(width*2,height*3, width, height);
-		player_hurt[3] = sheet26.crop(width*3,0, width, height);		
+		player_hurt[3] = sheet26.crop(width*3,0,width, height);		
 		player_throw_front[0] = sheet26.crop(0,height*7, width, height);
 		player_throw_front[1] = sheet26.crop(width*1,height*7, width, height);
 		player_throw_front[2] = sheet26.crop(width*2,height*7, width, height);
@@ -532,5 +546,20 @@ public class Assets {
 		sword_training = sheet60.crop(0, 0, width, height); 
 		sword_mirror = sheet61.crop(0, 0, width, height); 
 		sword_op = sheet62.crop(0, 0, width, height); 
+		
+		title_screen = sheet65.crop(0, 0, 1024, 768); 
+
+		btn_exit = new BufferedImage[2];
+		btn_exit[0]=sheet66.crop(0,0,550,70);
+		btn_exit[1]=sheet67.crop(0,0,550,70);
+		btn_achieve = new BufferedImage[2];
+		btn_achieve[0]=sheet68.crop(0,0,550,70);
+		btn_achieve[1]=sheet69.crop(0,0,550,70);
+		btn_high_score = new BufferedImage[2];
+		btn_high_score[0]=sheet70.crop(0,0,550,70);
+		btn_high_score[1]=sheet71.crop(0,0,550,70);
+		btn_title = new BufferedImage[2];
+		btn_title[0]=sheet72.crop(0,0,550,70);
+		btn_title[1]=sheet73.crop(0,0,550,70);
 	}
 }
