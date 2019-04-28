@@ -1,10 +1,12 @@
 package dev.game.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import dev.game.Handler;
+import dev.game.creatures.Creature.Facing;
 import dev.game.item.Item;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -45,8 +47,25 @@ public class Sheep extends Creature {
 		flickerDecay();
 		getInput();
 		move();
-
+		adjustBounds();
 	}
+	
+	private void adjustBounds() {
+		if((lastDirection==Facing.LEFT)||(lastDirection==Facing.RIGHT)) {		
+		bounds.x=5;
+		bounds.y=20;
+		bounds.width=60;
+		bounds.height=32;
+		}else {
+			bounds.x=16;
+			bounds.y=20;
+			bounds.width=32;
+			bounds.height=40;
+		}
+	}
+
+
+
 	
 	
 
@@ -56,6 +75,9 @@ public class Sheep extends Creature {
 		if (damageFlicker%20<15) {
 			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
+		//g.setColor(Color.blue);
+		//g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
+		
 	}
 	private void getInput() {
 		if (stunnedDuration>0) {

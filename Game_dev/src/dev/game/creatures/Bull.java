@@ -1,5 +1,6 @@
 package dev.game.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
@@ -55,17 +56,31 @@ public class Bull extends Creature {
 		flickerDecay();
 		getInput();
 		move();
-		if(stunned) {
+		if(!stunned) {
 			aggression();
 			checkAttacks();
 		}
 		stunDecay();
+		adjustBounds();
+	}
+	
+	private void adjustBounds() {
+		if((lastDirection==Facing.LEFT)||(lastDirection==Facing.RIGHT)) {		
+		bounds.x=5;
+		bounds.y=20;
+		bounds.width=60;
+		bounds.height=32;
+		}else {
+			bounds.x=16;
+			bounds.y=20;
+			bounds.width=32;
+			bounds.height=40;
+		}
 	}
 
 
 	private void checkAttacks() {
 		// TODO Auto-generated method stub
-		if (stunned) {return;}
 		if(!aggressive && !alwaysAggressive) {
 			return;
 		}
@@ -79,30 +94,35 @@ public class Bull extends Creature {
 
 		cb =this.getCollisionBounds(0,0);
 		ar= new Rectangle();
-		int arSize=20;
+		int arSize=15;
 		ar.width=arSize;
 		ar.height=arSize;
 		xMove=0;
 		yMove=0;
 		if(lastDirection==Facing.UP) {
-			yMove = -4;
-			ar.x=cb.x+cb.width/2-arSize/2;
+			ar.x=cb.x;
 			ar.y=cb.y-arSize;
+			ar.width=cb.width;
+			yMove = -4;
 		}
 		else if(lastDirection==Facing.DOWN) {
-			yMove = 4;
-			ar.x=cb.x+cb.width/2-arSize/2;
+			ar.x=cb.x;
 			ar.y=cb.y+cb.height;
+			ar.width=cb.width;
+			yMove = 4;
 		}
 		else if(lastDirection==Facing.LEFT) {
-			xMove = -4;
 			ar.x=cb.x-arSize;
-			ar.y=cb.y+cb.height/2-arSize/2;
+			ar.y=cb.y;
+			ar.height=cb.height;
+			xMove = -4;
+			
 		}
 		else if(lastDirection==Facing.RIGHT) {
-			xMove = 4;
 			ar.x=cb.x+cb.width;
-			ar.y=cb.y+cb.height/2-arSize/2;
+			ar.y=cb.y;
+			ar.height=cb.height;
+			xMove = 4;
 		}
 		
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
@@ -126,6 +146,7 @@ public class Bull extends Creature {
 		if (damageFlicker%20<15) {
 			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
+		
 	}
 	public void aggression() {
 		//square detection

@@ -675,6 +675,4 @@ public class Player extends Creature{
 	public void setNeverDamaged(boolean neverDamaged) {
 		this.neverDamaged = neverDamaged;
 	}
-
-
 }
