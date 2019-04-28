@@ -21,6 +21,8 @@ public class BossHandRight extends Creature{
 		super(handler, x, y, width, height);
 		id=9999999;
 		this.solid=false;
+		this.maxHealth = 20;
+		this.health = 20;
 		// TODO Auto-generated constructor stub
 	}
 	public void targetAttack() {

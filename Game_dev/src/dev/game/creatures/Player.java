@@ -270,7 +270,14 @@ public class Player extends Creature{
 	}
 	private void attack2() {
 		//ranged javelin attack
+		secondaryTimer+=System.currentTimeMillis()-lastSecondaryTimer;
+		lastSecondaryTimer=System.currentTimeMillis();
+		if(secondaryTimer<weapons.getSecondaryCooldown()) {
+			return;
+		}
 
+		secondaryTimer=0;
+		
 		if (weapons.getSecondary()==Equipment.javelin) {
 			Arrow attack;
 			if(lastDirection==Facing.UP) {
@@ -299,7 +306,6 @@ public class Player extends Creature{
 			}else {
 				return;
 			}
-			attackTimer=0;
 			handler.getWorld().getProjectileManager().addEntity(attack);
 			//weapons.setSecondary(Equipment.none);
 		} else if (weapons.getSecondary()==Equipment.shield) {
@@ -333,8 +339,6 @@ public class Player extends Creature{
 			}else {
 				return;
 			}
-
-			attackTimer=0;
 			handler.getWorld().getProjectileManager().addEntity(attack);
 		}
 	}
@@ -356,15 +360,7 @@ public class Player extends Creature{
 			bounds.y=16;
 			bounds.width=36;
 			bounds.height=48;
-			//int tx= ((int)(x+bounds.x)/Tile.TILEWIDTH);
-			//if(collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,tx) && !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,tx)) {
-			//xMove = -3;
-			//yMove = 3;
-			//}
-			//xMove=1;
-			//yMove=-1;
 		}
-		//lastDirection=Facing.DOWN;
 		transformed = !transformed;
 	}
 
@@ -376,12 +372,6 @@ public class Player extends Creature{
 		}
 		if(transformable&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
 			transform();
-			//}else if(temp) {
-			//xMove = 1;
-			//yMove = -1;
-			//}else if(temp) {
-			//xMove= -1;
-			//return;
 		}
 		else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE)) {
 			attack1();

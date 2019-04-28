@@ -21,7 +21,8 @@ public class BossHandLeft extends Creature{
 		super(handler, x, y, width, height);
 		id=9999999;
 		this.solid=false;
-		this.health = 10;
+		this.health = 20;
+		this.health = 20;
 		// TODO Auto-generated constructor stub
 	}
 

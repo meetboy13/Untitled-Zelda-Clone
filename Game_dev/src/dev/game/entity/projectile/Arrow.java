@@ -20,6 +20,7 @@ public class Arrow extends Projectile{
 		bounds.height-=10;
 		bounds.width-=23*2;
 		texture=Assets.spear[0];
+		this.damage = 4;
 	}
 	@Override
 	public void setDirection(Direction direction) {
