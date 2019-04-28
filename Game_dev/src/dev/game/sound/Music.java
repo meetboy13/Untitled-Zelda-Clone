@@ -7,7 +7,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class Music {
-	private Clip clip;
+	private static Clip clip;
 	
 	public Music() {
 		
@@ -38,4 +38,20 @@ public class Music {
 		clip.stop();
 		clip.close();
 	}
+	public static synchronized void playSound(final String soundFileName) {
+		  new Thread(new Runnable() {
+		    public void run() {
+		      try {
+				File file = new File(soundFileName);
+				AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+		        clip = AudioSystem.getClip();
+		        clip.open(sound);
+		        clip.loop(Clip.LOOP_CONTINUOUSLY);
+		        clip.start(); 
+		      } catch (Exception e) {
+		        System.err.println(e.getMessage());
+		      }
+		    }
+		  }).start();
+		}
 }

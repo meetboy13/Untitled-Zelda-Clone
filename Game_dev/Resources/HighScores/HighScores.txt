@@ -1,5 +1,5 @@
 Player_name 596
-name2 500
+Player_name 570
 name3 500
 name4 500
 name5 500
