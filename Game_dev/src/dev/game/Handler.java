@@ -1,22 +1,15 @@
 package dev.game;
 
-
-
 import dev.game.HUD.HUD;
 import dev.game.input.KeyManager;
 import dev.game.worlds.World;
 import dev.launcher.GameCamera;
 import dev.game.input.MouseManager;
-import dev.game.inventory.Inventory;
-import dev.game.sound.Music;
-
 
 public class Handler {
-	private Music music;
 	private Game game;
 	private World world;
 	private HUD hud;
-	private Inventory PlayerInventory;
 	//constructor
 	public Handler (Game Game) {
 		this.game=Game;
@@ -55,5 +48,5 @@ public class Handler {
 	public void setHud(HUD hud) {
 		this.hud = hud;
 	}
-	
+
 }

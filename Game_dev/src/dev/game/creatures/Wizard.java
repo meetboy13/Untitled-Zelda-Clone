@@ -1,18 +1,11 @@
 package dev.game.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.Random;
 import java.awt.image.BufferedImage;
-
 import dev.game.Handler;
-import dev.game.creatures.Creature.Facing;
-import dev.game.entity.Entity;
-import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.WizardBeam;
 import dev.game.item.Item;
-import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 
@@ -25,9 +18,9 @@ public class Wizard extends Creature {
 	private Animation animDown,animUp,animLeft,animRight, floatDown, floatUp, floatRight, floatLeft;
 	private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	private Random rand = new Random();
+	//constructor
 	public Wizard(Handler handler, float x, float y, int width, int height, boolean fixedAggre) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
-		// TODO Auto-generated constructor stub
 		id=3;
 		bounds.x=16;
 		bounds.y=18;
@@ -49,9 +42,7 @@ public class Wizard extends Creature {
 
 	}
 
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
+	private void tickAnimations() {
 		animDown.tick();
 		animUp.tick();
 		animRight.tick();
@@ -60,6 +51,11 @@ public class Wizard extends Creature {
 		floatUp.tick();
 		floatRight.tick();
 		floatLeft.tick();
+	}
+
+	@Override
+	public void tick() {
+		tickAnimations();
 		flickerDecay();
 		getInput();
 		stunDecay();
@@ -69,22 +65,19 @@ public class Wizard extends Creature {
 		}
 	}
 
-
+	//check aggression to see if attacking
 	private void checkAttacks() {
 		attackTimer+=System.currentTimeMillis()-lastAttackTimer;
 		lastAttackTimer=System.currentTimeMillis();
 		if(attackTimer<attackCooldown) {
 			return;
 		}
-		// TODO Auto-generated method stub
 		if(!aggressive && !alwaysAggressive) {
 			return;
 		}
-		//if((xMove!=0) || (yMove!=0)) {
-		//	return;
-		//}
 		attackTimer = 0;
 
+		//spawn beam that is targeted at player
 		float xDelta = x-handler.getWorld().getEntityManager().getPlayer().getX();
 		float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
 
@@ -135,77 +128,34 @@ public class Wizard extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
 		if (damageFlicker%20<15) {
 			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
-		/*
-		//Code to show wizard hitboxes
-		g.setColor(Color.BLACK);
-		g.drawRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),(int)(y+bounds.y-handler.getGameCamera().getyOffset()),bounds.width,bounds.height);
-		 */
 	}
+
+	//check if player is near enemy
 	public void aggression() {
-		//square detection
-		//if(((x-200) < handler.getWorld().getEntityManager().getPlayer().getX()) && (handler.getWorld().getEntityManager().getPlayer().getX() <(x+200))&&(((y-200) < handler.getWorld().getEntityManager().getPlayer().getY()) && (handler.getWorld().getEntityManager().getPlayer().getY() <(y+200)))) {
 		//circle detection of radius 400
 		if ((Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(400, 2)){
 			setAggressive(true);
 		} else {
 			setAggressive(false);
-			//face=true;
 		}
 	}
+
+
 	private void getInput() {
 		xMove = 0;
 		yMove = 0;
-		
+
 		if(stunned) {
 			return;
 		}
+		//attack
 		if (aggressive || alwaysAggressive) {
-
-
 			checkAttacks();
-			//float xDelta = x-handler.getWorld().getEntityManager().getPlayer().getX();
-			//float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
-
-			/*
-			if ((xDelta < 15 && xDelta > -15)){
-				if (face){//face the player before shooting
-					face=false;
-					if(yDelta>0) {
-						yMove=-1;
-					}else if(yDelta<0) {
-						yMove=1;
-					}
-				}
-			}else if((yDelta<15 && yDelta>-15)){
-				if (face){//face the player before shooting
-					face=false;
-					if(xDelta>0) {
-						xMove=-1;
-					}else if(xDelta<0) {
-						xMove=1;
-					}
-				}
-			}else if (Math.abs(xDelta)<Math.abs(yDelta)) {//LOS with player is closest in x direction
-				face=true;
-				if(xDelta>0) {
-					xMove=-speed;
-				}else if(xDelta<0) {
-					xMove=speed;
-				}
-			}else if (Math.abs(yDelta)<Math.abs(xDelta)) {//LOS with player is closest in y direction
-				System.out.println("Ymatch");
-				face=true;
-				if(yDelta>0) {
-					yMove=-speed;
-				}else if(yDelta<0) {
-					yMove=speed;
-				}
-			}*/
 		} else {
+			//move randomly
 			moveTimer+=System.currentTimeMillis()-lastMoveTimer;
 			lastMoveTimer=System.currentTimeMillis();
 			if(moveTimer>=moveCooldown) {
@@ -240,9 +190,9 @@ public class Wizard extends Creature {
 			}
 		}
 	}
+	//add to score and drop gem
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
 		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+100);
 		active=false;
 		int xVar=(int) (rand.nextInt((int) this.getBounds().getWidth())-this.getBounds().getWidth()/2);
@@ -250,9 +200,8 @@ public class Wizard extends Creature {
 		handler.getWorld().getItemManager().addItem(Item.drop.createNew((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
 
 	}
-	public void setAggressive(boolean aggro) {
-		aggressive = aggro;
-	}
+
+	//get animation frame for rendering
 	private BufferedImage getCurrentAnimationFrame() {
 		if (aggressive) {
 			float xDelta = x-handler.getWorld().getEntityManager().getPlayer().getX();
@@ -304,5 +253,10 @@ public class Wizard extends Creature {
 			//default animation to display if not condition is met.
 			return Assets.wizard_down[1];
 		}
+	}
+
+	//setter
+	public void setAggressive(boolean aggro) {
+		aggressive = aggro;
 	}
 }

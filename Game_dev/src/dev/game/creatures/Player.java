@@ -1,13 +1,10 @@
 package dev.game.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-
 import dev.game.Handler;
-import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
 import dev.game.entity.projectile.Arrow;
 import dev.game.entity.projectile.StunBeam;
@@ -28,11 +25,11 @@ public class Player extends Creature{
 	private Animation animDown,animUp,animLeft,animRight,animDie,animDownT,animUpT,animLeftT,animRightT,
 	shieldUp, shieldDown, shieldRight, shieldLeft,shieldUpT, shieldDownT, shieldRightT, shieldLeftT;
 
-	private long lastAttackTimer,attackCooldown=800,attackTimer=attackCooldown;
+	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private long lastSecondaryTimer,secondaryCooldown=2000,secondaryTimer=secondaryCooldown;
 	private Inventory inventory;
 	private boolean dead = false, shielding=false, transformed=false;
-	private int attacking = 0;//temp = false;
+	private int attacking = 0;
 
 	protected boolean transformable = true;
 
@@ -43,9 +40,9 @@ public class Player extends Creature{
 	private Weapons weapons;
 	private int invulnerable,score=0;;
 
+	//create player
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
-		// TODO Auto-generated constructor stub
 		damage=1;
 		bounds.x=14;
 		bounds.y=32;
@@ -76,6 +73,8 @@ public class Player extends Creature{
 		inventory = new Inventory(handler);
 		weapons = new Weapons(handler);
 	}
+
+	//move the player
 	@Override
 	public void move() {
 		if(!checkEntityCollisions(xMove,0f)) {
@@ -100,6 +99,7 @@ public class Player extends Creature{
 		}
 	}
 
+	//check if transforming causes clipping and prevent it
 	public void expandCheck() {
 		int xMove=0;
 		int yMove=-16;
@@ -137,6 +137,7 @@ public class Player extends Creature{
 		}
 	}
 
+	//tick animations
 	public void animationTick() {
 		animDown.tick();
 		animUp.tick();
@@ -159,7 +160,6 @@ public class Player extends Creature{
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
 		animationTick();
 		secondaryCheck();
 		stunDecay();
@@ -178,9 +178,7 @@ public class Player extends Creature{
 		}
 		handler.getGameCamera().centeronEntity(this);
 		inventory.tick();
-
 	}
-
 
 	private void invulnerableDecay(){
 		if (invulnerable>0) {
@@ -188,23 +186,29 @@ public class Player extends Creature{
 		}
 	}
 
+	//prevent shielding when changing equipment
 	private void secondaryCheck() {
 		if (weapons.getSecondary()!=Equipment.shield) {
 			shielding = false;
 		}
 	}
 
+	//sword attack in front of player
 	private void attack1() {
 		attackTimer+=System.currentTimeMillis()-lastAttackTimer;
 		lastAttackTimer=System.currentTimeMillis();
 		if(attackTimer<weapons.getPrimaryCooldown()) {
 			return;
 		}
-		// TODO Auto-generated method stub
 		attacking = 5;
 		cb =getCollisionBounds(0,0);
 		ar= new Rectangle();
-		int arSize=20;
+		int arSize;
+		if(transformed) {
+			arSize=25;
+		}else {
+			arSize=20;
+		}
 		ar.width=arSize;
 		ar.height=arSize;
 		ar=weapons.getHitBox(lastDirection, cb);
@@ -219,11 +223,13 @@ public class Player extends Creature{
 			}
 		}
 	}
-	
+
+	//Don't set stun for player
 	@Override 
 	public void setStun(boolean stunned) {
-		
+		return;
 	}
+
 
 	@Override
 	public void hurt(int damage,int deltaX,int deltaY) {
@@ -233,6 +239,7 @@ public class Player extends Creature{
 		if(invulnerable<0) {
 			return;
 		}
+		//shielding prevents damage
 		if(!shielding) {
 			setNeverDamaged(false);
 			Sounds.hurt.play();
@@ -246,11 +253,12 @@ public class Player extends Creature{
 				die();
 			}
 			if (damageFlicker<21) {
-			damageFlicker=60;
+				damageFlicker=60;
 			}
 		}
 
 		//knockback
+		//no knockback when transformed and not shielding
 		if (transformed && !shielding) {
 			return;
 		}
@@ -264,20 +272,22 @@ public class Player extends Creature{
 		}else {
 			yMove=-(4*speed);
 		}
+		//set hitstun
 		stunned=true;
 		stunnedDuration=2;
 
 	}
+
+	//use secondary equipment
 	private void attack2() {
-		//ranged javelin attack
 		secondaryTimer+=System.currentTimeMillis()-lastSecondaryTimer;
 		lastSecondaryTimer=System.currentTimeMillis();
 		if(secondaryTimer<weapons.getSecondaryCooldown()) {
 			return;
 		}
-
 		secondaryTimer=0;
-		
+
+		//ranged javelin attack
 		if (weapons.getSecondary()==Equipment.javelin) {
 			Arrow attack;
 			if(lastDirection==Facing.UP) {
@@ -307,8 +317,8 @@ public class Player extends Creature{
 				return;
 			}
 			handler.getWorld().getProjectileManager().addEntity(attack);
-			//weapons.setSecondary(Equipment.none);
 		} else if (weapons.getSecondary()==Equipment.shield) {
+			//change shield stance
 			shielding = !shielding;
 		} else if (weapons.getSecondary()==Equipment.wand) {
 			//Make stun projectile
@@ -343,27 +353,25 @@ public class Player extends Creature{
 		}
 	}
 
+	//transform the player
 	private void transform() {
 		if(transformed) {
 			speed = Creature.DEFAULT_SPEED;
 			baseDamage = 1;
-			bounds.x=14;
 			bounds.y=32;
-			bounds.width=36;
 			bounds.height=32;
 
 		}else {
 			expandCheck();
 			speed = Creature.DEFAULT_SPEED*0.7f;
 			baseDamage = 2;
-			bounds.x=14;
 			bounds.y=16;
-			bounds.width=36;
 			bounds.height=48;
 		}
 		transformed = !transformed;
 	}
 
+	//get keyboard input
 	private void getInput() {
 		xMove=0;
 		yMove=0;
@@ -405,7 +413,7 @@ public class Player extends Creature{
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
+		//death animation
 		if (dead){
 			if (deathLoop==60){
 				active=false;
@@ -418,17 +426,10 @@ public class Player extends Creature{
 			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
 		inventory.render(g);
-		//draw hitboxes for attacks and for the player
-		//this code should be generic except the ar rect which may require some temporary reworking
-
-		g.setColor(Color.blue);
-		g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
-		g.drawRect((int)(ar.x-handler.getGameCamera().getxOffset()),(int)(ar.y-handler.getGameCamera().getyOffset()),ar.width,ar.height);
-
 	}
 
 
-
+	//get animation frame for rendering
 	private BufferedImage getCurrentAnimationFrame() {
 		if(transformed) {
 			if(dead) {
@@ -602,12 +603,11 @@ public class Player extends Creature{
 		}
 	}
 
+	//increment corruption meter when transformed
 	public void corruptionTick() {
 		if (transformed &&(corruption<corruptionMax)) {
 			corruption+=2;
-		}/*else if((corruption>100)) {
-			corruption--;
-		}*/
+		}
 		if(corruption >= corruptionMax) {
 			corruption = corruptionMax;
 			setTransformable(false);
@@ -615,15 +615,17 @@ public class Player extends Creature{
 		}
 
 	}
+
+	//calculate score and start death animation
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
 		dead=true;
 		HighScore highScore=new HighScore(handler);
-		this.score+=handler.getHud().getTimeLimit()*2+inventory.getItemCount(1)*200+inventory.getItemCount(0)*50+health*20;
+		this.score+=inventory.getItemCount(1)*200+inventory.getItemCount(0)*50;
 		highScore.checkHighScore(score);
 	}
 
+	//getters and setters
 	public Inventory getInventory() {
 		return inventory;
 	}
@@ -646,6 +648,10 @@ public class Player extends Creature{
 
 	public void setCorruptionMax(int corruptionMax) {
 		this.corruptionMax = corruptionMax;
+	}
+
+	public boolean getTransformed(){
+		return transformed;
 	}
 
 	public boolean isTransformable() {
@@ -675,5 +681,7 @@ public class Player extends Creature{
 	public void setScore(int score) {
 		this.score = score;
 	}
-
+	public boolean getShielding() {
+		return shielding;
+	}
 }

@@ -1,15 +1,16 @@
 package dev.display;
 import java.awt.Canvas;
 import java.awt.Dimension;
-
 import javax.swing.JFrame;
+
+//make the window that will display stuff
 
 public class Display {
 	private JFrame frame;	
 	private Canvas canvas;
 	private String title;
 	private int width, height;
-	
+
 	public Display(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -23,7 +24,7 @@ public class Display {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));
 
@@ -31,7 +32,7 @@ public class Display {
 
 		canvas.setMinimumSize(new Dimension(width, height));
 		canvas.setFocusable(false);
-		
+
 		frame.add(canvas);
 		frame.pack();
 	}

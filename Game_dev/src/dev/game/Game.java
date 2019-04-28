@@ -1,13 +1,11 @@
 package dev.game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-
-import dev.display.*;
+import dev.display.Display;
 import dev.game.input.KeyManager;
 import dev.game.input.MouseManager;
 import dev.game.sound.Sounds;
 import dev.game.states.MenuState;
-import dev.game.states.StartState;
 import dev.game.states.State;
 import dev.launcher.Assets;
 import dev.launcher.GameCamera;
@@ -21,15 +19,11 @@ public class Game implements Runnable{
 	private Graphics g;
 	private boolean running;
 	public State menuState;
-	public State startState;
 	private KeyManager KeyManager;
-	
 	private MouseManager mouseManager;
-	
 	private GameCamera gameCamera;
-	
 	private Handler handler;
-	
+
 	//Game constructor
 	public Game(String title, int width, int height) {
 		this.width = width;
@@ -38,25 +32,24 @@ public class Game implements Runnable{
 		KeyManager = new KeyManager();
 		mouseManager=new MouseManager();
 	}
-	
+
 	//initialisation function
 	private void init() {
 		display = new Display(title,width,height);
 		display.getFrame().addKeyListener(KeyManager);
-		
+
 		display.getFrame().addMouseListener(mouseManager);
 		display.getFrame().addMouseMotionListener(mouseManager);
 		display.getCanvas().addMouseListener(mouseManager);
 		display.getCanvas().addMouseMotionListener(mouseManager);
-		
+
 		//call the asset initialisation function
 		Assets.init();
 		Sounds.init();
 		handler = new Handler(this);
 		gameCamera = new GameCamera(handler,0,0);
 		menuState = new MenuState(handler);
-		startState = new StartState(handler);
-		
+
 		//set initial gamestate
 		State.setState(menuState);
 		//State.setState(startState);
@@ -65,15 +58,14 @@ public class Game implements Runnable{
 	public void run() {
 		//game init
 		init();
-		
+
 		int fps =60;
 		double timePerTick = 1000000000/fps;
 		double delta =0;
 		long now;
 		long lastTime = System.nanoTime();
 		long timer =0;
-		int tick =0;
-	
+
 		while (running) {
 			//calculates the fps and outputs to terminal
 			now = System.nanoTime();
@@ -84,7 +76,6 @@ public class Game implements Runnable{
 				tick();
 				render();
 				delta--;
-				tick++;
 				try {
 					Thread.sleep(12);
 				} catch (InterruptedException e) {
@@ -93,22 +84,21 @@ public class Game implements Runnable{
 				}
 			}
 			if (timer >= 1000000000){
-				tick=0;
 				timer=0;
 			}
 		}
 	}
-	
-		//tick for game which calls the state tick 
-		//as long as we are in a state
+
+	//tick for game which calls the state tick 
+	//as long as we are in a state
 	private void tick() {
 		KeyManager.tick();
 		if(State.getState() != null) {
 			State.getState().tick();
 		}
 	}
-		
-		//render method, handles all graphics side stuff
+
+	//render method, handles all graphics side stuff
 	private void render(){
 		bs = display.getCanvas().getBufferStrategy();
 		if(bs == null) {
@@ -118,10 +108,10 @@ public class Game implements Runnable{
 			return;
 		}
 		g = bs.getDrawGraphics();
-		
+
 		//clears screen
 		g.clearRect(0, 0, width, height);
-		
+
 		if (State.getState() != null) {
 			State.getState().render(g);
 		}
@@ -131,7 +121,7 @@ public class Game implements Runnable{
 		g.dispose();
 	}
 
-	
+
 	//Thread start and stop functions
 	public synchronized void start() {
 		if (running) {return;}
@@ -150,10 +140,10 @@ public class Game implements Runnable{
 		}
 	}
 
-	
-	
+
+
 	//getter functions
-	
+
 	public KeyManager getKeyManager() {
 		return KeyManager;
 	}
@@ -169,6 +159,6 @@ public class Game implements Runnable{
 	public int getHeight() {
 		return height;
 	}
-	
-	
+
+
 }

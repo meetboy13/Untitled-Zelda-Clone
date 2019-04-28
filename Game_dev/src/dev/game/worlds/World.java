@@ -258,7 +258,9 @@ public class World {
 				entityManager.addEntity(mirrorPlayer);
 				entityManager.getPlayer().setTransformable(false);
 			}else {
-				entityManager.getPlayer().setTransformable(true);
+				if(entityManager.getPlayer().getCorruptionMax()>entityManager.getPlayer().getCorruption()) {
+					entityManager.getPlayer().setTransformable(true);
+				}
 			}
 			flagToLoad=false;
 		}else {

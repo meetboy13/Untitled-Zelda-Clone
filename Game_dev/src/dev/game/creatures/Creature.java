@@ -3,7 +3,6 @@ package dev.game.creatures;
 import dev.game.entity.Entity;
 import dev.game.tile.Tile;
 import dev.game.Handler;
-import dev.game.creatures.Creature.Facing;
 
 public abstract class Creature extends Entity {
 	public static final float DEFAULT_SPEED=3.0f;
@@ -68,6 +67,8 @@ public abstract class Creature extends Entity {
 				}
 		}
 	}
+	
+	//creature takes damage and knockback
 	@Override
 	public void hurt(int damage,int deltaX,int deltaY) {
 		
@@ -101,6 +102,7 @@ public abstract class Creature extends Entity {
 			moveY();
 		}
 	}
+	
 	protected void stunDecay() {
 		if (stunnedDuration>0) {
 			stunnedDuration--;
@@ -132,6 +134,7 @@ public abstract class Creature extends Entity {
 		yMove = ymove;
 	}
 	
+	//add a stun duration when being stunned
 	@Override
 	public void setStun(boolean stunned){
 		this.stunned = stunned;
@@ -139,7 +142,6 @@ public abstract class Creature extends Entity {
 			stunnedDuration = 200;
 		}
 	}
-	
 	
 	//getters and setters for health and speed
 	public int getHealth() {

@@ -1,12 +1,9 @@
 package dev.game.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-
 import dev.game.Handler;
-import dev.game.creatures.Creature.Facing;
 import dev.game.item.Item;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
@@ -17,9 +14,9 @@ public class Sheep extends Creature {
 	private long lastMoveTimer,moveCooldown=1500,moveTimer=moveCooldown;
 	private Random rand = new Random();
 	private boolean fleeing=false;
+	//constructor
 	public Sheep(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
-		// TODO Auto-generated constructor stub
 		health=10;
 		name="sheep";
 		id=1;
@@ -51,6 +48,7 @@ public class Sheep extends Creature {
 		adjustBounds();
 	}
 	
+	//change bounds based on direction
 	private void adjustBounds() {
 		if((lastDirection==Facing.LEFT)||(lastDirection==Facing.RIGHT)) {		
 		bounds.x=5;
@@ -72,14 +70,12 @@ public class Sheep extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
 		if (damageFlicker%20<15) {
 			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
-		//g.setColor(Color.blue);
-		//g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
-		
 	}
+	
+	
 	private void getInput() {
 		if (stunnedDuration>0) {
 			if(stunned) {
@@ -89,6 +85,7 @@ public class Sheep extends Creature {
 			yMove=0;
 			return;
 		}
+		//run away from player
 		if(fleeing && (Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(150, 2)){
 				if(handler.getWorld().getEntityManager().getPlayer().getX()>(x+5)) {
 					xMove = -speed;
@@ -106,6 +103,7 @@ public class Sheep extends Creature {
 				}
 			
 		}else {
+			//mover randomly
 			moveTimer+=System.currentTimeMillis()-lastMoveTimer;
 			lastMoveTimer=System.currentTimeMillis();
 			if(moveTimer>=moveCooldown) {
@@ -141,6 +139,8 @@ public class Sheep extends Creature {
 		}
 
 	}
+	
+	
 	@Override
 	public void hurt(int damage,int deltaX,int deltaY) {
 		fleeing=true;
@@ -163,15 +163,17 @@ public class Sheep extends Creature {
 		stunnedDuration=2;
 	}
 	
+	//drop health pickup and add to score
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
 		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+10);
 		int xVar=(int) (rand.nextInt((int) this.getBounds().getWidth())-this.getBounds().getWidth()/2);
 		int yVar=(int) (rand.nextInt((int) this.getBounds().getHeight())-this.getBounds().getHeight()/2);
 		handler.getWorld().getItemManager().addItem(Item.healthPickup.createNewHealthPickup((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
 		active=false;
 	}
+	
+	//get animation frame for rendering
 	private BufferedImage getCurrentAnimationFrame() {
 		if(xMove<0) {
 			lastDirection=Facing.LEFT;

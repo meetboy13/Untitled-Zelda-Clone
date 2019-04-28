@@ -24,7 +24,8 @@ public class Assets {
 	player_op_up,player_op_down,player_op_left,player_op_right,player_wand,wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,
 	wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right, sheep_walk_down,sheep_walk_right,sheep_walk_left,sheep_walk_up,
 	bull_down,bull_up,bull_left,bull_right,bull_stunned,stun_indicator,friend_shield_left,friend_shield_right,friend_shield_up,friend_shield_down,
-	friend_mirror_up,friend_mirror_down,friend_mirror_right,friend_mirror_left,friend_op_up,friend_op_down,friend_op_left,friend_op_right;
+	friend_mirror_up,friend_mirror_down,friend_mirror_right,friend_mirror_left,friend_op_up,friend_op_down,friend_op_left,friend_op_right,
+	wizard2_float_down,wizard2_float_left,wizard2_float_right,wizard2_float_up,wizard2_down,wizard2_left,wizard2_right,wizard2_up;
 	public static BufferedImage[] btn_menu;
 	public static BufferedImage[] btn_title;
 	public static BufferedImage[] btn_high_score;
@@ -114,6 +115,7 @@ public class Assets {
 		SpriteSheet sheet77= new SpriteSheet(Loader.loadImage("/Sprite/transitionmirror.png"));
 		SpriteSheet sheet78= new SpriteSheet(Loader.loadImage("/Sprite/transitionbottom.png"));
 		SpriteSheet sheet79= new SpriteSheet(Loader.loadImage("/Sprite/treetransition.png"));
+		SpriteSheet sheet80= new SpriteSheet(Loader.loadImage("/Sprite/Wizard2SpriteSheet.png"));
 		
 		
 		BossHead = new BufferedImage[3];
@@ -494,6 +496,52 @@ public class Assets {
 		
 		wizard_stunned_up = sheet51.crop(width*3, 0, width, height);
 		
+		//wizard2
+		wizard2_down=new BufferedImage[3];
+		wizard2_down[0] = sheet80.crop(0, 0+493, width, height);
+		wizard2_down[1] = sheet80.crop(0, height+493, width, height);
+		wizard2_down[2] = sheet80.crop(0, 2*height+493, width, height);
+		
+		wizard2_float_down=new BufferedImage[3];
+		wizard2_float_down[0] = sheet80.crop(0, 3*height+493, width, height);
+		wizard2_float_down[1] = sheet80.crop(0, 4*height+493, width, height);
+		wizard2_float_down[2] = sheet80.crop(0, 5*height+493, width, height);
+		
+		
+		wizard2_left=new BufferedImage[3];
+		wizard2_left[0] = sheet80.crop(width, 0+493, width, height);
+		wizard2_left[1] = sheet80.crop(width, height+493, width, height);
+		wizard2_left[2] = sheet80.crop(width, 2*height+493, width, height);
+		//wizard2_left[3] = sheet80.crop(width, height, width, height);
+		
+		wizard2_float_left=new BufferedImage[3];
+		wizard2_float_left[0] = sheet80.crop(width, 3*height+493, width, height);
+		wizard2_float_left[1] = sheet80.crop(width, 4*height+493, width, height);
+		wizard2_float_left[2] = sheet80.crop(width, 5*height+493, width, height);
+		//wizard2_float_left[3] = sheet80.crop(width, 4*height, width, height);
+				
+		wizard2_right=new BufferedImage[4];
+		wizard2_right[0] = sheet80.crop(width*2, height+493, width, height);
+		wizard2_right[1] = sheet80.crop(width*2, 0+493, width, height);
+		wizard2_right[2] = sheet80.crop(width*2, 2*height+493, width, height);
+		wizard2_right[3] = sheet80.crop(width*2, 0+493, width, height);
+		
+		wizard2_float_right = new BufferedImage[4];
+		wizard2_float_right[0] = sheet80.crop(width*2+10, 4*height+493, width, height);
+		wizard2_float_right[1] = sheet80.crop(width*2, 3*height+493, width, height);
+		wizard2_float_right[2] = sheet80.crop(width*2, 5*height+493, width, height);
+		wizard2_float_right[3] = sheet80.crop(width*2, 3*height+493, width, height);
+
+		wizard2_up=new BufferedImage[3];
+		wizard2_up[0] = sheet80.crop(width*3, 0+493, width, height);
+		wizard2_up[1] = sheet80.crop(width*3, height+493, width, height);
+		wizard2_up[2] = sheet80.crop(width*3, 2*height+493, width, height);
+		
+		wizard2_float_up = new BufferedImage[3];
+		wizard2_float_up[0] = sheet80.crop(width*3, 3*height+493, width, height);
+		wizard2_float_up[1] = sheet80.crop(width*3, 4*height+493, width, height);
+		wizard2_float_up[2] = sheet80.crop(width*3, 5*height+493, width, height);
+				
 		//sheep
 		sheep_walk_down = new BufferedImage[4];
 		sheep_walk_left = new BufferedImage[4];

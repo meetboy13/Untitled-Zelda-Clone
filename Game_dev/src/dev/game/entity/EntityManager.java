@@ -56,7 +56,7 @@ public class EntityManager {
 		entities.sort(renderOrder);
 		ticking=false;
 		if(flagToAdd) {
-			
+
 		}
 	}
 	public void render(Graphics g) {
@@ -64,6 +64,8 @@ public class EntityManager {
 			e.render(g);
 		}
 	}
+	
+	//add entities to array
 	public void addEntity(Entity e) {
 		if(!ticking && flagToAdd){
 			Iterator<Entity> it = entitiesToAdd.iterator();
@@ -80,8 +82,8 @@ public class EntityManager {
 			entitiesToAdd.add(e);
 		}
 	}
-	
-	
+
+
 	//getters and setters
 	public Handler getHandler() {
 		return handler;
@@ -117,8 +119,8 @@ public class EntityManager {
 	public void setBoss(Boss boss) {
 		// TODO Auto-generated method stub
 		this.boss=boss;
-		
+
 	}
-	
-	
+
+
 }

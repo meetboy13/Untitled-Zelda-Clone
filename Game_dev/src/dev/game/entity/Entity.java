@@ -8,7 +8,7 @@ import dev.game.Handler;
 public abstract class Entity {
 	//entity coordinates
 	protected float x,y;
-	
+
 	//entities width and height
 	protected int width,height;
 	protected Rectangle bounds;
@@ -30,21 +30,24 @@ public abstract class Entity {
 		bounds = new Rectangle(0,0,width,height);
 		health=DEFAULT_HEALTH;
 	}
-	
+
+	//get collision bounds
 	public Rectangle getCollisionBounds(float xOffset,float yOffset) {
 		return new Rectangle((int)(x+bounds.x+xOffset) ,(int)(y+bounds.y+yOffset),bounds.width,bounds.height);
 	}
-	
+
+	//check for collisions with entities
 	public boolean checkEntityCollisions(float xOffset,float yOffset) {
 		for(Entity e:handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) {continue;}
 			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset,yOffset)) && e.isSolid()) {
 				return true;
-				
 			}
 		}
 		return false;
 	}
+
+	//take damage
 	public void hurt(int damage, int deltaX, int deltaY) {
 		health-=damage;
 		if (health<=0) {
@@ -52,6 +55,13 @@ public abstract class Entity {
 			die();
 		}
 	}
+
+
+	public abstract void tick();
+	public abstract void render(Graphics g);
+	public abstract void die();
+	public abstract void setStun(boolean stunned);
+
 	//getters and setters for all variables
 	public float getX() {
 		return x;
@@ -100,15 +110,10 @@ public abstract class Entity {
 	public void setSolid(boolean solid) {
 		this.solid = solid;
 	}
-	
+
 	public Rectangle getBounds() {
 		return bounds;
 	}
-
-	public abstract void tick();
-	public abstract void render(Graphics g);
-	public abstract void die();
-	public abstract void setStun(boolean stunned);
 
 	public int getId() {
 		return id;

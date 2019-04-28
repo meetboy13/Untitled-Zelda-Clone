@@ -1,17 +1,11 @@
 package dev.game.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 import java.awt.image.BufferedImage;
-
 import dev.game.Handler;
-import dev.game.creatures.Creature.Facing;
 import dev.game.entity.Entity;
-import dev.game.entity.projectile.Arrow;
-import dev.game.entity.projectile.WizardBeam;
-import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 
@@ -26,9 +20,10 @@ public class Bull extends Creature {
 	private Rectangle cb =this.getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 	private Random rand = new Random();
+
+	//constructor
 	public Bull(Handler handler, float x, float y, int width, int height, boolean fixedAggre) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
-		// TODO Auto-generated constructor stub
 		id=6;
 		bounds.x=16;
 		bounds.y=32;
@@ -46,13 +41,18 @@ public class Bull extends Creature {
 
 	}
 
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
+	//tick animations
+	private void tickAnim(){
 		animDown.tick();
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
+	}
+
+
+	@Override
+	public void tick() {
+		tickAnim();
 		flickerDecay();
 		getInput();
 		move();
@@ -63,13 +63,14 @@ public class Bull extends Creature {
 		stunDecay();
 		adjustBounds();
 	}
-	
+
+	//change bounds based on direction facing
 	private void adjustBounds() {
 		if((lastDirection==Facing.LEFT)||(lastDirection==Facing.RIGHT)) {		
-		bounds.x=5;
-		bounds.y=20;
-		bounds.width=60;
-		bounds.height=32;
+			bounds.x=5;
+			bounds.y=20;
+			bounds.width=60;
+			bounds.height=32;
 		}else {
 			bounds.x=16;
 			bounds.y=20;
@@ -78,9 +79,8 @@ public class Bull extends Creature {
 		}
 	}
 
-
+	//check if creature will attack
 	private void checkAttacks() {
-		// TODO Auto-generated method stub
 		if(!aggressive && !alwaysAggressive) {
 			return;
 		}
@@ -92,6 +92,7 @@ public class Bull extends Creature {
 		}
 		attacking = true;
 
+		//attack in front of creature and run in a line
 		cb =this.getCollisionBounds(0,0);
 		ar= new Rectangle();
 		int arSize=15;
@@ -116,7 +117,7 @@ public class Bull extends Creature {
 			ar.y=cb.y;
 			ar.height=cb.height;
 			xMove = -4;
-			
+
 		}
 		else if(lastDirection==Facing.RIGHT) {
 			ar.x=cb.x+cb.width;
@@ -124,35 +125,35 @@ public class Bull extends Creature {
 			ar.height=cb.height;
 			xMove = 4;
 		}
-		
+
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) {continue;}
 			if(e.getCollisionBounds(0, 0).intersects(ar)) {
 				int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
 				int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
+				//hurt whoever got hit
 				e.hurt(damage,deltaX,deltaY);
+				//stun user after attack
 				attacking=false;
 				stunned=true;
 				stunnedDuration=150;
 			}
 		}
-		
+
 	}
 
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
 		if (damageFlicker%20<15) {
 			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
-		
+
 	}
+	//get aggressive if nearby
 	public void aggression() {
-		//square detection
-		//if(((x-200) < handler.getWorld().getEntityManager().getPlayer().getX()) && (handler.getWorld().getEntityManager().getPlayer().getX() <(x+200))&&(((y-200) < handler.getWorld().getEntityManagerbullPlayer().getY()) && (handler.getWorld().getEntityManager().getPlayer().getY() <(y+200)))) {
-		//circle detection of radius 400
-		if ((Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(250, 2)){
+		//circle detection of radius 300
+		if ((Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(300, 2)){
 			setAggressive(true);
 		} else {
 			setAggressive(false);
@@ -160,6 +161,8 @@ public class Bull extends Creature {
 			attacking = false;
 		}
 	}
+	
+	//set movement
 	private void getInput() {
 		if(stunned) {
 			xMove = 0;
@@ -168,13 +171,14 @@ public class Bull extends Creature {
 			aggressive = false;
 			return;
 		}
+		//chase player
 		if ((aggressive || alwaysAggressive) && !attacking) {
 			xMove = 0;
 			yMove = 0;
 			float xDelta = x-handler.getWorld().getEntityManager().getPlayer().getX();
 			float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
 
-			
+
 			if (Math.abs(xDelta) < 15){
 				if (!face){//face the player before shooting
 					face=true;
@@ -211,6 +215,7 @@ public class Bull extends Creature {
 		} else if(attacking) {
 			return;
 		} else {
+			//move randomly
 			moveTimer+=System.currentTimeMillis()-lastMoveTimer;
 			lastMoveTimer=System.currentTimeMillis();
 			if(moveTimer>=moveCooldown) {
@@ -245,52 +250,56 @@ public class Bull extends Creature {
 			}
 		}
 	}
+	
+	//add to score
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
 		active=false;
-		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+100);
-
+		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+75);
 	}
+	
+	//set aggression
 	public void setAggressive(boolean aggro) {
 		aggressive = aggro;
 	}
+	
+	//get animation frame for rendering
 	private BufferedImage getCurrentAnimationFrame() {
-			if (stunned) {
-				if(lastDirection==Facing.LEFT) {
-					return Assets.bull_stunned[1];
-				}else if(lastDirection==Facing.RIGHT) {
-					return Assets.bull_stunned[2];
-				}else if(lastDirection==Facing.DOWN) {
-					return Assets.bull_stunned[0];
-				}else {
-					return Assets.bull_stunned[3];
-				}
-			}else if(xMove<0) {
-				lastDirection=Facing.LEFT;
-				return animLeft.getCurrentFrame();
-			}else if(xMove>0) {
-				lastDirection=Facing.RIGHT;
-				return animRight.getCurrentFrame();
-			}else if (yMove<0) {
-				lastDirection=Facing.UP;
-				return animUp.getCurrentFrame();
-			}else if (yMove>0) {
-				lastDirection=Facing.DOWN;
-				return animDown.getCurrentFrame();
-			}else if (lastDirection==Facing.LEFT) {;
-				return Assets.bull_left[1];
+		if (stunned) {
+			if(lastDirection==Facing.LEFT) {
+				return Assets.bull_stunned[1];
+			}else if(lastDirection==Facing.RIGHT) {
+				return Assets.bull_stunned[2];
+			}else if(lastDirection==Facing.DOWN) {
+				return Assets.bull_stunned[0];
+			}else {
+				return Assets.bull_stunned[3];
 			}
-			else if (lastDirection==Facing.RIGHT) {
-				return Assets.bull_right[1];
-			}
-			else if (lastDirection==Facing.UP) {
-				return Assets.bull_up[1];
-			}
-			else if (lastDirection==Facing.DOWN) {
-				return Assets.bull_down[1];
-			}
-			//default animation to display if not condition is met.
+		}else if(xMove<0) {
+			lastDirection=Facing.LEFT;
+			return animLeft.getCurrentFrame();
+		}else if(xMove>0) {
+			lastDirection=Facing.RIGHT;
+			return animRight.getCurrentFrame();
+		}else if (yMove<0) {
+			lastDirection=Facing.UP;
+			return animUp.getCurrentFrame();
+		}else if (yMove>0) {
+			lastDirection=Facing.DOWN;
+			return animDown.getCurrentFrame();
+		}else if (lastDirection==Facing.LEFT) {;
+		return Assets.bull_left[1];
+		}
+		else if (lastDirection==Facing.RIGHT) {
+			return Assets.bull_right[1];
+		}
+		else if (lastDirection==Facing.UP) {
+			return Assets.bull_up[1];
+		}
+		else if (lastDirection==Facing.DOWN) {
 			return Assets.bull_down[1];
+		}
+		//default animation to display if not condition is met.
+		return Assets.bull_down[1];
 	}
 }
