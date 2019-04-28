@@ -283,21 +283,23 @@ public class World {
 
 	public void saveWorld() {
 		//save tile data may be useful later
-		if(worldType==WorldType.MIRROR) {return;}
-		int xSpawn=(int) entityManager.getPlayer().getX();
-		int ySpawn=(int) entityManager.getPlayer().getY();
-		String data=width+" "+height+"\n"+xSpawn+" "+ySpawn+"\n";
-		for (int y=0;y<height;y++) {
-			for (int x=0;x<width;x++) {
-				data=data+tiles[x][y]+" ";
+		String data;
+		if(worldType!=WorldType.MIRROR) {
+			int xSpawn=(int) entityManager.getPlayer().getX();
+			int ySpawn=(int) entityManager.getPlayer().getY();
+			data=width+" "+height+"\n"+xSpawn+" "+ySpawn+"\n";
+			for (int y=0;y<height;y++) {
+				for (int x=0;x<width;x++) {
+					data=data+tiles[x][y]+" ";
+				}
+				data=data+"\n";
 			}
-			data=data+"\n";
-		}
-		try {
-			Utils.saveFileAsString(this.currentWorldPath,data);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				Utils.saveFileAsString(this.currentWorldPath,data);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		data=(entityManager.getEntities().size()-1)+"\n";
 		for(int y=0;y<entityManager.getEntities().size();y++) {
@@ -385,6 +387,11 @@ public class World {
 				entityManager.addEntity(new Statue(handler,entitySpawnX,entitySpawnY));
 			}else if(entityType==10) {
 				entityManager.addEntity(new Key(handler, entitySpawnX, entitySpawnY));
+			}else if(entityType==97) {
+				TransitionSpace world4= new TransitionSpace(handler,entitySpawnX,entitySpawnY,100,100,Direction.LEFT,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
+				world4.setX(entitySpawnX);
+				world4.setY(entitySpawnY);
+				entityManager.addEntity(world4);
 			}else if(entityType==96) {
 				TransitionSpace world2= new TransitionSpace(handler,entitySpawnX,entitySpawnY,100,100,Direction.UP,entityType,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
 				world2.setX(entitySpawnX);
@@ -496,5 +503,5 @@ public class World {
 	public void setWorld2Secondary(Equipment world2Secondary) {
 		World2Secondary = world2Secondary;
 	}	
-	
+
 }

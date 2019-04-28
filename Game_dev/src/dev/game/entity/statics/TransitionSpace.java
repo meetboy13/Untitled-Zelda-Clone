@@ -48,8 +48,12 @@ public class TransitionSpace extends StaticEntity{
 		if(handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1)<1 && this.id==95) {
 		}else if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))) {
 			active=false;
-			handler.getWorld().getEntityManager().getPlayer().setX((handler.getWorld().getEntityManager().getPlayer().getX())-2*(handler.getWorld().getEntityManager().getPlayer().getxMove()));
+			handler.getWorld().getEntityManager().getPlayer().setX((handler.getWorld().getEntityManager().getPlayer().getX())-5*(handler.getWorld().getEntityManager().getPlayer().getxMove()));
 			handler.getWorld().getEntityManager().getPlayer().setY((handler.getWorld().getEntityManager().getPlayer().getY())-2*(handler.getWorld().getEntityManager().getPlayer().getyMove()));
+			if(id==97) {
+				handler.getWorld().getEntityManager().getPlayer().setX(350);
+				handler.getWorld().getEntityManager().getPlayer().setY(350);
+			}
 			handler.getWorld().saveWorld();
 			handler.getWorld().getEntityManager().clear1();
 			handler.getWorld().getProjectileManager().clear2();
@@ -64,7 +68,7 @@ public class TransitionSpace extends StaticEntity{
 	@Override
 	public void render(Graphics g) {
 
-		if(handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1)<1 && this.id==95) {}
+		if(handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1)<2 && this.id==95) {}
 		else {
 			g.drawImage(texture,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}

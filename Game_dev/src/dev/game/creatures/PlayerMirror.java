@@ -40,6 +40,7 @@ public class PlayerMirror extends Creature{
 		bounds.y=32;
 		bounds.width=32;
 		bounds.height=32;
+		this.id= 9999999;
 		speed=Creature.DEFAULT_SPEED;
 		maxHealth=playerPair.getMaxHealth();
 		this.playerPair=playerPair;
