@@ -1,6 +1,7 @@
 # 2019-Java-Group13
 Untitled Zelda Clone
 
+
 How to run the game.
 
 1.)Clone the repository
@@ -15,7 +16,9 @@ How to run the game.
 
 5.)Click run
 
+
 Authors: Kazuki Saegusa and Meet Patel
+
 
 How to play the game.
 
