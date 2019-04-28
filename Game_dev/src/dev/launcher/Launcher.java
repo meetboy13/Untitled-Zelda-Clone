@@ -13,7 +13,7 @@ public class Launcher {
 		height=768;
 		Game game= new Game("Untitled Zelda Clone",width,height);
 		game.start();
-		
+		Music.playSound("Resources/Sound/background.wav");
 	}
 
 }
