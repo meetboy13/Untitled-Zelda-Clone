@@ -104,7 +104,6 @@ public class Boss extends Creature{
 		// TODO Auto-generated method stub
 		float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
 		if(!(yDelta>-(this.getHeight()+20))) {
-			
 			meleeAttackCount=0;
 			if(leftHand!=null) {
 				leftHand.setAttacking(true);

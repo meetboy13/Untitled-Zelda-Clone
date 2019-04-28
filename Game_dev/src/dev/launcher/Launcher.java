@@ -12,7 +12,7 @@ public class Launcher {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		width=1024;
-		height=600;
+		height=768;
 		Game game= new Game("Untitled Zelda Clone",width,height);
 		game.start();
 		
