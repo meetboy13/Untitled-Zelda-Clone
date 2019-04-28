@@ -40,7 +40,6 @@ public class KeyManager implements KeyListener{
 		// TODO Auto-generated method stub
 		if(arg0.getKeyCode()<0||arg0.getKeyCode()>=keys.length) {return;}
 		keys[arg0.getKeyCode()]=true;
-		System.out.println("Pressed");
 	}
 	public boolean keyJustPressed(int keyCode){
 				if(keyCode < 0 || keyCode >= keys.length){

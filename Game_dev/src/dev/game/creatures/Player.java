@@ -160,8 +160,6 @@ public class Player extends Creature{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		System.out.println(x);
-		System.out.println(y);
 		animationTick();
 		secondaryCheck();
 		stunDecay();
