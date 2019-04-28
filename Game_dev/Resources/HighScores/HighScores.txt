@@ -1,4 +1,4 @@
-name1 500
+Player_name 596
 name2 500
 name3 500
 name4 500

@@ -17,6 +17,7 @@ import dev.game.inventory.Weapons.Sword;
 import dev.game.sound.Sounds;
 import dev.game.inventory.Weapons;
 import dev.game.states.GameOverState;
+import dev.game.states.HighScore;
 import dev.game.states.State;
 import dev.game.tile.Tile;
 import dev.game.worlds.World.Direction;
@@ -40,7 +41,7 @@ public class Player extends Creature{
 	private Rectangle cb =getCollisionBounds(0,0);
 	private Rectangle ar= new Rectangle();
 	private Weapons weapons;
-	private int invulnerable;
+	private int invulnerable,score=0;;
 
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
@@ -628,6 +629,9 @@ public class Player extends Creature{
 	public void die() {
 		// TODO Auto-generated method stub
 		dead=true;
+		HighScore highScore=new HighScore(handler);
+		this.score+=handler.getHud().getTimeLimit()*2+inventory.getItemCount(1)*200+inventory.getItemCount(0)*50+health*20;
+		highScore.checkHighScore(score);
 	}
 
 	public Inventory getInventory() {
@@ -675,6 +679,11 @@ public class Player extends Creature{
 	public void setNeverDamaged(boolean neverDamaged) {
 		this.neverDamaged = neverDamaged;
 	}
-
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
 
 }

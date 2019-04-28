@@ -17,13 +17,22 @@ public class GameOverState extends State{
 		stateName="GameOverState";
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUiManager(uiManager);
-		uiManager.addObject(new UIImageButton(200,200,128,64,Assets.btn_start,new ClickListener() {
+		uiManager.addObject(new UIImageButton(237,47,550,70,Assets.btn_start,new ClickListener() {
 			@Override
 			public void onClick() {
 				// TODO Auto-generated method stub
 				handler.getMouseManager().setUiManager(null);
 				State gameState = new GameState(handler);
 				State.setState(gameState);
+			}
+		}));
+		uiManager.addObject(new UIImageButton(237,131,550,70,Assets.btn_title,new ClickListener() {
+			@Override
+			public void onClick() {
+				// TODO Auto-generated method stub
+				handler.getMouseManager().setUiManager(null);
+				MenuState menuState=new MenuState(handler);
+				State.setState(menuState);
 			}
 		}));
 	}

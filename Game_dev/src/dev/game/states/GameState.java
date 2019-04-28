@@ -27,7 +27,7 @@ public class GameState extends State{
 		world = new World(handler , "Resources/worlds/world1.txt","Resources/entities/world1.txt",WorldType.NORMAL);
 		handler.setWorld(world);
 		hud=new HUD(handler);
-		handler.setHUD(hud);
+		handler.setHud(hud);
 	}
 	
 	@Override

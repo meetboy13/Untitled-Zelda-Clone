@@ -112,6 +112,7 @@ public class BossHandRight extends Creature{
 	public void die() {
 		// TODO Auto-generated method stub
 		active = false;
+		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+500);
 	}
 	public boolean isAttacking() {
 		return attacking;

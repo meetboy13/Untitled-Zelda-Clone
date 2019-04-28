@@ -204,6 +204,7 @@ public class Boss extends Creature{
 	public void die() {
 		// TODO Auto-generated method stub
 		active=false;
+		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+1000+handler.getHud().getTimeLimit()*2+handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1)*200+handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(0)*50+health*20 );
 		if(leftHand!=null) {leftHand.die();}
 		if(rightHand!=null) {rightHand.die();}
 		Credits credits = new Credits(handler);

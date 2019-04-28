@@ -228,6 +228,7 @@ public class Bull extends Creature {
 	public void die() {
 		// TODO Auto-generated method stub
 		active=false;
+		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+100);
 
 	}
 	public void setAggressive(boolean aggro) {

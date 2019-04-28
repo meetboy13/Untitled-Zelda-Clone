@@ -49,9 +49,11 @@ public class Handler {
 	public MouseManager getMouseManager() {
 		return game.getMouseManager();
 	}
-	public void setHUD(HUD hud) {
-		// TODO Auto-generated method stub
-		this.hud=hud;
+	public HUD getHud() {
+		return hud;
+	}
+	public void setHud(HUD hud) {
+		this.hud = hud;
 	}
 	
 }

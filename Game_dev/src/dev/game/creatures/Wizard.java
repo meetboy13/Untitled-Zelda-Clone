@@ -243,6 +243,7 @@ public class Wizard extends Creature {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
+		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+100);
 		active=false;
 		int xVar=(int) (rand.nextInt((int) this.getBounds().getWidth())-this.getBounds().getWidth()/2);
 		int yVar=(int) (rand.nextInt((int) this.getBounds().getHeight())-this.getBounds().getHeight()/2);

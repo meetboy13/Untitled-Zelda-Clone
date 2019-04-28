@@ -3,6 +3,7 @@ package dev.game.states;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import dev.game.Handler;
@@ -17,7 +18,7 @@ public class HighScore extends State{
 
 	private UIManager uiManager;
 	private String[] names;
-	private String[] scores;
+	private int[] scores;
 	public HighScore(Handler handler) {
 		super(handler);
 		// TODO Auto-generated constructor stub
@@ -33,8 +34,8 @@ public class HighScore extends State{
 				State.setState(menuState);
 			}
 		}));
-		names=new String[5];
-		scores=new String[5];
+		names=new String[6];
+		scores=new int[6];
 		loadHighScores("Resources/HighScores/HighScores.txt");
 	}
 
@@ -43,8 +44,46 @@ public class HighScore extends State{
 		String[] tokens = file.split("\\s+");
 		for (int y=0;y<5;y++) {
 			names[y]=(tokens[(y*2)]);
-			scores[y]=((tokens[(y*2+1)]));
+			scores[y]=((Utils.parseInt(tokens[(y*2+1)])));
 		}
+	}
+	public void checkHighScore(int score) {
+		String name="Player_name";
+		loadHighScores("Resources/HighScores/HighScores.txt");
+		if(score>this.scores[0]) {
+			for(int i=5;i>1;i-- ) {
+				this.scores[i]=this.scores[i-1];
+			}
+			this.names[0]=name;
+			this.scores[0]=score;
+		}else {
+			for(int i=1;i<5;i++) {
+				if(score>this.scores[i]) {
+					for(int j=5;j>i;j-- ) {
+						this.scores[j]=this.scores[j-1];
+						this.names[i]=this.names[j-1];
+					}
+					this.names[i]=name;
+					this.scores[i]=score;
+					break;
+				}
+				if(i==4) {
+					this.names[5]=name;
+					this.scores[5]=score;
+				}
+			}
+		}
+		String data="";
+		for (int y=0;y<5;y++) {
+			data=data+names[y]+" "+scores[y]+"\n";
+		}
+		try {
+			Utils.saveFileAsString("Resources/HighScores/HighScores.txt",data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	@Override
 	public void tick() {

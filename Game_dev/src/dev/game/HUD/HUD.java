@@ -186,4 +186,13 @@ public class HUD {
 
 
 	}
+
+	public int getTimeLimit() {
+		return timeLimit;
+	}
+
+	public void setTimeLimit(int timeLimit) {
+		this.timeLimit = timeLimit;
+	}
+	
 }

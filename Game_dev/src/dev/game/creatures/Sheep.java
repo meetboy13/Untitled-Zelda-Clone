@@ -143,6 +143,7 @@ public class Sheep extends Creature {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
+		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+10);
 		int xVar=(int) (rand.nextInt((int) this.getBounds().getWidth())-this.getBounds().getWidth()/2);
 		int yVar=(int) (rand.nextInt((int) this.getBounds().getHeight())-this.getBounds().getHeight()/2);
 		handler.getWorld().getItemManager().addItem(Item.healthPickup.createNewHealthPickup((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
