@@ -1,13 +1,15 @@
 # 2019-Java-Group13
 
-Clone the repository
+How to run the game.
 
-Open Eclipse
+1.)Clone the repository
 
-set the workspace to 2019-Java-Group13
+2.)Open Eclipse
 
-if the project is not open then open the project
+3.)Set the workspace to 2019-Java-Group13
 
-check if the JDK is added and is of the right version (1.8)
+3a.)If the project is not open then open the project
 
-click run
+4.)Check if the JDK is added and is of the right version (1.8)
+
+4.)Click run
