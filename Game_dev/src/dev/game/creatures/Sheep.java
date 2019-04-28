@@ -28,6 +28,7 @@ public class Sheep extends Creature {
 		bounds.width=32;
 		bounds.height=32;
 		speed=Creature.DEFAULT_SPEED/4;
+		health = 6;
 		//animations
 		animDown = new Animation(200,Assets.sheep_walk_down);
 		animLeft = new Animation(200,Assets.sheep_walk_left);

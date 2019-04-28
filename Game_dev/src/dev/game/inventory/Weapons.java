@@ -73,7 +73,7 @@ public class Weapons {
 		}
 		else if(this.primary==Sword.OP) {
 			damagePrimary=3;
-			primaryCooldown=500;
+			primaryCooldown=800;
 		}
 	}
 	public int getDamagePrimary() {

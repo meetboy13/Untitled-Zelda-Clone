@@ -9,8 +9,6 @@ public class Sounds {
 		hurt = new soundEffect();
 		hurt.setFile("Resources/Sound/hitsound.wav");
 		
-		//music.setFile("Resources/Sound/background.wav");
-		//music.loop();
 		}
 
 }

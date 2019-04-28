@@ -34,7 +34,7 @@ public class Wizard2 extends Creature {
 		speed=Creature.DEFAULT_SPEED/6;
 		alwaysAggressive = fixedAggre;
 		name="Wizard";
-		health=10;
+		health=8;
 		id = 4;
 		//animations
 		animDown = new Animation(200,Assets.wizard_down);

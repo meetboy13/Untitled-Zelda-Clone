@@ -33,8 +33,8 @@ public class Boss extends Creature{
 		bounds.y=(int) y;
 		bounds.width=width;
 		bounds.height=height;
-		this.maxHealth=20;
-		this.health=20;
+		this.maxHealth=40;
+		this.health=40;
 		this.id=7;
 		this.leftHand=leftHand;
 		this.rightHand=rightHand;
@@ -61,7 +61,7 @@ public class Boss extends Creature{
 	}
 
 	private void checkHandHealth() {
-		int trueHealth = health-20;
+		int trueHealth = health-40;
 		if(leftHand!=null) {
 			if(leftHand.getHealth()<1) {
 				leftHand.die();
@@ -110,11 +110,11 @@ public class Boss extends Creature{
 			meleeAttackCount=0;
 			if(leftHand!=null) {
 				leftHand.setAttacking(true);
-				if(leftAttackLoopCount>=leftAttackLoop) {
+				if(leftAttackLoopCount>=(leftAttackLoop+delay)) {
 					leftAttackLoopCount=0;
 				}
 				if (leftAttackLoopCount<=150) {
-					if(leftAttackCount>leftCooldown) {
+					if(leftAttackCount>(leftCooldown+delay)) {
 						leftAttackCount=0;
 						leftHand.spreadAttack();
 					}else {
@@ -127,7 +127,7 @@ public class Boss extends Creature{
 			}
 			if(rightHand!=null) {
 				rightHand.setAttacking(true);
-				if(rightAttackCount>rightCooldown) {
+				if(rightAttackCount>(rightCooldown+delay)) {
 					rightAttackCount=0;
 					rightHand.targetAttack();
 				}else {
@@ -140,8 +140,12 @@ public class Boss extends Creature{
 			}
 			if(rightHand!=null) {
 				rightHand.setAttacking(false);
+				rightAttackCount++;
+				if(rightAttackCount>(rightCooldown+delay)) {
+					rightAttackCount=rightCooldown+delay;
+				}
 			}
-			if(meleeAttackCount>=meleeAttackDelay) {
+			if(meleeAttackCount>=(meleeAttackDelay+delay)) {
 				meleeAttackCount=0;
 				Rectangle cb = this.getCollisionBounds(0, 0);
 				Rectangle ar = null;
@@ -203,11 +207,11 @@ public class Boss extends Creature{
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		if(handler.getWorld().getEntityManager().getPlayer().getX()<x) {
-			g.drawImage(Assets.BossHead[2],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/meleeAttackDelay),width,height,null);
+			g.drawImage(Assets.BossHead[2],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/(meleeAttackDelay+delay)),width,height,null);
 		}else if(handler.getWorld().getEntityManager().getPlayer().getX()>(x+width)){
-			g.drawImage(Assets.BossHead[1],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/meleeAttackDelay),width,height,null);
+			g.drawImage(Assets.BossHead[1],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/(meleeAttackDelay+delay)),width,height,null);
 		}else {
-			g.drawImage(Assets.BossHead[0],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/meleeAttackDelay),width,height,null);
+			g.drawImage(Assets.BossHead[0],(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-(meleeAttackCount*50)/(meleeAttackDelay+delay)),width,height,null);
 		}
 	}
 

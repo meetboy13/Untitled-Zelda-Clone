@@ -37,7 +37,7 @@ public class Bull extends Creature {
 		speed=Creature.DEFAULT_SPEED/6;
 		alwaysAggressive = fixedAggre;
 		name="Bull";
-		health=10;
+		health=12;
 		//animations
 		animDown = new Animation(200,Assets.bull_down);
 		animLeft = new Animation(200,Assets.bull_left);
