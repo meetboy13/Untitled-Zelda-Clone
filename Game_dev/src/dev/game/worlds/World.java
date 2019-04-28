@@ -257,6 +257,8 @@ public class World {
 				PlayerMirror mirrorPlayer=new PlayerMirror(handler, spawnX+600, spawnY, 64, 64,entityManager.getPlayer());
 				entityManager.addEntity(mirrorPlayer);
 				entityManager.getPlayer().setTransformable(false);
+			}else {
+				entityManager.getPlayer().setTransformable(true);
 			}
 			flagToLoad=false;
 		}else {
