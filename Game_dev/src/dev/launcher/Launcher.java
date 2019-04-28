@@ -6,7 +6,7 @@ import dev.game.sound.Music;
 public class Launcher {
 	private static int width,height;
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// Starts the game
 		width=1024;
 		height=768;
 		Game game= new Game("Untitled Zelda Clone",width,height);

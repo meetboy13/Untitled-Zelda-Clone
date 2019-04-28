@@ -365,7 +365,6 @@ public class PlayerMirror extends Creature{
 		if (damageFlicker%20<15) {
 			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
-		inventory.render(g);
 	}
 
 

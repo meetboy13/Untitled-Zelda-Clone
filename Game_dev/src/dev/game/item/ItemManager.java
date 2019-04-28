@@ -15,6 +15,7 @@ public class ItemManager {
 		items = new ArrayList<Item>();
 	}
 	public void tick() {
+		//set a boolean to true to check later to see if its safe to mess with the array
 		ticking=true;
 		Iterator<Item> it =items.iterator();
 		while(it.hasNext()) {

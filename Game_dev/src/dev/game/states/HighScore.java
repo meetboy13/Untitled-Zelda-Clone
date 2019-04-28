@@ -49,6 +49,7 @@ public class HighScore extends State{
 		String name="Player_name";
 		loadHighScores("Resources/HighScores/HighScores.txt");
 		if(score>this.scores[0]) {
+			//if inputted score is a new best
 			for(int i=5;i>0;i-- ) {
 				this.scores[i]=this.scores[i-1];
 				this.names[i]=this.names[i-1];
@@ -67,6 +68,7 @@ public class HighScore extends State{
 					break;
 				}
 				if(i==4) {
+					//if new score does not beat top 5
 					this.names[5]=name;
 					this.scores[5]=score;
 				}

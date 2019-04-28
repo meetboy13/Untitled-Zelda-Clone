@@ -13,10 +13,12 @@ public class Weapons {
 	private int damagePrimary=5,damageSecondary=1
 			,primaryCooldown=500,secondaryCooldown=2000;
 	public Weapons() {
+		//constrcutor
 		primary= Sword.mirror;
 		secondary = Equipment.shield;
 	}
 	public Rectangle getHitBox(Facing direction,Rectangle cb) {
+		//create the attacking rectangle
 		Rectangle ar = null;
 		ar= new Rectangle();
 		int arSize=20;

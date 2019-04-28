@@ -177,7 +177,6 @@ public class Player extends Creature{
 			corruptionTick();
 		}
 		handler.getGameCamera().centeronEntity(this);
-		inventory.tick();
 	}
 
 	private void invulnerableDecay(){
@@ -425,7 +424,6 @@ public class Player extends Creature{
 		if (damageFlicker%20<15) {
 			g.drawImage(getCurrentAnimationFrame(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
-		inventory.render(g);
 	}
 
 

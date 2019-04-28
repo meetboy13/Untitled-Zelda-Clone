@@ -58,7 +58,7 @@ public class World {
 	}
 
 	private void initSaveData() {
-		// TODO Auto-generated method stub
+		// Loads all save data from the reserve data and saves it into the correct place
 		flagToLoad=true;
 		loadNewWorld("Resources/Reserve_Data/worlds/world1.txt","Resources/Reserve_Data/entities/world1.txt");
 		currentWorldPath="Resources/worlds/world1.txt";
@@ -108,6 +108,7 @@ public class World {
 
 	private void updateSpawns() {
 		//do creature spawning stuff here
+		//this is specific to the arena mode
 		if(deathCounter>21 && trigger4) {
 			entityManager.addEntity(new Key(handler,300,300));
 			world2= new TransitionSpace(handler,100,100,100,100,Direction.RIGHT,96,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
@@ -181,8 +182,6 @@ public class World {
 			bull.setY(128);
 			bull.setX(800);
 			entityManager.addEntity(bull);
-			//world2= new TransitionSpace(handler,100,100,100,100,Direction.UP,96,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
-			//entityManager.addEntity(world2);
 			trigger1=false;
 		}
 	}
@@ -240,6 +239,7 @@ public class World {
 		return t;
 	}
 	public void loadNewWorld(String pathWorld,String pathEntity) {
+		//handles loading a new world
 		this.currentWorldPath=pathWorld;
 		this.currentEntityPath=pathEntity;
 		if (!ticking&&flagToLoad) {
@@ -314,6 +314,7 @@ public class World {
 
 	}
 	private void loadEntities(String path) {
+		//load all entities 
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
 		entityNum = Utils.parseInt(tokens[0]);

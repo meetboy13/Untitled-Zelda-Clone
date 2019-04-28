@@ -12,6 +12,8 @@ public class TransitionSpace extends StaticEntity{
 	private String pathEntity,pathWorld;
 	private WorldType worldType=WorldType.NORMAL;
 	private BufferedImage texture;
+	
+	//constructor
 	public TransitionSpace(Handler handler,float x ,float y, int width, int height, Direction direction, int id,String pathWorld,String pathEntity,WorldType worldType) {
 		super(handler, x, y, width, height);
 		this.id=id;
@@ -39,6 +41,7 @@ public class TransitionSpace extends StaticEntity{
 
 	@Override
 	public void tick() {
+		//only do collisions certain conditions are met
 		if(handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1)<2 && this.id==95) {
 		}else if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))) {
 			active=false;
@@ -52,9 +55,10 @@ public class TransitionSpace extends StaticEntity{
 			handler.getWorld().loadNewWorld(pathWorld, pathEntity);
 		}
 	}
+	
 	@Override
 	public void render(Graphics g) {
-
+		//render if conditions are met
 		if(handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1)<2 && this.id==95) {}
 		else {
 			g.drawImage(texture,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);

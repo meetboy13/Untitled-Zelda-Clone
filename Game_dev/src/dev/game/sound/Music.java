@@ -42,6 +42,7 @@ public class Music {
 		  new Thread(new Runnable() {
 		    public void run() {
 		      try {
+		    	//run the sound file an loop it
 				File file = new File(soundFileName);
 				AudioInputStream sound = AudioSystem.getAudioInputStream(file);
 		        clip = AudioSystem.getClip();

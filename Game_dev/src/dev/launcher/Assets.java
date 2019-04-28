@@ -117,7 +117,7 @@ public class Assets {
 		SpriteSheet sheet79= new SpriteSheet(Loader.loadImage("/Sprite/treetransition.png"));
 		SpriteSheet sheet80= new SpriteSheet(Loader.loadImage("/Sprite/Wizard2SpriteSheet.png"));
 		
-		
+		//boss assets
 		BossHead = new BufferedImage[3];
 		BossHead[0]=sheet0.crop(0, 0, 300, 200);
 		BossHead[1]=sheet0.crop(0, 200, 300, 200);
@@ -442,13 +442,11 @@ public class Assets {
 		wizard_left[0] = sheet51.crop(width, 0, width, height);
 		wizard_left[1] = sheet51.crop(width, height, width, height);
 		wizard_left[2] = sheet51.crop(width, 2*height, width, height);
-		//wizard_left[3] = sheet51.crop(width, height, width, height);
 		
 		wizard_float_left=new BufferedImage[3];
 		wizard_float_left[0] = sheet51.crop(width, 3*height, width, height);
 		wizard_float_left[1] = sheet51.crop(width, 4*height, width, height);
 		wizard_float_left[2] = sheet51.crop(width, 5*height, width, height);
-		//wizard_float_left[3] = sheet51.crop(width, 4*height, width, height);
 		
 		wizard_attack_left=new BufferedImage[4];
 		wizard_attack_left[0] = sheet51.crop(width, 6*height, width, height);
@@ -512,13 +510,11 @@ public class Assets {
 		wizard2_left[0] = sheet80.crop(width, 0+493, width, height);
 		wizard2_left[1] = sheet80.crop(width, height+493, width, height);
 		wizard2_left[2] = sheet80.crop(width, 2*height+493, width, height);
-		//wizard2_left[3] = sheet80.crop(width, height, width, height);
 		
 		wizard2_float_left=new BufferedImage[3];
 		wizard2_float_left[0] = sheet80.crop(width, 3*height+493, width, height);
 		wizard2_float_left[1] = sheet80.crop(width, 4*height+493, width, height);
 		wizard2_float_left[2] = sheet80.crop(width, 5*height+493, width, height);
-		//wizard2_float_left[3] = sheet80.crop(width, 4*height, width, height);
 				
 		wizard2_right=new BufferedImage[4];
 		wizard2_right[0] = sheet80.crop(width*2, height+493, width, height);

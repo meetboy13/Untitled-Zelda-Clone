@@ -19,6 +19,7 @@ public class HUD {
 	private long timer =0;
 	private int timeLimit=300,mins,secs;
 	private BufferedImage primary=Assets.sword_training, secondary=null;
+	//constructor
 	public HUD (Handler handler) {
 		this.handler=handler;
 	}
@@ -40,6 +41,7 @@ public class HUD {
 	}
 
 	private void getSecondary() {
+		//return the correct secondary
 		if (handler.getWorld().getEntityManager().getPlayer().getWeapons().getSecondary()==Equipment.javelin){
 			secondary=Assets.spear[1];
 		}else if (handler.getWorld().getEntityManager().getPlayer().getWeapons().getSecondary()==Equipment.shield){
@@ -52,6 +54,7 @@ public class HUD {
 	}
 
 	private void getPrimary() {
+		//return the correct primary
 		if(handler.getWorld().getEntityManager().getPlayer().getWeapons().getPrimary()==Sword.training) {
 			primary=Assets.sword_training;
 		}
@@ -64,6 +67,7 @@ public class HUD {
 	}
 
 	private void timer() {
+		// calculate the time remaining and tick it down
 		if (timeLimit == 0) {
 			return;
 		}

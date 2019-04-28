@@ -20,6 +20,7 @@ public class GameState extends State{
 	//constructor
 	public GameState(Handler handler) {
 		super(handler);
+		//constructor
 		stateName="GameState";
 		world = new World(handler , "Resources/worlds/world1.txt","Resources/entities/world1.txt",WorldType.NORMAL);
 		handler.setWorld(world);
@@ -45,6 +46,7 @@ public class GameState extends State{
 		}
 		if(!paused) {
 			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)) {
+				//cheat code
 				world.getEntityManager().clear1();
 				world.getProjectileManager().clear2();
 				world.getItemManager().clear();
@@ -73,6 +75,7 @@ public class GameState extends State{
 		world.render(g);
 		hud.render(g);
 		if(paused) {
+			//pause menu
 			g.setColor(Color.WHITE);
 			g.fillRect((int) (handler.getWidth()/2-7*60), handler.getHeight()/2-50, 60*14, 90);
 			Font f = new Font("Courier", Font.PLAIN,100);

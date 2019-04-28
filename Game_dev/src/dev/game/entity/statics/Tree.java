@@ -11,7 +11,7 @@ import dev.launcher.Assets;
 public class Tree extends StaticEntity{
 
 	private Random rand = new Random();
-
+	//constructor
 	public Tree(Handler handler,float x, float y) {
 	super(handler,x,y,(int)(Tile.TILEWIDTH/.6),Tile.TILEHEIGHT*2);
 	this.health=1;

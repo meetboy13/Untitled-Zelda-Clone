@@ -26,6 +26,7 @@ public class Item {
 	protected boolean pickedUp=false;
 	protected int width, height;
 	public Item(BufferedImage texture, String name, int id) {
+		//constructor
 		this.texture=texture;
 		this.name=name;
 		this.id=id;
