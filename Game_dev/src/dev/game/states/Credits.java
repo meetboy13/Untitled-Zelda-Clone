@@ -17,12 +17,12 @@ public class Credits extends State{
 		stateName="Credits";
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUiManager(uiManager);
-		uiManager.addObject(new UIImageButton(200,200,550,70,Assets.btn_start,new ClickListener() {
+		uiManager.addObject(new UIImageButton(200,200,550,70,Assets.btn_title,new ClickListener() {
 			@Override
 			public void onClick() {
 				// TODO Auto-generated method stub
-				handler.getMouseManager().setUiManager(null);				
-				State menuState = new MenuState(handler);
+				handler.getMouseManager().setUiManager(null);
+				MenuState menuState=new MenuState(handler);
 				State.setState(menuState);
 			}
 		}));

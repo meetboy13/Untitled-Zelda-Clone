@@ -7,6 +7,7 @@ import dev.game.Handler;
 import dev.game.entity.Entity;
 import dev.game.states.Credits;
 import dev.game.states.GameOverState;
+import dev.game.states.HighScore;
 import dev.game.states.State;
 import dev.launcher.Assets;
 
@@ -64,6 +65,7 @@ public class Boss extends Creature{
 		if(leftHand!=null) {
 			if(leftHand.getHealth()<1) {
 				leftHand.die();
+				leftHand=null;
 			}else {
 				trueHealth+=leftHand.getHealth();
 			}
@@ -71,6 +73,7 @@ public class Boss extends Creature{
 		if(rightHand!=null) {			
 			if(rightHand.getHealth()<1) {
 				rightHand.die();
+				rightHand=null;
 			}else {
 				trueHealth+=rightHand.getHealth();
 			}
@@ -132,8 +135,12 @@ public class Boss extends Creature{
 				}
 			}
 		}else {
-			leftHand.setAttacking(false);
-			rightHand.setAttacking(false);
+			if(leftHand!=null) {
+				leftHand.setAttacking(false);
+			}
+			if(rightHand!=null) {
+				rightHand.setAttacking(false);
+			}
 			if(meleeAttackCount>=meleeAttackDelay) {
 				meleeAttackCount=0;
 				Rectangle cb = this.getCollisionBounds(0, 0);
@@ -182,10 +189,14 @@ public class Boss extends Creature{
 
 	private void moveHands() {
 		// TODO Auto-generated method stub
-		leftHand.setX(this.getX()+this.getWidth()/2-leftHand.getWidth()/2-100+leftXDelta);
-		leftHand.setY(this.getY()+this.getHeight()/2-leftHand.getHeight()/2+100+leftYDelta);
-		rightHand.setX(this.getX()+this.getWidth()/2-rightHand.getWidth()/2+100+rightXDelta);
-		rightHand.setY(this.getY()+this.getHeight()/2-rightHand.getHeight()/2+100+rightYDelta);
+		if (leftHand!=null) {
+			leftHand.setX(this.getX()+this.getWidth()/2-leftHand.getWidth()/2-100+leftXDelta);
+			leftHand.setY(this.getY()+this.getHeight()/2-leftHand.getHeight()/2+100+leftYDelta);
+		}
+		if (rightHand!=null) {
+			rightHand.setX(this.getX()+this.getWidth()/2-rightHand.getWidth()/2+100+rightXDelta);
+			rightHand.setY(this.getY()+this.getHeight()/2-rightHand.getHeight()/2+100+rightYDelta);
+		}
 	}
 
 	@Override
@@ -204,9 +215,11 @@ public class Boss extends Creature{
 	public void die() {
 		// TODO Auto-generated method stub
 		active=false;
+		HighScore highScore=new HighScore(handler);
 		handler.getWorld().getEntityManager().getPlayer().setScore(handler.getWorld().getEntityManager().getPlayer().getScore()+1000+handler.getHud().getTimeLimit()*2+handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(1)*200+handler.getWorld().getEntityManager().getPlayer().getInventory().getItemCount(0)*50+health*20 );
 		if(leftHand!=null) {leftHand.die();}
 		if(rightHand!=null) {rightHand.die();}
+		highScore.checkHighScore(handler.getWorld().getEntityManager().getPlayer().getScore());
 		Credits credits = new Credits(handler);
 		State.setState(credits);
 	}

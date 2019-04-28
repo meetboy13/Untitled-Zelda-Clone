@@ -119,15 +119,15 @@ public class HUD {
 		}
 		
 		//weapons
-		g.setColor(Color.GREEN);
+		g.setColor(Color.BLACK);
 		g.fillOval(handler.getWidth()/2-56, 0, 62, 62);
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.green);
 		g.fillOval(handler.getWidth()/2-55, 1, 60, 60);
 		g.drawImage(primary, handler.getWidth()/2-55, 6, 60,60,null);
 
-		g.setColor(Color.GREEN);
+		g.setColor(Color.BLACK);
 		g.fillOval(handler.getWidth()/2+54, 0, 62, 62);
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.white);
 		g.fillOval(handler.getWidth()/2+55, 1, 60, 60);
 		g.drawImage(secondary, handler.getWidth()/2+60, 11,50,50,null);
 		
