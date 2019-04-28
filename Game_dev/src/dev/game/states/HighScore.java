@@ -51,17 +51,18 @@ public class HighScore extends State{
 		String name="Player_name";
 		loadHighScores("Resources/HighScores/HighScores.txt");
 		if(score>this.scores[0]) {
-			for(int i=5;i>1;i-- ) {
+			for(int i=5;i>0;i-- ) {
 				this.scores[i]=this.scores[i-1];
+				this.names[i]=this.names[i-1];
 			}
 			this.names[0]=name;
 			this.scores[0]=score;
 		}else {
 			for(int i=1;i<5;i++) {
 				if(score>this.scores[i]) {
-					for(int j=5;j>i;j-- ) {
+					for(int j=5;j>=i;j-- ) {
 						this.scores[j]=this.scores[j-1];
-						this.names[i]=this.names[j-1];
+						this.names[j]=this.names[j-1];
 					}
 					this.names[i]=name;
 					this.scores[i]=score;
