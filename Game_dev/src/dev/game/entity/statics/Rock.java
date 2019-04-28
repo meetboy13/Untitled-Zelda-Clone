@@ -1,12 +1,7 @@
 package dev.game.entity.statics;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
-
 import dev.game.Handler;
-import dev.game.entity.Entity;
-import dev.game.item.Item;
-import dev.game.tile.Tile;
 import dev.launcher.Assets;
 
 public class Rock extends StaticEntity{

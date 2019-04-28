@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import dev.game.Handler;
-import dev.game.entity.Entity;
 import dev.game.ui.ClickListener;
 import dev.game.ui.UIImageButton;
 import dev.game.ui.UIManager;

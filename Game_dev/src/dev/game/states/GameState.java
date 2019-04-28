@@ -7,15 +7,10 @@ import java.awt.event.KeyEvent;
 
 import dev.game.Handler;
 import dev.game.HUD.HUD;
-import dev.game.creatures.Player;
 import dev.game.entity.statics.SecondaryWeapon;
-import dev.game.inventory.Weapons.Equipment;
 import dev.game.inventory.Weapons.Sword;
-import dev.game.sound.Sounds;
-import dev.game.tile.Tile;
 import dev.game.worlds.World;
 import dev.game.worlds.World.WorldType;
-import dev.launcher.Assets;
 
 public class GameState extends State{
 	

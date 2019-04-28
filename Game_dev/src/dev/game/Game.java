@@ -52,7 +52,6 @@ public class Game implements Runnable{
 
 		//set initial gamestate
 		State.setState(menuState);
-		//State.setState(startState);
 	}
 	//main run function
 	public void run() {

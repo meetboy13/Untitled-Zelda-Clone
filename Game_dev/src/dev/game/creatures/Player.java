@@ -71,7 +71,7 @@ public class Player extends Creature{
 		shieldRightT= new Animation(400,Assets.friend_shield_right);
 		shieldLeftT= new Animation(400,Assets.friend_shield_left);
 		inventory = new Inventory(handler);
-		weapons = new Weapons(handler);
+		weapons = new Weapons();
 	}
 
 	//move the player

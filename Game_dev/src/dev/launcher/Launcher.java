@@ -1,9 +1,7 @@
 package dev.launcher;
 
 import dev.game.Game;
-import dev.game.utils.Utils;
 import dev.game.sound.Music;
-import dev.game.sound.Sounds;
 
 public class Launcher {
 	private static int width,height;

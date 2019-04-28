@@ -1,7 +1,5 @@
 package dev.game.entity.statics;
 
-import java.awt.Graphics;
-
 import dev.game.Handler;
 import dev.game.entity.Entity;
 

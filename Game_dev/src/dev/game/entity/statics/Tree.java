@@ -1,18 +1,15 @@
 package dev.game.entity.statics;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.Random;
 
 import dev.game.Handler;
-import dev.game.entity.Entity;
 import dev.game.item.Item;
 import dev.game.tile.Tile;
 import dev.launcher.Assets;
 
 public class Tree extends StaticEntity{
 
-	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Random rand = new Random();
 
 	public Tree(Handler handler,float x, float y) {
@@ -25,35 +22,6 @@ public class Tree extends StaticEntity{
 	bounds.height=(int)(height-height/1.5f);
 	}
 	
-	
-	private void checkAttacks() {
-		attackTimer+=System.currentTimeMillis()-lastAttackTimer;
-		lastAttackTimer=System.currentTimeMillis();
-		if(attackTimer<attackCooldown) {
-			return;
-		}
-		// TODO Auto-generated method stub
-		Rectangle cb =getCollisionBounds(0,0);
-		Rectangle ar= new Rectangle();
-		int arSize=20;
-		ar.width=arSize*2+bounds.width;
-		ar.height=arSize*2+bounds.height;
-		ar.y=cb.y-arSize;
-		ar.x=cb.x-arSize;
-		attackTimer=0;
-		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
-			if(e.equals(this)) {continue;}
-			if(e.getCollisionBounds(0, 0).intersects(ar)) {
-				int deltaX=(int) ((this.getCollisionBounds(0, 0).x+this.getCollisionBounds(0, 0).width/2) - (e.getCollisionBounds(0, 0).x+e.getCollisionBounds(0, 0).width/2));
-				int deltaY=(int) ((this.getCollisionBounds(0, 0).y+this.getCollisionBounds(0, 0).height/2) - (e.getCollisionBounds(0, 0).y+e.getCollisionBounds(0, 0).height/2));
-				e.hurt(1,deltaX,deltaY);
-			}
-		}
-	}
-	
-	
-	
-	
 	public void die() {
 		//add random location variability
 		int xVar=(int) (rand.nextInt((int) this.getBounds().getWidth())-this.getBounds().getWidth()/2);
@@ -62,7 +30,6 @@ public class Tree extends StaticEntity{
 	}
 	@Override
 	public void tick() {
-		//checkAttacks();
 	}
 	@Override
 	public void render(Graphics g) {

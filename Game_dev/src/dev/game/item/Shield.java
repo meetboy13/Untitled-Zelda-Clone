@@ -1,7 +1,6 @@
 package dev.game.item;
 
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 import dev.game.inventory.Weapons.Equipment;
 

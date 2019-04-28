@@ -1,6 +1,5 @@
 package dev.game.item;
 
-import java.awt.image.BufferedImage;
 
 import dev.launcher.Assets;
 

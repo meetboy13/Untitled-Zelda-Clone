@@ -18,6 +18,7 @@ public class Display {
 		createDisplay();
 	}
 	private void createDisplay() {
+		//sets up the window to what we want and then creates it
 		frame = new JFrame(title);
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -2,10 +2,7 @@ package dev.game.inventory;
 
 import java.awt.Rectangle;
 
-import dev.game.Handler;
 import dev.game.creatures.Creature.Facing;
-import dev.game.item.Item;
-import dev.game.worlds.World.Direction;
 
 public class Weapons {
 	public enum Equipment{shield,javelin,wand,none};
@@ -13,11 +10,9 @@ public class Weapons {
 
 	public enum Sword{training,mirror,OP};
 	private Sword primary;
-	private Handler handler;
 	private int damagePrimary=5,damageSecondary=1
 			,primaryCooldown=500,secondaryCooldown=2000;
-	public Weapons(Handler handler) {
-		this.handler=handler;
+	public Weapons() {
 		primary= Sword.mirror;
 		secondary = Equipment.shield;
 	}

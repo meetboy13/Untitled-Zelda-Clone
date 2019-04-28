@@ -5,7 +5,7 @@ import dev.game.input.KeyManager;
 import dev.game.worlds.World;
 import dev.launcher.GameCamera;
 import dev.game.input.MouseManager;
-
+//this class is how we will access information in other classes
 public class Handler {
 	private Game game;
 	private World world;
@@ -14,6 +14,7 @@ public class Handler {
 	public Handler (Game Game) {
 		this.game=Game;
 	}
+	
 	//setters and getters
 	public int getWidth() {
 		return game.getWidth();

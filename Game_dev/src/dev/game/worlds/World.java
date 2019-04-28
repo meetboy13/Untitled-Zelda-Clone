@@ -8,16 +8,12 @@ import dev.game.creatures.Boss;
 import dev.game.creatures.BossHandLeft;
 import dev.game.creatures.BossHandRight;
 import dev.game.creatures.Bull;
-import dev.game.creatures.Frienemy;
 import dev.game.creatures.Player;
-import dev.game.creatures.Player2;
 import dev.game.creatures.PlayerMirror;
 import dev.game.creatures.Sheep;
 import dev.game.creatures.Wizard;
 import dev.game.creatures.Wizard2;
 import dev.game.entity.EntityManager;
-import dev.game.entity.projectile.Arrow;
-import dev.game.entity.projectile.Projectile;
 import dev.game.entity.statics.Key;
 import dev.game.entity.statics.Rock;
 import dev.game.entity.statics.SecondaryWeapon;
@@ -25,11 +21,9 @@ import dev.game.entity.statics.Statue;
 import dev.game.entity.statics.TransitionSpace;
 import dev.game.entity.statics.Tree;
 import dev.game.inventory.Weapons.Equipment;
-import dev.game.item.Item;
 import dev.game.item.ItemManager;
 import dev.game.tile.Tile;
 import dev.game.utils.Utils;
-import dev.launcher.Assets;
 
 public class World {
 	protected Handler handler;
@@ -56,7 +50,7 @@ public class World {
 	public World(Handler handler, String worldPath,String entityPath,WorldType arena) {
 		this.handler = handler;
 		this.worldType=arena;
-		projectileManager=new EntityManager(handler,new Sheep(handler,0,0,0,0));
+		projectileManager=new EntityManager(handler);
 		entityManager=new EntityManager(handler,new Player(handler,0,0,0,0));		
 		itemManager= new ItemManager(handler);
 		initSaveData();
@@ -381,7 +375,6 @@ public class World {
 				boss.setX(entitySpawnX);
 				boss.setY(entitySpawnY);
 				entityManager.addEntity(boss);
-				entityManager.setBoss(boss);
 			}else if(entityType==8) {
 				SecondaryWeapon wand= new SecondaryWeapon(handler,0,0,40,40,World2Secondary,2,8);
 				wand.setX(entitySpawnX);

@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import dev.game.Handler;
 import dev.game.inventory.Weapons.Equipment;
 import dev.game.inventory.Weapons.Sword;
-import dev.game.states.State;
 import dev.launcher.Assets;
 
 public class HUD {
@@ -74,9 +73,6 @@ public class HUD {
 		if (timer >= 1000000000){
 			timer=0;
 			timeLimit--;
-			/*if (timeLimit<0) {
-				timeLimit=0;
-			}*/
 		}
 		mins=timeLimit/60;
 		secs=timeLimit%60;

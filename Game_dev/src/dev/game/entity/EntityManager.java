@@ -6,14 +6,12 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 import dev.game.Handler;
-import dev.game.creatures.Boss;
 import dev.game.creatures.Player;
 import dev.game.creatures.Sheep;
 
 public class EntityManager {
 	private Handler handler;
 	private Player player;
-	private Boss boss;
 	private ArrayList<Entity> entities;
 	private ArrayList<Entity> entitiesToAdd;
 	private int deathCount=0;
@@ -35,12 +33,10 @@ public class EntityManager {
 		entitiesToAdd=new ArrayList<Entity>();
 		addEntity(player);
 	}
-	public EntityManager(Handler handler, Sheep sheep) {
+	
+	public EntityManager(Handler handler) {
 		this.handler = handler;
 		entities=new ArrayList<Entity>();
-		sheep.setX(-1000);
-		sheep.setY(-1000);
-		addEntity(sheep);
 	}
 	public void tick() {
 		ticking=true;
@@ -115,11 +111,6 @@ public class EntityManager {
 	}
 	public int getDeathCount() {
 		return deathCount;
-	}
-	public void setBoss(Boss boss) {
-		// TODO Auto-generated method stub
-		this.boss=boss;
-
 	}
 
 

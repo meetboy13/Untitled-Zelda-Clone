@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.Random;
 
 import dev.game.Handler;
-import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 

@@ -1,15 +1,11 @@
 package dev.game.entity.projectile;
 
 import java.awt.Graphics;
-import java.util.Random;
-
 import dev.game.Handler;
-import dev.game.item.Item;
 import dev.game.worlds.World.Direction;
 import dev.launcher.Assets;
 
 public class Arrow extends Projectile{
-	private Random rand = new Random();
 
 	public Arrow(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_PROJECTILE_WIDTH, DEFAULT_PROJECTILE_HEIGHT);
@@ -59,8 +55,5 @@ public class Arrow extends Projectile{
 	public void die() {
 		// TODO Auto-generated method stub
 		this.active=false;
-		//int xVar=(int) (rand.nextInt((int) this.getBounds().getWidth())-this.getBounds().getWidth()/2);
-		//int yVar=(int) (rand.nextInt((int) this.getBounds().getHeight())-this.getBounds().getHeight()/2);
-		//handler.getWorld().getItemManager().addItem(Item.javelin.createNew((int)x+this.width/2+xVar,(int) y+this.height/2+yVar));
 	}
 }

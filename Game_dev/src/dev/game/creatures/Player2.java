@@ -1,32 +1,18 @@
 package dev.game.creatures;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
+
+
 
 import dev.game.Handler;
-import dev.game.creatures.Creature.Facing;
-import dev.game.entity.Entity;
-import dev.game.entity.projectile.Arrow;
 import dev.game.inventory.Inventory;
-import dev.game.inventory.Weapons.Equipment;
-import dev.game.inventory.Weapons.Sword;
-import dev.game.states.GameOverState;
-import dev.game.states.State;
-import dev.game.worlds.World.Direction;
 import dev.launcher.Animation;
 import dev.launcher.Assets;
 public class Player2 extends Player{
 
 	private Animation animDown,animUp,animLeft,animRight,animDie,animDownT,animUpT,animLeftT,animRightT;
 
-	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
 	private Inventory inventory;
-	private boolean dead = false,temp=false, shielding=false;
-	private int deathLoop=0,corruption=0,corruptionMax=2000;
-	private Rectangle cb =getCollisionBounds(0,0);
-	private Rectangle ar= new Rectangle();
+	private boolean dead = false;
 	public Player2(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
