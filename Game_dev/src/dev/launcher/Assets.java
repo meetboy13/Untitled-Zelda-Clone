@@ -31,6 +31,7 @@ public class Assets {
 	public static BufferedImage[] btn_achieve;
 	public static BufferedImage[] btn_exit;
 	public static BufferedImage[] primary;
+	public static BufferedImage[] transition;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
 		SpriteSheet sheet0= new SpriteSheet(Loader.loadImage("/Sprite/BossHeadSpriteSheet.png"));
@@ -108,6 +109,11 @@ public class Assets {
 		SpriteSheet sheet72= new SpriteSheet(Loader.loadImage("/Textures/TITLESCREENbutton.png"));
 		SpriteSheet sheet73= new SpriteSheet(Loader.loadImage("/Textures/TITLESCREENbuttonselected.png"));
 		SpriteSheet sheet74= new SpriteSheet(Loader.loadImage("/Textures/circle.png"));
+		SpriteSheet sheet75= new SpriteSheet(Loader.loadImage("/Sprite/transitiontop.png"));
+		SpriteSheet sheet76= new SpriteSheet(Loader.loadImage("/Sprite/transitionright.png"));
+		SpriteSheet sheet77= new SpriteSheet(Loader.loadImage("/Sprite/transitionmirror.png"));
+		SpriteSheet sheet78= new SpriteSheet(Loader.loadImage("/Sprite/transitionbottom.png"));
+		SpriteSheet sheet79= new SpriteSheet(Loader.loadImage("/Sprite/treetransition.png"));
 		
 		
 		BossHead = new BufferedImage[3];
@@ -567,5 +573,12 @@ public class Assets {
 		primary = new BufferedImage[2];
 		primary[0]=sheet74.crop(0,0,width,height);
 		primary[1]=sheet74.crop(width,0,width,height);
+
+		transition = new BufferedImage[5];
+		transition[0]=sheet75.crop(0,0,100,100);
+		transition[1]=sheet76.crop(0,0,100,100);
+		transition[2]=sheet77.crop(0,0,92,100);
+		transition[3]=sheet78.crop(0,0,200,100);
+		transition[4]=sheet79.crop(0,0,400,200);
 	}
 }

@@ -14,14 +14,27 @@ import dev.launcher.Assets;
 public class TransitionSpace extends StaticEntity{
 	private String pathEntity,pathWorld;
 	private WorldType worldType=WorldType.NORMAL;
+	private BufferedImage texture;
 	//private int PlayerSpawnX,PlayerSpawnY;
-	public TransitionSpace(Handler handler,float x ,float y, int width, int height, int id,String pathWorld,String pathEntity,WorldType worldType) {
-		super(handler, x, y, 64, 64);
+	public TransitionSpace(Handler handler,float x ,float y, int width, int height, Direction direction, int id,String pathWorld,String pathEntity,WorldType worldType) {
+		super(handler, x, y, width, height);
 		this.id=id;
 		this.pathEntity=pathEntity;
 		this.pathWorld=pathWorld;
 		this.solid=false;
 		this.worldType=worldType;
+		if (direction==Direction.UP){
+			texture=Assets.transition[0];
+		}else if (direction==Direction.LEFT){
+			texture=Assets.transition[2];
+		}else if (direction==Direction.RIGHT){
+			texture=Assets.transition[1];	
+		}else if (direction==Direction.DOWN){
+			texture=Assets.transition[3];
+		}else if (direction==Direction.NULL){
+			texture=Assets.transition[4];
+			
+		}
 		// TODO Auto-generated constructor stub
 	}	
 
@@ -34,15 +47,6 @@ public class TransitionSpace extends StaticEntity{
 	public void tick() {
 		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))) {
 			active=false;
-			if(handler.getWorld().getEntityManager().getPlayer().getFacing()==Facing.DOWN) {
-				handler.getWorld().getEntityManager().getPlayer().setY((handler.getWorld().getEntityManager().getPlayer().getY())-50);
-			}else if(handler.getWorld().getEntityManager().getPlayer().getFacing()==Facing.UP) {
-				handler.getWorld().getEntityManager().getPlayer().setY((handler.getWorld().getEntityManager().getPlayer().getY())+50);
-			}else if(handler.getWorld().getEntityManager().getPlayer().getFacing()==Facing.RIGHT) {
-				handler.getWorld().getEntityManager().getPlayer().setX((handler.getWorld().getEntityManager().getPlayer().getX())-40);
-			}else {
-				handler.getWorld().getEntityManager().getPlayer().setX((handler.getWorld().getEntityManager().getPlayer().getX())+40);
-			}
 			handler.getWorld().getEntityManager().getPlayer().setX((handler.getWorld().getEntityManager().getPlayer().getX())-(handler.getWorld().getEntityManager().getPlayer().getxMove()));
 			handler.getWorld().getEntityManager().getPlayer().setY((handler.getWorld().getEntityManager().getPlayer().getY())-(handler.getWorld().getEntityManager().getPlayer().getyMove()));
 			handler.getWorld().saveWorld();
@@ -58,7 +62,7 @@ public class TransitionSpace extends StaticEntity{
 	}
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.drop,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+		g.drawImage(texture,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		g.setColor(Color.BLUE);
 		g.drawRect((int)(this.getCollisionBounds(0, 0).x-handler.getGameCamera().getxOffset()),(int)(this.getCollisionBounds(0, 0).y-handler.getGameCamera().getyOffset()), this.getCollisionBounds(0, 0).width, this.getCollisionBounds(0, 0).height);
 
