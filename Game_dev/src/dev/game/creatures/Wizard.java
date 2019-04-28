@@ -61,15 +61,12 @@ public class Wizard extends Creature {
 		floatRight.tick();
 		floatLeft.tick();
 		flickerDecay();
-		if(!stunned) {
-			getInput();
-		}
+		getInput();
 		stunDecay();
 		move();
 		if (!alwaysAggressive) {
 			aggression();
 		}
-		checkAttacks();
 	}
 
 
@@ -160,9 +157,16 @@ public class Wizard extends Creature {
 		}
 	}
 	private void getInput() {
+		xMove = 0;
+		yMove = 0;
+		
+		if(stunned) {
+			return;
+		}
 		if (aggressive || alwaysAggressive) {
-			xMove = 0;
-			yMove = 0;
+
+
+			checkAttacks();
 			//float xDelta = x-handler.getWorld().getEntityManager().getPlayer().getX();
 			//float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
 

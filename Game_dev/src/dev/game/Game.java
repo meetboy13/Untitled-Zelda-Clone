@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import dev.display.*;
 import dev.game.input.KeyManager;
 import dev.game.input.MouseManager;
+import dev.game.sound.Sounds;
 import dev.game.states.MenuState;
 import dev.game.states.StartState;
 import dev.game.states.State;
@@ -50,6 +51,7 @@ public class Game implements Runnable{
 		
 		//call the asset initialisation function
 		Assets.init();
+		Sounds.init();
 		handler = new Handler(this);
 		gameCamera = new GameCamera(handler,0,0);
 		menuState = new MenuState(handler);

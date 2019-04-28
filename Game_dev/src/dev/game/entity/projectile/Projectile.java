@@ -77,6 +77,10 @@ public abstract class Projectile extends Entity{
 		return handler.getWorld().getTile(x, y).isSolid();
 	}
 	
+	@Override
+	public void setStun(boolean stunned){
+		
+	}
 	
 	public void checkForCollisions() {
 		boolean damaged=false;

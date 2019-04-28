@@ -43,12 +43,12 @@ public class Sheep extends Creature {
 		animLeft.tick();
 		stunDecay();
 		flickerDecay();
-		if(!stunned) {
-			getInput();
-		}
+		getInput();
 		move();
 
 	}
+	
+	
 
 	@Override
 	public void render(Graphics g) {
@@ -58,6 +58,14 @@ public class Sheep extends Creature {
 		}
 	}
 	private void getInput() {
+		if (stunnedDuration>0) {
+			if(stunned) {
+			fleeing = false;
+			}
+			xMove=0;
+			yMove=0;
+			return;
+		}
 		if(fleeing && (Math.pow(x-handler.getWorld().getEntityManager().getPlayer().getX(), 2) + Math.pow(y-handler.getWorld().getEntityManager().getPlayer().getY(),2))<Math.pow(150, 2)){
 				if(handler.getWorld().getEntityManager().getPlayer().getX()>(x+5)) {
 					xMove = -speed;
@@ -129,9 +137,9 @@ public class Sheep extends Creature {
 		}else {
 			yMove=-(4*speed);
 		}
-		stunned=true;
 		stunnedDuration=2;
 	}
+	
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub

@@ -46,7 +46,7 @@ public class HUD {
 		}else if (handler.getWorld().getEntityManager().getPlayer().getWeapons().getSecondary()==Equipment.shield){
 			secondary=Assets.shield;
 		}else if (handler.getWorld().getEntityManager().getPlayer().getWeapons().getSecondary()==Equipment.wand){
-			//secondary=Assets.stun_wand;
+			secondary=Assets.wand;
 		}else {
 			//nothing
 		}

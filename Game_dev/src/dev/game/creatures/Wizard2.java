@@ -55,9 +55,7 @@ public class Wizard2 extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
-		if(!stunned) {
-			getInput();
-		}
+		getInput();
 		stunDecay();
 		move();
 		aggression();
@@ -71,6 +69,9 @@ public class Wizard2 extends Creature {
 		if(attackTimer<attackCooldown) {
 			return;
 		}
+		if (stunned) {
+			return;
+		}
 		// TODO Auto-generated method stub
 		if(!aggressive && !alwaysAggressive) {
 			return;
@@ -79,30 +80,36 @@ public class Wizard2 extends Creature {
 			return;
 		}
 
+		WizardBeam attack;
+		
 		if(lastDirection==Facing.UP) {
-			WizardBeam attack=new WizardBeam(handler, x+width/2-Arrow.DEFAULT_PROJECTILE_WIDTH/2, (int)(y-Arrow.DEFAULT_PROJECTILE_HEIGHT/4));
+			attack=new WizardBeam(handler,0,0);
 			attack.setDirection(Direction.UP);
-			handler.getWorld().getProjectileManager().addEntity(attack);
+			attack.setX((float) (x+width/2-attack.getWidth()/2));
+			attack.setY(this.getCollisionBounds(0, 0).y-attack.getHeight()/2-attack.getCollisionBounds(0, 0).height/2);
 		}
 		else if(lastDirection==Facing.DOWN) {
-			WizardBeam attack=new WizardBeam(handler, x+width/2-Arrow.DEFAULT_PROJECTILE_WIDTH/2, (int)(y+height+Arrow.DEFAULT_PROJECTILE_HEIGHT/4));
+			attack=new WizardBeam(handler,0,0);
 			attack.setDirection(Direction.DOWN);
-			handler.getWorld().getProjectileManager().addEntity(attack);
+			attack.setX((float) (x+width/2-attack.getWidth()/2));
+			attack.setY((float) (this.getCollisionBounds(0, 0).y+this.bounds.height-attack.getBounds().getY()));
 		}
 		else if(lastDirection==Facing.LEFT) {
-			WizardBeam attack=new WizardBeam(handler, (int)(x-Arrow.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Arrow.DEFAULT_PROJECTILE_HEIGHT/2);
-			attack.setDirection(Direction.LEFT);
-			handler.getWorld().getProjectileManager().addEntity(attack);
+			attack=new WizardBeam(handler,0, 0);
+			attack.setDirection(Direction.LEFT);			
+			attack.setX(x-attack.getCollisionBounds(0, 0).width);
+			attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
 		}
 		else if(lastDirection==Facing.RIGHT) {
-			WizardBeam attack=new WizardBeam(handler,(int)(x+width+Arrow.DEFAULT_PROJECTILE_WIDTH/4), y+height/2-Arrow.DEFAULT_PROJECTILE_HEIGHT/2);
+			attack=new WizardBeam(handler,0,0);
 			attack.setDirection(Direction.RIGHT);
-			handler.getWorld().getProjectileManager().addEntity(attack);
+			attack.setX((float) (this.getCollisionBounds(0, 0).x+bounds.x*2+bounds.width-this.bounds.height-attack.getBounds().getX())+15);
+			attack.setY(this.getCollisionBounds(0, 0).y+bounds.height/2-attack.getHeight()/2);
 		}else {
 			return;
 		}
 		attackTimer = 0;
-		
+		handler.getWorld().getProjectileManager().addEntity(attack);
 	}
 
 	
@@ -124,9 +131,12 @@ public class Wizard2 extends Creature {
 		}
 	}
 	private void getInput() {
+		xMove = 0;
+		yMove = 0;
+		if(stunned) {
+			return;
+		}
 		if (aggressive || alwaysAggressive) {
-			xMove = 0;
-			yMove = 0;
 			float xDelta = x-handler.getWorld().getEntityManager().getPlayer().getX();
 			float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
 			
@@ -203,6 +213,7 @@ public class Wizard2 extends Creature {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
+		active = false;
 		
 	}
 	public void setAggressive(boolean aggro) {

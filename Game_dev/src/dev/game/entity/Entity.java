@@ -108,6 +108,7 @@ public abstract class Entity {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract void die();
+	public abstract void setStun(boolean stunned);
 
 	public int getId() {
 		return id;
@@ -116,5 +117,6 @@ public abstract class Entity {
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 }

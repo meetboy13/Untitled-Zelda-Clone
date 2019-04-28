@@ -72,6 +72,7 @@ public abstract class Creature extends Entity {
 	public void hurt(int damage,int deltaX,int deltaY) {
 		
 		health-=damage;
+		stunned = false;
 		if (health<=0) {
 			die();
 		}
@@ -130,11 +131,12 @@ public abstract class Creature extends Entity {
 	public void setyMove(float ymove) {
 		yMove = ymove;
 	}
-
+	
+	@Override
 	public void setStun(boolean stunned){
 		this.stunned = stunned;
 		if (stunned) {
-			stunnedDuration = 500;
+			stunnedDuration = 200;
 		}
 	}
 	

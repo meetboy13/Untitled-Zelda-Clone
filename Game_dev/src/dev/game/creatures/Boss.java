@@ -24,6 +24,7 @@ public class Boss extends Creature{
 	private boolean right;
 	private int rightAttackCount=0;
 	private int rightCooldown=120;
+	private int invulnerable = 0;
 	public Boss(Handler handler, float x, float y, int width, int height,BossHandLeft leftHand,BossHandRight rightHand) {
 		super(handler, x, y, width, height);
 		// TODO Auto-generated constructor stub
@@ -40,39 +41,100 @@ public class Boss extends Creature{
 	}
 
 	@Override
+	public void setStun(boolean stunned){
+		if (stunned) {
+			if (delay < 200) {
+				delay+=20;
+			}
+		}
+	}
+	
+	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
 		idleMove();
 		moveHands();
 		checkAttacks();
+		decayInvulnerable();
+		checkHandHealth();
+	}
+
+	private void checkHandHealth() {
+		int trueHealth = health-20;
+		if(leftHand!=null) {
+			if(leftHand.getHealth()<1) {
+				leftHand.die();
+			}else {
+				trueHealth+=leftHand.getHealth();
+			}
+		}
+		if(rightHand!=null) {			
+			if(rightHand.getHealth()<1) {
+				rightHand.die();
+			}else {
+				trueHealth+=rightHand.getHealth();
+			}
+		}
+		if (trueHealth<1) {
+			die();
+		}
+	}
+
+	private void decayInvulnerable() {
+		if(invulnerable <0) {
+			invulnerable--;
+		}
+	}
+
+	@Override
+	public void hurt(int damage,int deltaX,int deltaY) {
+
+		if(invulnerable <0) {
+			return;
+		} else {
+			health -= damage;
+			invulnerable = 40;
+		}
+		if (health<1) {
+			die();
+		}
 	}
 
 	private void checkAttacks() {
 		// TODO Auto-generated method stub
 		float yDelta = y-handler.getWorld().getEntityManager().getPlayer().getY();
 		if(!(yDelta>-(this.getHeight()+20))) {
+			
 			meleeAttackCount=0;
-			if(leftAttackLoopCount>=leftAttackLoop) {
-				leftAttackLoopCount=0;
-			}
-			if (leftAttackLoopCount<=150) {
-				if(leftAttackCount>leftCooldown) {
-					leftAttackCount=0;
-					leftHand.spreadAttack();
-				}else {
-					leftAttackCount++;
+			if(leftHand!=null) {
+				leftHand.setAttacking(true);
+				if(leftAttackLoopCount>=leftAttackLoop) {
+					leftAttackLoopCount=0;
 				}
-				leftAttackLoopCount++;
-			}else {
-				leftAttackLoopCount++;
+				if (leftAttackLoopCount<=150) {
+					if(leftAttackCount>leftCooldown) {
+						leftAttackCount=0;
+						leftHand.spreadAttack();
+					}else {
+						leftAttackCount++;
+					}
+					leftAttackLoopCount++;
+				}else {
+					leftAttackLoopCount++;
+				}
 			}
-			if(rightAttackCount>rightCooldown) {
-				rightAttackCount=0;
-				rightHand.targetAttack();
-			}else {
-				rightAttackCount++;
+			if(rightHand!=null) {
+				rightHand.setAttacking(true);
+				if(rightAttackCount>rightCooldown) {
+					rightAttackCount=0;
+					rightHand.targetAttack();
+				}else {
+					rightAttackCount++;
+				}
 			}
 		}else {
+			leftHand.setAttacking(false);
+			rightHand.setAttacking(false);
 			if(meleeAttackCount>=meleeAttackDelay) {
 				meleeAttackCount=0;
 				Rectangle cb = this.getCollisionBounds(0, 0);

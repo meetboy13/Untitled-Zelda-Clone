@@ -14,6 +14,7 @@ import dev.game.entity.projectile.StunBeam;
 import dev.game.inventory.Inventory;
 import dev.game.inventory.Weapons.Equipment;
 import dev.game.inventory.Weapons.Sword;
+import dev.game.sound.Sounds;
 import dev.game.inventory.Weapons;
 import dev.game.states.GameOverState;
 import dev.game.states.State;
@@ -26,9 +27,11 @@ public class Player extends Creature{
 	private Animation animDown,animUp,animLeft,animRight,animDie,animDownT,animUpT,animLeftT,animRightT,
 	shieldUp, shieldDown, shieldRight, shieldLeft,shieldUpT, shieldDownT, shieldRightT, shieldLeftT;
 
-	private long lastAttackTimer,attackCooldown=500,attackTimer=attackCooldown;
+	private long lastAttackTimer,attackCooldown=800,attackTimer=attackCooldown;
+	private long lastSecondaryTimer,secondaryCooldown=2000,secondaryTimer=secondaryCooldown;
 	private Inventory inventory;
-	private boolean dead = false, shielding=false, transformed=false;//temp = false;
+	private boolean dead = false, shielding=false, transformed=false;
+	private int attacking = 0;//temp = false;
 
 	protected boolean transformable = true;
 
@@ -38,7 +41,7 @@ public class Player extends Creature{
 	private Rectangle ar= new Rectangle();
 	private Weapons weapons;
 	private int invulnerable;
-	
+
 	public Player(Handler handler,float x, float y,int width, int height) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
@@ -142,7 +145,7 @@ public class Player extends Creature{
 		animUpT.tick();
 		animRightT.tick();
 		animLeftT.tick();
-		
+
 		shieldUp.tick();
 		shieldDown.tick();
 		shieldLeft.tick();
@@ -152,7 +155,7 @@ public class Player extends Creature{
 		shieldLeftT.tick();
 		shieldRightT.tick();
 	}
-	
+
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
@@ -176,7 +179,7 @@ public class Player extends Creature{
 		inventory.tick();
 
 	}
-	
+
 
 	private void invulnerableDecay(){
 		if (invulnerable>0) {
@@ -197,7 +200,7 @@ public class Player extends Creature{
 			return;
 		}
 		// TODO Auto-generated method stub
-
+		attacking = 5;
 		cb =getCollisionBounds(0,0);
 		ar= new Rectangle();
 		int arSize=20;
@@ -215,25 +218,35 @@ public class Player extends Creature{
 			}
 		}
 	}
+	
+	@Override 
+	public void setStun(boolean stunned) {
+		
+	}
 
 	@Override
 	public void hurt(int damage,int deltaX,int deltaY) {
 		if(dead) {
 			return;
 		}
+		if(invulnerable<0) {
+			return;
+		}
 		if(!shielding) {
 			setNeverDamaged(false);
-			Assets.hurt.play();
+			Sounds.hurt.play();
 			if (transformed && transformable) {
-				corruption += damage*10;
+				corruption += damage*50;
 			}else {
 				health-=damage;
-				invulnerable = 20;
+				invulnerable = 40;
 			}
 			if (health<=0) {
 				die();
 			}
+			if (damageFlicker<21) {
 			damageFlicker=60;
+			}
 		}
 
 		//knockback
@@ -357,6 +370,9 @@ public class Player extends Creature{
 	private void getInput() {
 		xMove=0;
 		yMove=0;
+		if(attacking>0) {
+			return;
+		}
 		if(transformable&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
 			transform();
 			//}else if(temp) {
@@ -366,7 +382,7 @@ public class Player extends Creature{
 			//xMove= -1;
 			//return;
 		}
-		else if(handler.getKeyManager().attack1) {//keyJustPressed(KeyEvent.VK_SPACE)) {
+		else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE)) {
 			attack1();
 		}else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_C)) {
 			attack2();
@@ -426,6 +442,29 @@ public class Player extends Creature{
 		if(transformed) {
 			if(dead) {
 				return animDie.getCurrentFrame();
+			}else if(attacking>0) {
+				attacking--;
+				if (weapons.getPrimary()==Sword.mirror) {
+					if(lastDirection==Facing.UP) {
+						return Assets.friend_mirror_up[2];
+					} else if (lastDirection==Facing.DOWN) {
+						return Assets.friend_mirror_down[2];
+					}else if(lastDirection==Facing.LEFT) {
+						return Assets.friend_mirror_left[2];
+					} else if (lastDirection==Facing.RIGHT) {
+						return Assets.friend_mirror_right[2];
+					}
+				} else if(weapons.getPrimary()==Sword.OP) {
+					if(lastDirection==Facing.UP) {
+						return Assets.friend_op_up[2];
+					} else if (lastDirection==Facing.DOWN) {
+						return Assets.friend_op_down[2];
+					}else if(lastDirection==Facing.LEFT) {
+						return Assets.friend_op_left[2];
+					} else if (lastDirection==Facing.RIGHT) {
+						return Assets.friend_op_right[2];
+					}
+				}
 			}else if(shielding) {
 				if((xMove==0)&&(yMove==0)) {
 					if(lastDirection==Facing.UP) {
@@ -488,6 +527,29 @@ public class Player extends Creature{
 		}else {
 			if(dead) {
 				return animDie.getCurrentFrame();
+			}else if(attacking>0) {
+				attacking--;
+				if (weapons.getPrimary()==Sword.mirror) {
+					if(lastDirection==Facing.UP) {
+						return Assets.player_mirror_up[2];
+					} else if (lastDirection==Facing.DOWN) {
+						return Assets.player_mirror_down[2];
+					}else if(lastDirection==Facing.LEFT) {
+						return Assets.player_mirror_left[2];
+					} else if (lastDirection==Facing.RIGHT) {
+						return Assets.player_mirror_right[2];
+					}
+				} else if(weapons.getPrimary()==Sword.OP) {
+					if(lastDirection==Facing.UP) {
+						return Assets.player_op_up[2];
+					} else if (lastDirection==Facing.DOWN) {
+						return Assets.player_op_down[2];
+					}else if(lastDirection==Facing.LEFT) {
+						return Assets.player_op_left[2];
+					} else if (lastDirection==Facing.RIGHT) {
+						return Assets.player_op_right[2];
+					}
+				}
 			}else if(shielding) {
 				if((xMove==0)&&(yMove==0)) {
 					if(lastDirection==Facing.UP) {
@@ -555,7 +617,8 @@ public class Player extends Creature{
 		}/*else if((corruption>100)) {
 			corruption--;
 		}*/
-		if(corruption == corruptionMax) {
+		if(corruption >= corruptionMax) {
+			corruption = corruptionMax;
 			setTransformable(false);
 			weapons.setPrimary(Weapons.Sword.OP);
 		}

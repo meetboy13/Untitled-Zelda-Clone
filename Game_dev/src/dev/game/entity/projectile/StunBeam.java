@@ -73,7 +73,7 @@ public class StunBeam extends Projectile{
 			if(e.getCollisionBounds(0, 0).intersects(this.getCollisionBounds(0, 0))&& e.isSolid()) {
 				//int deltaX=(int) (this.getX()-e.getX());
 				//int deltaY=(int) (this.getY()-e.getY());
-				//e.setStun(true);
+				e.setStun(true);
 				hit=true;
 			}
 		}

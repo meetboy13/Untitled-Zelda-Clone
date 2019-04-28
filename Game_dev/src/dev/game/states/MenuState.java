@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import dev.game.Handler;
+import dev.game.sound.Sounds;
 import dev.game.ui.ClickListener;
 import dev.game.ui.UIImageButton;
 import dev.game.ui.UIManager;

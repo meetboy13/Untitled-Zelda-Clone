@@ -53,20 +53,19 @@ public class Bull extends Creature {
 		animRight.tick();
 		animLeft.tick();
 		flickerDecay();
-		if (!stunned) {	
-			getInput();
-			stunDecay();
-			move();
+		getInput();
+		move();
+		if(stunned) {
 			aggression();
 			checkAttacks();
-		}else {
-			stunDecay();
 		}
+		stunDecay();
 	}
 
 
 	private void checkAttacks() {
 		// TODO Auto-generated method stub
+		if (stunned) {return;}
 		if(!aggressive && !alwaysAggressive) {
 			return;
 		}
@@ -141,6 +140,13 @@ public class Bull extends Creature {
 		}
 	}
 	private void getInput() {
+		if(stunned) {
+			xMove = 0;
+			yMove = 0;
+			attacking = false;
+			aggressive = false;
+			return;
+		}
 		if ((aggressive || alwaysAggressive) && !attacking) {
 			xMove = 0;
 			yMove = 0;

@@ -113,8 +113,12 @@ public class World {
 
 	private void updateSpawns() {
 		//do creature spawning stuff here
-		if(deathCounter>20 && trigger4) {
+		if(deathCounter>21 && trigger4) {
 			itemManager.addItem(Item.key.createNew(300, 300));
+			world2= new TransitionSpace(handler,100,100,32,48,92,"Resources/worlds/world2.txt","Resources/entities/world2.txt",WorldType.NORMAL);
+			world2.setX(100);
+			world2.setY(100);
+			entityManager.addEntity(world2);
 			trigger4=false;
 		}
 		else if(deathCounter>15 && trigger3) {

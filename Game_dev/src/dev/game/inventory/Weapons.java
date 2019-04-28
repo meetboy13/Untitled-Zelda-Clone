@@ -15,10 +15,10 @@ public class Weapons {
 	private Sword primary;
 	private Handler handler;
 	private int damagePrimary=5,damageSecondary=1
-			,primaryCooldown=500,secondaryCooldown=0;
+			,primaryCooldown=500,secondaryCooldown=2000;
 	public Weapons(Handler handler) {
 		this.handler=handler;
-		primary= Sword.training;
+		primary= Sword.mirror;
 		secondary = Equipment.shield;
 	}
 	public Rectangle getHitBox(Facing direction,Rectangle cb) {

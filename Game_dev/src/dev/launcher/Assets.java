@@ -15,7 +15,7 @@ public class Assets {
 	stone_wall_corner_right_down,stone_wall_corner_left_down,stone_wall_corner_left_up,stone_wall_corner_right_up,
 	stone_wall_crown,stone_wall_eagle, wizard_stunned_up, wizard_stunned_down, wizard_stunned_left, wizard_stunned_right,
 	carpet_left,carpet_right,carpet_left_up,carpet_left_down,carpet_right_up,carpet_right_down,
-	sword_training,sword_mirror,sword_op;
+	sword_training,sword_mirror,sword_op, wand;
 	public static BufferedImage[] player_down,player_left,player_right,player_up,player_die,spear, friend_up,
 	friend_right,friend_left,friend_down,player_throw_front, player_hurt, BossHead,BossHandLeft, BossHandRight, btn_start,wizard_beam,healthSpriteSheet,
 	wizard_down,wizard_left,wizard_right,wizard_up,	player_throw_left,player_throw_right,player_throw_back,player_shield_up,player_shield_down,
@@ -23,11 +23,10 @@ public class Assets {
 	player_training_right,player_mirror_up,player_mirror_down,player_mirror_right,player_mirror_left,stunbeamLeft,stunbeamRight,
 	player_op_up,player_op_down,player_op_left,player_op_right,player_wand,wizard_float_down,wizard_float_left,wizard_float_right,wizard_float_up,
 	wizard_attack_up,wizard_attack_left,wizard_attack_down,wizard_attack_right, sheep_walk_down,sheep_walk_right,sheep_walk_left,sheep_walk_up,
-	bull_down,bull_up,bull_left,bull_right,bull_stunned,stun_indicator,friend_shield_left,friend_shield_right,friend_shield_up,friend_shield_down;
+	bull_down,bull_up,bull_left,bull_right,bull_stunned,stun_indicator,friend_shield_left,friend_shield_right,friend_shield_up,friend_shield_down,
+	friend_mirror_up,friend_mirror_down,friend_mirror_right,friend_mirror_left,friend_op_up,friend_op_down,friend_op_left,friend_op_right;
 	private static final int width=100,height=100;//sprite sheet cell dimensions
 	public static void init() {
-		hurt = new soundEffect();
-		hurt.setFile("Resources/Sound/hitsound.wav");
 		SpriteSheet sheet0= new SpriteSheet(Loader.loadImage("/Sprite/BossHeadSpriteSheet.png"));
 		SpriteSheet sheet1= new SpriteSheet(Loader.loadImage("/Textures/gem.png"));
 		SpriteSheet sheet2= new SpriteSheet(Loader.loadImage("/Textures/GameOver1.png")); 
@@ -88,10 +87,11 @@ public class Assets {
 		SpriteSheet sheet57= new SpriteSheet(Loader.loadImage("/Sprite/stunSpritesheet.png"));
 		SpriteSheet sheet58= new SpriteSheet(Loader.loadImage("/Sprite/health 4 improved.png"));
 		SpriteSheet sheet59= new SpriteSheet(Loader.loadImage("/Sprite/stunBeamSheet.png"));
-		SpriteSheet sheet63= new SpriteSheet(Loader.loadImage("/Sprite/statue.png"));
 		SpriteSheet sheet60= new SpriteSheet(Loader.loadImage("/Sprite/Training Sword.png"));
 		SpriteSheet sheet61= new SpriteSheet(Loader.loadImage("/Sprite/Mirror Sword.png"));
 		SpriteSheet sheet62= new SpriteSheet(Loader.loadImage("/Sprite/OP Sword.png"));
+		SpriteSheet sheet63= new SpriteSheet(Loader.loadImage("/Sprite/statue.png"));
+		SpriteSheet sheet64= new SpriteSheet(Loader.loadImage("/Sprite/stun wand.png"));
 		
 		
 		BossHead = new BufferedImage[3];
@@ -117,6 +117,7 @@ public class Assets {
 		key=sheet16.crop(0, 0, width, height);
 		shield=sheet12.crop(0, 0, 34, 33);
 		health=sheet52.crop(0, 0, width, height);
+		wand=sheet64.crop(0, 0, 17, 41);
 		startUp = sheet10.crop(0, 0, 1024, 768);
 		gameOver=sheet2.crop(0, 0, 1024, 768);
 		rock=sheet7.crop(0, 0, 100, 100);
@@ -265,6 +266,14 @@ public class Assets {
 		friend_shield_right = new BufferedImage[2];
 		friend_shield_up = new BufferedImage[4];
 		friend_shield_down = new BufferedImage[4];
+		friend_mirror_up = new BufferedImage[3];
+		friend_mirror_down = new BufferedImage[3];
+		friend_mirror_right = new BufferedImage[3];
+		friend_mirror_left = new BufferedImage[3];
+		friend_op_up = new BufferedImage[3];
+		friend_op_down = new BufferedImage[3];
+		friend_op_left = new BufferedImage[3];
+		friend_op_right = new BufferedImage[3];
 		
 		
 		friend_down[1] = sheet11.crop(0, 0, 130, 130);
@@ -283,6 +292,7 @@ public class Assets {
 		friend_right[1] = sheet11.crop(260, 0, 130, 130);
 		friend_right[2] = sheet11.crop(260, 130, 130, 130);
 		friend_right[3] = sheet11.crop(260, 0, 130, 130);
+		
 		friend_shield_right[0] = sheet11.crop(260, 130*9, 130, 130);
 		friend_shield_right[1] = sheet11.crop(260, 130*10, 130, 130);
 		friend_shield_up[0] = sheet11.crop(390, 130*10, 130, 130);
@@ -295,6 +305,30 @@ public class Assets {
 		friend_shield_down[3] = sheet11.crop(0, 130*9, 130, 130);
 		friend_shield_left[0] = sheet11.crop(130, 130*9, 130, 130);
 		friend_shield_left[1] = sheet11.crop(130, 1300, 130, 130);
+		friend_mirror_down[0] = sheet11.crop(0,130*3, 130, 130);
+		friend_mirror_down[1] = sheet11.crop(0,130*4, 130, 130);
+		friend_mirror_down[2] = sheet11.crop(0,130*5, 130, 130);
+		friend_mirror_left[0] = sheet11.crop(130,130*3, 130, 130);
+		friend_mirror_left[1] = sheet11.crop(130,130*4, 130, 130);
+		friend_mirror_left[2] = sheet11.crop(130,130*5, 130, 130);
+		friend_mirror_right[0] = sheet11.crop(130*2,130*3, 130, 130);
+		friend_mirror_right[1] = sheet11.crop(130*2,130*4, 130, 130);
+		friend_mirror_right[2] = sheet11.crop(130*2,130*5, 130, 130);
+		friend_mirror_up[0] = sheet11.crop(130*3,130*3, 130, 130);
+		friend_mirror_up[1] = sheet11.crop(130*3,130*4, 130, 130);
+		friend_mirror_up[2] = sheet11.crop(130*3,130*5, 130, 130);
+		friend_op_down[0] = sheet11.crop(0,130*6, 130, 130);
+		friend_op_down[1] = sheet11.crop(0,130*7, 130, 130);
+		friend_op_down[2] = sheet11.crop(0,130*8, 130, 130);
+		friend_op_left[0] = sheet11.crop(130,130*6, 130, 130);
+		friend_op_left[1] = sheet11.crop(130,130*7, 130, 130);
+		friend_op_left[2] = sheet11.crop(130,130*8, 130, 130);
+		friend_op_right[0] = sheet11.crop(130*2,130*6, 130, 130);
+		friend_op_right[1] = sheet11.crop(130*2,130*7, 130, 130);
+		friend_op_right[2] = sheet11.crop(130*2,130*8, 130, 130);
+		friend_op_up[0] = sheet11.crop(130*3,130*6, 130, 130);
+		friend_op_up[1] = sheet11.crop(130*3,130*7, 130, 130);
+		friend_op_up[2] = sheet11.crop(130*3,130*8, 130, 130);
 		
 		//projectiles
 		spear = new BufferedImage[4];
