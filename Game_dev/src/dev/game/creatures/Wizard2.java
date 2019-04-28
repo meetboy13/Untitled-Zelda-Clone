@@ -169,7 +169,6 @@ public class Wizard2 extends Creature {
 					xMove=speed;
 				}
 			}else if (Math.abs(yDelta)<Math.abs(xDelta)) {//LOS with player is closest in y direction
-				System.out.println("Ymatch");
 				face=true;
 				if(yDelta>0) {
 					yMove=-speed;

@@ -46,11 +46,11 @@ public class PlayerMirror extends Creature{
 			baseDamage = 2;
 			bounds.y=16;
 			bounds.height=48;
-			transformed = false;
+			transformed = true;
 
 		}else {
 
-			transformed = true;
+			transformed = false;
 			speed = Creature.DEFAULT_SPEED;
 			baseDamage = 1;
 			bounds.y=32;
