@@ -1,7 +1,5 @@
 package dev.launcher;
 
-import java.io.IOException;
-
 import dev.game.Game;
 import dev.game.utils.Utils;
 import dev.game.sound.Music;
