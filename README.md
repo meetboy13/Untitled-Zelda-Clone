@@ -1,5 +1,4 @@
-# 2019-Java-Group13
-Untitled Zelda Clone
+# Untitled Zelda Clone
 
 
 How to run the game.
